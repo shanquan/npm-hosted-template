@@ -35,7 +35,7 @@ try {
 
 router.beforeEach((to, from, next) => {
     if (to.meta.loginPass!=true && !http.token)
-        next({ name: 'login' })
+        next({ name: 'login' , query: { redirect: to.fullPath }})
     else if (to.matched.length > 0) {
         next()
     } else {
