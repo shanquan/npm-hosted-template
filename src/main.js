@@ -18,7 +18,7 @@ import './plugins/echarts.js';
 import fullscreen from 'vue-fullscreen';
 import directives from '@/plugins/directives';
 import filters from '@/plugins/filters';
-import app from './plugins/app.js'; // 应用定制js
+import app from './plugins/app/app.js'; // 应用定制js
 
 Vue.use(fullscreen);
 Vue.use(directives);

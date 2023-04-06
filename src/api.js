@@ -139,9 +139,14 @@ axios.interceptors.response.use(function(response) {
             Api.showError = true;
             // console.log(response.data)
         }
-        if (response.headers['content-type'] == 'application/msexcel') {
+        if (crud.checkResult(response)) {
             return response.data;
-        } else if (response.data.RESULT != "PASS") {
+        } else if (crud.checkPass(response)) {
+            if(!Api.promptError&&response.config.headers.playPassAudio==true)
+            Api.playPassAudio();
+            Api.showError = true;
+            return response.data;
+        } else {
             // 请求responseType=blob, 但返回的是json数据： 先转换blob为json
             if (response.request.responseType == 'blob' && response.headers['content-type'].indexOf('application/json') > -1) {
                 const reader = new FileReader();
@@ -160,11 +165,6 @@ axios.interceptors.response.use(function(response) {
                 execErr();
                 return Promise.reject(response.data);
             }
-        } else {
-            if(!Api.promptError&&response.config.headers.playPassAudio==true)
-            Api.playPassAudio();
-            Api.showError = true;
-            return response.data;
         }
     },
     function(error) {

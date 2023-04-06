@@ -16,7 +16,7 @@ import Router from 'vue-router'
 import Home from '@/views/Home.vue'
 import Login from '@/views/Login.vue'
 import Config from '@/views/Config.vue'
-import app from '@/plugins/app'
+import app from '@/plugins/app/app'
 
 Vue.use(Router)
 let routers = [...app.routers];

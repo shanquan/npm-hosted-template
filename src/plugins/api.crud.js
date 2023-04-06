@@ -6,6 +6,12 @@
 import axios from 'axios'
 export default {
     pre_url: process.env.VUE_APP_PRE_URL,
+    checkResult(response){ // 非json格式，优先checkPass判断并返回
+        return response.headers['content-type'] == 'application/msexcel'
+    },
+    checkPass(response){ // json格式返回PASS/FAIL判断规则
+        return response.data.RESULT == "PASS"
+    },
     getList(url, data) {
         data = data || {}
         let promise = axios.post(`${url}/getList`, data);
