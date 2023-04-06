@@ -1,0 +1,47 @@
+.asidebg .el-menu:not(.el-menu--collapse) {
+    width: 220px;
+}
+.el-menu.el-menu--horizontal{position: absolute;top: 0;left: 90px;width: 725px;height: 58px;border-bottom: none;z-index: 9;overflow: hidden;}
+.logo-bg{background-color:var(--menucolorbg-login)}
+.asidebg{background-color:var(--menucolorbg);color:rgba(255,255,255,0.65)}
+.asidebg .el-menu{background-color:var(--menucolorbg);color:rgba(255,255,255,0.65);border:none}
+.asidebg .el-submenu .el-menu>div{padding-left:10px;border-bottom: 1px dotted #303133;}
+.asidebg .el-submenu ul.el-menu:before{display: block;content:"";
+    position: absolute;
+    z-index: 1;
+    left: 30px;
+    top: 0;
+    bottom: 0;
+    border: 1px dotted;
+    border-width: 0 0 0 1px;}
+.asidebg .el-menu--inline .el-submenu ul.el-menu:before{
+  left: 40px;
+}
+.el-submenu li.el-menu-item:before,.el-submenu li.el-submenu:before{
+    content:"";
+    width: 10px;
+    position: absolute;
+    z-index: 1;
+    left: 20px;
+    top: 20px;
+    border: 1px dotted;
+    border-width: 1px 0 0;
+}
+li.el-submenu{position:relative}
+.el-menu--inline .el-submenu li.el-menu-item:before{left:40px}
+.el-menu--vertical .el-submenu li.el-menu-item:before{display:none}
+.el-menu--vertical .el-menu{background-color:var(--menucolorbg);}
+.el-menu--vertical .el-menu-item,.el-menu--vertical .el-menu-item a,.el-menu--vertical .el-submenu__title{color:rgba(255,255,255,0.65);}
+.asidebg .el-menu-item,.asidebg .el-submenu__title,.asidebg .el-menu-item a{color:rgba(255,255,255,0.65)}
+.asidebg .el-menu-item:focus, .el-menu-item:hover, .el-menu-item.is-active,.el-menu--vertical .el-submenu__title:hover{background-color:var(--menucolorbg-highlight);color:#fff}
+.asidebg .el-submenu__title:hover{background-color:var(--menucolorbg-highlight);color:#fff}
+.asidebg .el-select input{height: 32px;
+    line-height: 32px;
+    background-color: var(--menucolorbg-input);
+    color:rgba(255,255,255,0.65)
+}
+@supports(--css: variables) {
+    /* 兼容性处理：https://jhildenbiddle.github.io/css-vars-ponyfill/#/?id=options
+    theme切换方案：https://blog.csdn.net/youlinaixu/article/details/83447527
+    */
+}

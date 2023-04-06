@@ -1,0 +1,54 @@
+{
+  "RESULT": "PASS",
+  "DATA": {
+    "name": "default",
+    "fonts": [
+      {
+        "code": "fontColorBox",
+        "value": "#fff"
+      },
+      {
+        "code": "fontColorFooter",
+        "value": "#fff"
+      },
+      {
+        "code": "fontColorError",
+        "value": "#fff"
+      },
+      {
+        "code": "fontColorLogo",
+        "value": "#fff"
+      },
+      {
+        "code": "syslogo",
+        "value": "linear-gradient( to bottom, #fff,  #97fefe)"
+      },
+      {
+        "code": "loginbtn",
+        "value": "linear-gradient( to left, rgb(47, 99, 227), rgb(0, 255, 255))"
+      }
+    ],
+    "resource": [
+      {
+        "code": "tloginbg",
+        "url": "http://10.12.7.46:20005/omp/0bc1c401202211041911511.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=minio%2F20221127%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20221127T092849Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=b4059abb57ff4a9c7108595d4679ec1df0fd8f8c20853041d9824bf8ef92455c"
+      },
+      {
+        "code": "loginbox",
+        "url": "http://10.12.7.46:20005/omp/23a8ea9b202211271711652.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=minio%2F20221205%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20221205T025857Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=aa738bbdb19788ebe14a4aab6b914fec60f6f53037e04b28bef9e38c487e740d"
+      },
+      {
+        "code": "loginboxmobile",
+        "url": "http://10.12.7.46:20005/omp/355a7633202211271711905.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=minio%2F20221127%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20221127T092849Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=5ca0bf1da4c8be2cb666a2433c1a2e66ef20c75d7dde051c6446e5400d72a3a3"
+      },
+      {
+        "code": "loginbtn",
+        "url": "http://10.12.7.46:20005/omp/5da21623202212051312308.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=minio%2F20221205%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20221205T051858Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=cbea9921bce2901b7426fa0776a163309459925ff5d006e6332cc67422ab9e94"
+      },
+      {
+        "code": "bydlogo",
+        "url": "http://10.12.7.46:20005/omp/4f5c61a7202212051012767.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=minio%2F20221205%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20221205T025857Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=5d967d82038e44dfe1d9b78d52737a50c831384f4a6bfa2922741bedc003e6a5"
+      }
+    ]
+  }
+}

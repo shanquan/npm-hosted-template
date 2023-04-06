@@ -1,0 +1,93 @@
+/**
+ * split css 
+ * @author wang.weili
+ * @since 2023/02/15
+ * @description 纯CSS实现resize拖动，应用示例：PublicArea
+ * @ref: https://www.zhangxinxu.com/study/201903/css-idea/behavior-stretch.php?aside=0
+ */
+ .column,.row {
+     overflow: hidden;
+ }
+ .column{
+   display:flex;
+   flex-direction: row;
+ }
+ .column-left {
+     background-color: #fff;
+     position: relative;
+ }
+ .column-right {
+     background-color: #eee;
+     box-sizing: border-box;
+     overflow: hidden;
+     flex:1
+ }
+ .column .resize-save {
+     position: absolute;
+     top: 0; right: 5px; bottom: 0; left: 0;
+     overflow-x: hidden;
+ }
+ .column .resize-bar {
+     height: inherit;
+     resize: horizontal;
+     cursor: ew-resize;
+     cursor: col-resize;
+     opacity: 0;
+     overflow: scroll;
+     min-width: 50px;
+ }
+ /* 拖拽线 */
+ .column .resize-line {
+     position: absolute;
+     right: 0; top: 0; bottom: 0;
+     border-right: 2px solid #eee;
+     border-left: 1px solid #bbb;
+     pointer-events: none;
+ }
+ .column .resize-bar:hover ~ .resize-line,
+ .column .resize-bar:active ~ .resize-line {
+     border-left: 1px dashed skyblue;
+ }
+ .column .resize-bar::-webkit-scrollbar {
+     width: 200px; height: inherit;
+ }
+ .row-top {
+     background-color: #fff;
+     position: relative;
+ }
+ .row-bottom {
+     padding: 16px;
+     background-color: #eee;
+     box-sizing: border-box;
+     overflow: hidden;
+ }
+ .row .resize-save {
+     position: absolute;
+     top: 0; right: 0; bottom: 5px; left: 0;
+     padding: 16px;
+     overflow-y: hidden;
+ }
+ .row .resize-bar {
+     width: inherit;
+     resize: vertical;
+     cursor: ne-resize;
+     cursor: col-resize;
+     opacity: 0;
+     overflow: scroll;
+     min-height: 50px;
+ }
+ /* 拖拽线 */
+ .row .resize-line {
+     position: absolute;
+     right: 0; left: 0; bottom: 0;
+     border-bottom: 2px solid #eee;
+     border-top: 1px solid #bbb;
+     pointer-events: none;
+ }
+ .row .resize-bar:hover ~ .resize-line,
+ .row .resize-bar:active ~ .resize-line {
+     border-top: 1px dashed skyblue;
+ }
+ .row .resize-bar::-webkit-scrollbar {
+   height: 200px; width: inherit;
+ }

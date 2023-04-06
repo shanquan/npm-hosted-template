@@ -1,0 +1,234 @@
+{
+  "DATA": {
+    "AUTHORITIES": [{
+          "index": "web",
+          "subs": [{
+            "id": 1701,
+            "parentId": 1,
+            "code": "sys",
+            "index": "sys",
+            "menuName": "系统管理",
+            "menuNameEn": "sys",
+            "authorityCode": "sys",
+            "subs": [
+              {
+                "id": 1536,
+                "parentId": 1701,
+                "code": "/mesSysUsers",
+                "index": "/mesSysUsers",
+                "menuName": "用户管理",
+                "menuNameEn": "/mesSysUsers",
+                "authorityCode": "/mesSysUsers",
+                "subs": [
+                  {
+                    "id": 4408,
+                    "parentId": 1536,
+                    "code": "mesSysUser/add",
+                    "index": "mesSysUser/add",
+                    "menuName": "用户管理-新增",
+                    "menuNameEn": "mesSysUser/add",
+                    "authorityCode": "mesSysUser/add",
+                    "subs": [
+                      {
+                        "id": 4651,
+                        "parentId": 4408,
+                        "code": "mesSysUsers/import",
+                        "index": "mesSysUsers/import",
+                        "menuName": "用户管理-导入",
+                        "menuNameEn": "mesSysUsers/import",
+                        "authorityCode": "mesSysUsers/import",
+                        "subs": null,
+                        "isMenu": false
+                      }
+                    ],
+                    "isMenu": false
+                  },
+                  {
+                    "id": 4409,
+                    "parentId": 1536,
+                    "code": "mesSysUser/edit",
+                    "index": "mesSysUser/edit",
+                    "menuName": "用户管理-修改",
+                    "menuNameEn": "mesSysUser/edit",
+                    "authorityCode": "mesSysUser/edit",
+                    "subs": [
+                      {
+                        "id": 4411,
+                        "parentId": 4409,
+                        "code": "mesSysUser/edit/do",
+                        "index": "mesSysUser/edit/do",
+                        "menuName": "用户管理-修改-确认修改",
+                        "menuNameEn": "mesSysUser/edit/do",
+                        "authorityCode": "mesSysUser/edit/do",
+                        "subs": null,
+                        "isMenu": false
+                      }
+                    ],
+                    "isMenu": false
+                  },
+                  {
+                    "id": 4305,
+                    "parentId": 1536,
+                    "code": "mesSysUsers/delete",
+                    "index": "mesSysUsers/delete",
+                    "menuName": "用户管理-删除",
+                    "menuNameEn": "mesSysUsers/delete",
+                    "authorityCode": "mesSysUsers/delete",
+                    "subs": null,
+                    "isMenu": false
+                  },
+                  {
+                    "id": 4410,
+                    "parentId": 1536,
+                    "code": "mesSysUsers/export",
+                    "index": "mesSysUsers/export",
+                    "menuName": "用户管理-导出",
+                    "menuNameEn": "mesSysUsers/export",
+                    "authorityCode": "mesSysUsers/export",
+                    "subs": null,
+                    "isMenu": false
+                  }
+                ],
+                "isMenu": true
+              },
+              {
+                "id": 1522,
+                "parentId": 1701,
+                "code": "mesSysRoles",
+                "index": "mesSysRoles",
+                "menuName": "角色管理",
+                "menuNameEn": "mesSysRoles",
+                "authorityCode": "mesSysRoles",
+                "subs": [
+                  {
+                    "id": 4306,
+                    "parentId": 1522,
+                    "code": "mesSysRole/add",
+                    "index": "mesSysRole/add",
+                    "menuName": "角色管理-新增",
+                    "menuNameEn": "mesSysRole/add",
+                    "authorityCode": "mesSysRole/add",
+                    "subs": null,
+                    "isMenu": false
+                  },
+                  {
+                    "id": 4307,
+                    "parentId": 1522,
+                    "code": "mesSysRole/edit",
+                    "index": "mesSysRole/edit",
+                    "menuName": "角色管理-修改",
+                    "menuNameEn": "mesSysRole/edit",
+                    "authorityCode": "mesSysRole/edit",
+                    "subs": [
+                      {
+                        "id": 4413,
+                        "parentId": 4307,
+                        "code": "mesSysRole/edit/do",
+                        "index": "mesSysRole/edit/do",
+                        "menuName": "角色管理-修改-确认修改",
+                        "menuNameEn": "mesSysRole/edit/do",
+                        "authorityCode": "mesSysRole/edit/do",
+                        "subs": null,
+                        "isMenu": false
+                      }
+                    ],
+                    "isMenu": false
+                  },
+                  {
+                    "id": 4412,
+                    "parentId": 1522,
+                    "code": "mesSysRoles/delete",
+                    "index": "mesSysRoles/delete",
+                    "menuName": "角色管理-删除",
+                    "menuNameEn": "mesSysRoles/delete",
+                    "authorityCode": "mesSysRoles/delete",
+                    "subs": null,
+                    "isMenu": false
+                  },
+                  {
+                    "id": 4414,
+                    "parentId": 1522,
+                    "code": "mesSysRoles/saveMenu",
+                    "index": "mesSysRoles/saveMenu",
+                    "menuName": "角色管理-保存菜单分配",
+                    "menuNameEn": "mesSysRoles/saveMenu",
+                    "authorityCode": "mesSysRoles/saveMenu",
+                    "subs": null,
+                    "isMenu": false
+                  }
+                ],
+                "isMenu": true
+              },
+              {
+                "id": 1521,
+                "parentId": 1701,
+                "code": "mesSysMenus",
+                "index": "mesSysMenus",
+                "menuName": "菜单管理",
+                "menuNameEn": "mesSysMenus",
+                "authorityCode": "mesSysMenus",
+                "subs": [
+                  {
+                    "id": 4415,
+                    "parentId": 1521,
+                    "code": "mesSysMenu/add",
+                    "index": "mesSysMenu/add",
+                    "menuName": "菜单管理-新增",
+                    "menuNameEn": "mesSysMenu/add",
+                    "authorityCode": "mesSysMenu/add",
+                    "subs": null,
+                    "isMenu": false
+                  },
+                  {
+                    "id": 4308,
+                    "parentId": 1521,
+                    "code": "mesSysMenu/edit",
+                    "index": "mesSysMenu/edit",
+                    "menuName": "菜单管理-修改",
+                    "menuNameEn": "mesSysMenu/edit",
+                    "authorityCode": "mesSysMenu/edit",
+                    "subs": [
+                      {
+                        "id": 4417,
+                        "parentId": 4308,
+                        "code": "mesSysMenu/edit/do",
+                        "index": "mesSysMenu/edit/do",
+                        "menuName": "菜单管理-修改-确认修改",
+                        "menuNameEn": "mesSysMenu/edit/do",
+                        "authorityCode": "mesSysMenu/edit/do",
+                        "subs": null,
+                        "isMenu": false
+                      }
+                    ],
+                    "isMenu": false
+                  },
+                  {
+                    "id": 4416,
+                    "parentId": 1521,
+                    "code": "mesSysMenus/delete",
+                    "index": "mesSysMenus/delete",
+                    "menuName": "菜单管理-删除",
+                    "menuNameEn": "mesSysMenus/delete",
+                    "authorityCode": "mesSysMenus/delete",
+                    "subs": null,
+                    "isMenu": false
+                  }
+                ],
+                "isMenu": true
+              }
+            ],
+            "isMenu": true
+          }]
+    }],
+    "USER": {
+      "id": 1,
+      "organizationId": null,
+      "name": "wang.wenbin",
+      "workNo": "2327665",
+      "password": null
+    },
+    "IS_CHANGE_PWD": false,
+    "TOKEN": "84d4f1dd-9d7a-4b27-bc05-b75ba125d2bf"
+  },
+  "RESULT": "PASS"
+}

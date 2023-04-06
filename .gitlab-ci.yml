@@ -1,0 +1,23 @@
+stages:
+  - deploy
+
+cache:
+  key: "npmCache"
+  paths:
+    - node_modules
+
+my_deploy:
+  stage: deploy
+  script:
+    - npm -v
+    - npm install --registry=http://10.12.5.188:10018/repository/npm-registry
+    - echo "start to build"
+    - npm run build
+    - echo "build ok"
+  artifacts:
+    paths:
+      - dist/
+  tags:
+    - to-be-shell
+  only:
+    - master

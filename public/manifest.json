@@ -1,0 +1,13 @@
+{
+    "name": "ADMIN",
+    "short_name": "ADMIN",
+    "start_url": "index.html",
+    "display": "standalone",
+    "theme_color": "#409eff",
+    "background_color": "#409eff",
+    "icons": [{
+        "src": "img/icon.png",
+        "sized": "72x72 96x96 128x128 256x256",
+        "type": "image/png"
+    }]
+}
