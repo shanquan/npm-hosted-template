@@ -44,11 +44,11 @@ module.exports = {
                     console.log(proxyReq.getHeader('host')+proxyReq.path)
                 }
             },
-            '/zatanna/*': {
+            '/zatanna//*': {
                 target: process.env.VUE_APP_DEV,
                 changeOrigin: true
             },
-            // '/zatanna/*': {
+            // '/zatanna//*': {
             //     target: process.env.VUE_APP_LOCAL,
             //     changeOrigin: true,
             //     pathRewrite: {
