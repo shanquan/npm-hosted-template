@@ -16,8 +16,9 @@
 - 项目定制配置文件
   - assets/app/app.css：应用定制css
   - components/app/：应用公共组件
+  - views/Home.vue
   - plugins/app/app.js：项目定制全局数据及公共方法,directives,filters
-  - plugins/api.crud.js：项目定制`crud`接口方法
+  - plugins/app/api.js：项目定制的`crud`方法、微服务`url`、拦截器判断方法及接口日志处理方法
 - 用户模块公共系统管理模块
   参见`package.json`中的依赖`user-sys`
 

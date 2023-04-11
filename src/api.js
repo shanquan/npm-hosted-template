@@ -8,7 +8,7 @@ import {
     // Message,
     Loading,MessageBox,Notification} from 'element-ui'
 import i18n from '@/i18n'
-import crud from '@/plugins/api.crud'
+import appApi from '@/plugins/app/api'
 var baseUrl = '/',
     token = '',
     projectCode = '',
@@ -83,6 +83,7 @@ if (mock) {
         if (!config.url.startsWith('user') && (!config.url.startsWith('http://')) && Api.projectCode) {
             config.url = `${Api.projectCode}/` + config.url;
         }
+        appApi.writeLog(' Request: \n'+JSON.stringify(config))
         return config;
     })
 }
@@ -119,6 +120,7 @@ const showErrMsg = function(title, msg) {
  * CODE: -2 JSON解析错误，返回非JSON格式
  */
 axios.interceptors.response.use(function(response) {
+        appApi.writeLog(' Response from '+response.config.url+': \n'+JSON.stringify(response.data))
         if (cmLoading) {
             Api.showLoading = false;
             cmLoading.close()
@@ -139,9 +141,9 @@ axios.interceptors.response.use(function(response) {
             Api.showError = true;
             // console.log(response.data)
         }
-        if (crud.checkResult(response)) {
+        if (appApi.checkResult(response)) {
             return response.data;
-        } else if (crud.checkPass(response)) {
+        } else if (appApi.checkPass(response)) {
             if(!Api.promptError&&response.config.headers.playPassAudio==true)
             Api.playPassAudio();
             Api.showError = true;
@@ -168,7 +170,8 @@ axios.interceptors.response.use(function(response) {
         }
     },
     function(error) {
-        // console.log([error])
+        // console.info([error])
+        appApi.writeLog(' Response Error: \n'+JSON.stringify(error))
         if(!Api.promptError&&error.config.headers.playFailAudio == true)
         Api.playFailAudio();
         if (cmLoading) {
@@ -207,7 +210,7 @@ const Api = {
     showError,
     promptError,
     showLoading,
-    ...crud,
+    ...appApi,
     playPassAudio(){
         let $el = document.getElementById('passAudio');
         if($el)

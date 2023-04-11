@@ -8,11 +8,11 @@ import axios from 'axios'
 import store from '@/store'
 import sysRouter from 'user-sys/router.sys'
 import sysLang from 'user-sys/zh-CN.sys'
+import appApi from '@/plugins/app/api'
 
 /**
  * global components
  */
-
 /**
  * global filters
  */
@@ -60,6 +60,13 @@ export default {
   langs:{...sysLang},
   data:{ // 项目自定义全局数据
   },
+  mobileClass(){
+    if(/Android|Chrome|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
+    return 'android'
+    if(/iPhone|iPad|iPod|Macintosh/i.test(navigator.userAgent))
+    return 'ios'
+    return ''
+  },
   getBuffer(s) {
     let buf = new ArrayBuffer(s.length);
     let view = new Uint8Array(buf);
@@ -82,5 +89,20 @@ export default {
       //   reject(err)
       // })
     })
+  },
+  devReady(){
+    var timeNow = (new Date()).toLocaleDateString();
+    //打开日志文件
+    var url = window.cordova.file.externalApplicationStorageDirectory;
+    window.resolveLocalFileSystemURL(url, function (dirEntry) {
+      const fileName = timeNow.replace(/\//g,"-")+".txt"
+      dirEntry.getFile(fileName, { create: true, exclusive: false }, function(fileEntry) {
+          appApi.logfileEntry = fileEntry;
+      }, function(err) {
+          console.log('onErrorCreateFile:' + err.toString());
+      });
+    }, function(err){
+      console.log('onErrorLoadFs:'+err.toString());
+    });
   }
 }

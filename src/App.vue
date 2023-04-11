@@ -4,7 +4,7 @@
 @description: 框架公共文件，慎重修改
 -->
 <template>
-  <el-container :class="[$i18n.locale,$root.theme]" style="height:100vh;">
+  <el-container :class="[$app.mobileClass(),$i18n.locale,$root.theme]" style="height:100vh;">
     <!-- https://www.iconfont.cn/ -->
     <!-- <link
       rel="stylesheet"
@@ -37,6 +37,7 @@
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item v-if="false&&pageType==0" command="chgMenuMode">{{$t('L10234')}}</el-dropdown-item>
+            <el-dropdown-item command="switchVConsole">{{vConsoleVisible?$t('L10056'):$t('L10055')}}</el-dropdown-item>
             <el-dropdown-item command="chgPsw">{{$t('L00037')}}</el-dropdown-item>
             <el-dropdown-item command="logout">{{$t('L00015')}}</el-dropdown-item>
           </el-dropdown-menu>
@@ -122,6 +123,7 @@ export default {
   name: 'app',
   created(){
     try{
+      document.addEventListener("deviceready", this.onDevReady, false);
       if(this.$root.isMobile()){
         this.$http.promptError = false;
         if(this.$route.name=="home"||this.$route.name=="login"){
@@ -242,7 +244,8 @@ export default {
       systemArr:[],
       hasBreadcrumb: this.$root.hasBreadcrumb,
       hasTabs: this.$root.hasTabs, 
-      menuMode: 'vertical'
+      menuMode: 'vertical',
+      vConsoleVisible: false
     }
   },
   methods:{
@@ -449,6 +452,24 @@ export default {
         className=this.$route.path=='/'?'tab-view':'mix-view'
       }
       return className;
+    },
+    onDevReady(){
+      this.$root.getMac();
+      this.$app.devReady();
+    },
+    switchVConsole(){
+      this.vConsoleVisible = !this.vConsoleVisible;
+      if(window.vConsole){
+        const $vc = document.getElementById('__vconsole');
+        if(this.vConsoleVisible){
+          $vc.style.display=""
+        }else{
+          // window.vConsole.destroy();
+          $vc.style.display="none"
+        }
+      }else{
+        this.$http.initVConsole()
+      }
     }
   }
 }
