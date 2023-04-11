@@ -5,12 +5,9 @@
  */
 import axios from 'axios'
 import VConsole from 'vconsole';
-/**
- * 日志文件句柄，日志序列（写完一条再写下一条，避免异步写时序混乱）
- */
-var logfileEntry, logBlobList = [];
+import VConsoleOutputLogsPlugin from '../vconsole-outputlog-plugin';
+
 export default {
-    logfileEntry,
     pre_url: process.env.VUE_APP_PRE_URL,
     checkResult(response){ // 非json格式，优先checkPass判断并返回
         return response.headers['content-type'] == 'application/msexcel'
@@ -69,50 +66,18 @@ export default {
     },
     initVConsole(){
         window.vConsole = new VConsole()
+        const plugin = new VConsoleOutputLogsPlugin(window.vConsole)
     },
     /**
-     * @function writeLog 接口写入日志文件
-     * 仅支持android
-     * @param  {string} str 接口写入日志文件 2018-4-22.txt
+     * @function addVConsoleLog 
+     * @description 添加vConsole日志，支持导出与复制
      */
-    writeLog(str){
+    addVConsoleLog(str){
         var timeNow = new Date();
         timeNow.setHours(timeNow.getHours() + 8);
         timeNow = timeNow.toJSON();
         if(window.vConsole){
             window.vConsole.log.info(timeNow+str+'\n');
         }
-        if (this.logfileEntry) {
-            var dataObj = new Blob([timeNow + str + '\n'], { type: 'text/plain' });
-            logBlobList.push(dataObj);
-            if (window.cordova && logBlobList.length) {
-                this.writeFile();
-            }
-        }
     },
-    /**
-     * @function writeFile 写日志文件(末尾追加)
-     */
-    writeFile(){
-        if (logBlobList.length)
-        this.logfileEntry.createWriter((fileWriter)=>{
-            fileWriter.onwriteend = ()=>{
-                logBlobList.shift();
-                this.writeFile();
-            };
-            fileWriter.onerror = function(e) {
-                console.log("Failed file write: " + e.toString());
-            };
-            // If we are appending data to file, go to the end of the file.
-            var isAppend = true;
-            if (isAppend) {
-                try {
-                    fileWriter.seek(fileWriter.length);
-                } catch (e) {
-                    console.log("file doesn't exist!");
-                }
-            }
-            fileWriter.write(logBlobList[0]);
-        });
-    }
 }

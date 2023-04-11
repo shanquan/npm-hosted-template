@@ -83,7 +83,7 @@ if (mock) {
         if (!config.url.startsWith('user') && (!config.url.startsWith('http://')) && Api.projectCode) {
             config.url = `${Api.projectCode}/` + config.url;
         }
-        appApi.writeLog(' Request: \n'+JSON.stringify(config))
+        appApi.addVConsoleLog(' Request: \n'+JSON.stringify(config))
         return config;
     })
 }
@@ -120,7 +120,7 @@ const showErrMsg = function(title, msg) {
  * CODE: -2 JSON解析错误，返回非JSON格式
  */
 axios.interceptors.response.use(function(response) {
-        appApi.writeLog(' Response from '+response.config.url+': \n'+JSON.stringify(response.data))
+        appApi.addVConsoleLog(' Response from '+response.config.url+': \n'+JSON.stringify(response.data))
         if (cmLoading) {
             Api.showLoading = false;
             cmLoading.close()
@@ -171,7 +171,7 @@ axios.interceptors.response.use(function(response) {
     },
     function(error) {
         // console.info([error])
-        appApi.writeLog(' Response Error: \n'+JSON.stringify(error))
+        appApi.addVConsoleLog(' Response Error: \n'+JSON.stringify(error))
         if(!Api.promptError&&error.config.headers.playFailAudio == true)
         Api.playFailAudio();
         if (cmLoading) {

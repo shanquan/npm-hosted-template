@@ -67,6 +67,9 @@ export default {
     return 'ios'
     return ''
   },
+  devReady(){
+    // 应用cordova插件方法
+  },
   getBuffer(s) {
     let buf = new ArrayBuffer(s.length);
     let view = new Uint8Array(buf);
@@ -89,20 +92,5 @@ export default {
       //   reject(err)
       // })
     })
-  },
-  devReady(){
-    var timeNow = (new Date()).toLocaleDateString();
-    //打开日志文件
-    var url = window.cordova.file.externalApplicationStorageDirectory;
-    window.resolveLocalFileSystemURL(url, function (dirEntry) {
-      const fileName = timeNow.replace(/\//g,"-")+".txt"
-      dirEntry.getFile(fileName, { create: true, exclusive: false }, function(fileEntry) {
-          appApi.logfileEntry = fileEntry;
-      }, function(err) {
-          console.log('onErrorCreateFile:' + err.toString());
-      });
-    }, function(err){
-      console.log('onErrorLoadFs:'+err.toString());
-    });
   }
 }
