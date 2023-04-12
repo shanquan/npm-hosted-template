@@ -1,6 +1,18 @@
 .asidebg .el-menu:not(.el-menu--collapse) {
     width: 220px;
 }
+.el-menu--vertical{max-height:100%;}
+.ovfauto{overflow-y:auto}
+/* .el-menu--vertical:not(:has(li>.el-menu--vertical)){overflow-y:auto} */
+.el-menu-item a{color:rgba(255,255,255,0.65);width:100%}
+.el-menu-item ::selection{background-color:transparent}
+.el-submenu [class^=el-icon-],
+.el-menu-item [class^=el-icon-],
+.el-menu--collapse>.el-menu-item [class^=el-icon-], 
+.el-menu--collapse>.el-submenu>.el-submenu__title [class^=el-icon-] {
+    width: 18px;
+}
+.el-menu-item, .el-submenu__title,.el-submenu .el-menu-item{height:40px;line-height: 40px;}
 .el-menu.el-menu--horizontal{position: absolute;top: 0;left: 90px;width: 725px;height: 58px;border-bottom: none;z-index: 9;overflow: hidden;}
 .logo-bg{background-color:var(--menucolorbg-login)}
 .asidebg{background-color:var(--menucolorbg);color:rgba(255,255,255,0.65)}
