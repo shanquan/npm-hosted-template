@@ -924,6 +924,9 @@ export default {
   font-size: 20px;
   padding-left: 6px;
 }
+.login .el-form-item__label{
+  color: var(--fontColorBox)
+}
 .midlayer .el-input-group__prepend {
   border-radius: 40px 0 0 40px;
 }
