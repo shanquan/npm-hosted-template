@@ -5,7 +5,6 @@
  */
 import VConsole from 'vconsole';
 // import copy from 'copy-to-clipboard';
- 
 class VConsoleOutputLogsPlugin {
   constructor(vConsole) {
     this.vConsole = vConsole;
@@ -24,7 +23,8 @@ class VConsoleOutputLogsPlugin {
       // console.log('[vConsole-exportlog-plugin] -- load');
     });
     vConsoleExportLogs.on("renderTab", (callback) => {
-      const html = `<div class="vconsole-exportlog">
+      const html = `<div class="vconsole-exportlog padding">
+      <span>MINIO:</span> <input name="iptUrl" type="text" style="width:100%" value="http://10.12.7.46:20005/minio/test-upload/pdalog/flames/"/>
       </div>`;
       callback(html);
     });
