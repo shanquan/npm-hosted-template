@@ -410,7 +410,7 @@ export default {
                 this.loginDirectly = true;
               }
               try {
-                let project = JSON.parse(localStorage.getItem("aProject"));
+                let project = JSON.parse(localStorage.getItem(`${process.env.VUE_APP_CODE}_Project`));
                 let projectInList = this.projects.find(
                   (el) =>
                     project &&
@@ -712,20 +712,20 @@ export default {
       if (response.DATA.OBJECT) {
         session.user.roleType = response.DATA.OBJECT.roleType;
         localStorage.setItem(
-          "roles",
+          `roles`,
           JSON.stringify(response.DATA.OBJECT.roles)
         );
         localStorage.setItem(
-          "menus",
+          `menus`,
           JSON.stringify(response.DATA.OBJECT.menus)
         );
       }
       let auth = response.DATA.AUTHORITIES;
       let pr = this.projects.find((el) => el.id == this.projectId);
-      if (pr) localStorage.setItem("aProject", JSON.stringify(pr));
+      if (pr) localStorage.setItem(`${process.env.VUE_APP_CODE}_Project`, JSON.stringify(pr));
       this.$root.auth = this.$root.deepClone(auth);
       localStorage.setItem("aHost", this.form.ip);
-      localStorage.setItem("aAuth", JSON.stringify(this.$root.auth));
+      localStorage.setItem(`${process.env.VUE_APP_CODE}_Auth`, JSON.stringify(this.$root.auth));
       this.$root.initSession(session.user, session.token, auth);
       localStorage.setItem("aSession", JSON.stringify(session));
       this.$app

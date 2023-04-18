@@ -125,7 +125,11 @@ new Vue({
         initSession(user, token, auth) {
             this.$http.setToken(token);
             try {
-                this.project = JSON.parse(localStorage.getItem('aProject'));
+                if(process.env.VUE_APP_PROJECT_ONLY){
+                    this.project = JSON.parse(process.env.VUE_APP_PROJECT_ONLY)
+                }else{
+                    this.project = JSON.parse(localStorage.getItem(`${process.env.VUE_APP_CODE}_Project`));
+                }
                 this.$http.setProjectId(this.project.id);
                 this.$http.projectCode = this.project.projectCode;
                 // 接口获取systemArr
@@ -134,6 +138,17 @@ new Vue({
                 this.$children[0].systemCode = this.$http.projectId;
                 // if(applang[this.$http.projectCode]&&applang[this.$http.projectCode][this.$i18n.locale]){
                 //     this.$i18n.mergeLocaleMessage(this.$i18n.locale, applang[this.$http.projectCode][this.$i18n.locale]);
+                // }
+                // 路由守卫判断有延迟
+                // if(auth==undefined){
+                //     const res = await this.$http.axios.get(`${this.$http.user_url}getAuthorityMenu?code=${token}&projectId=${this.project.id}`)
+                //     if(res){
+                //         auth = res.DATA.AUTHORITIES;
+                //         this.$root.auth = this.$root.deepClone(auth);
+                //         this.initAuth(auth);
+                //     }
+                // }else{
+                //     this.initAuth(auth);
                 // }
             } catch (err) {
                 alert(err)
@@ -220,7 +235,7 @@ new Vue({
             this.auth = [];
             this.project = {};
             localStorage.removeItem("aSession");
-            localStorage.removeItem("aAuth");
+            localStorage.removeItem(`${process.env.VUE_APP_CODE}_Auth`);
         },
         isMobile() {
             // for ipad: /macintosh|mac os x/i.test(navigator.userAgent) && window.screen.height > window.screen.width

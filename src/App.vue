@@ -137,7 +137,7 @@ export default {
       }
       this.$root.getTheme();
       let session = JSON.parse(localStorage.getItem('aSession'));
-      let auth = JSON.parse(localStorage.getItem('aAuth'));
+      let auth = JSON.parse(localStorage.getItem(`${process.env.VUE_APP_CODE}_Auth`));
       if(session.token){
         this.$root.auth = this.$root.deepClone(auth);
         this.$root.initSession(session.user,session.token,auth);
@@ -167,7 +167,6 @@ export default {
         // 路由权限拦截
         try{
           let p = this.$root.getMatchedPath(nVal);
-          // console.log(p,this.$root.auth)
           let authItem = this.$root.findMenuItem(p,this.$root.auth);
           if(!authItem&&this.$root.authCheck){
             this.$router.push({path:'/403'})
