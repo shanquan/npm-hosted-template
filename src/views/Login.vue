@@ -366,7 +366,7 @@ export default {
           this.projectId = this.$root.project.id;
         }
       } catch (e) {
-        console.log(e);
+        // console.log(e);
         if (this.$store.state.pageType == 1 && !this.form.ip) {
           this.errMsg = "请输入地址";
         } else if (
@@ -709,6 +709,18 @@ export default {
         user: response.DATA.USER,
         token: response.DATA.TOKEN,
       };
+      this.$http.setToken(session.token)
+      this.$store.commit('setUser', session.user);
+      let pr = this.projects.find((el) => el.id == this.projectId);
+      this.$root.project = pr
+      this.$http.setProjectId(pr.id);
+      this.$http.projectCode = pr.projectCode;
+      localStorage.setItem(`${process.env.VUE_APP_CODE}_Project`, JSON.stringify(pr));
+      let auth = response.DATA.AUTHORITIES;
+      this.$root.auth = this.$root.deepClone(auth)
+      this.$root.initSession(auth)
+      this.$root.getAuthed = true
+      localStorage.setItem(`${process.env.VUE_APP_CODE}_Auth`, JSON.stringify(this.$root.auth));
       if (response.DATA.OBJECT) {
         session.user.roleType = response.DATA.OBJECT.roleType;
         localStorage.setItem(
@@ -720,16 +732,10 @@ export default {
           JSON.stringify(response.DATA.OBJECT.menus)
         );
       }
-      let auth = response.DATA.AUTHORITIES;
-      let pr = this.projects.find((el) => el.id == this.projectId);
-      if (pr) localStorage.setItem(`${process.env.VUE_APP_CODE}_Project`, JSON.stringify(pr));
-      this.$root.auth = this.$root.deepClone(auth);
       localStorage.setItem("aHost", this.form.ip);
-      localStorage.setItem(`${process.env.VUE_APP_CODE}_Auth`, JSON.stringify(this.$root.auth));
-      this.$root.initSession(session.user, session.token, auth);
       localStorage.setItem("aSession", JSON.stringify(session));
       this.$app
-        .beforeHome(this.$root)
+        .beforeHome(this)
         .then(() => {
           let fullPath = this.$route.query.redirect;
           if (fullPath) {

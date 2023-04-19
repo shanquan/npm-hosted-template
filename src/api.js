@@ -185,7 +185,7 @@ axios.interceptors.response.use(function(response) {
             code = error.response.status;
         }
         if (Api.showError&&error.config.headers.showError!==false)
-            showErrMsg(`code:${code}`, code == 0 ? i18n.t('L00035') : error.toString())
+            showErrMsg(`${method}:${code}`, code == 0 ? i18n.t('L00035') : error.toString())
         Api.showError = true;
         const data = {
             CODE: code,

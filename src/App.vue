@@ -122,30 +122,25 @@ import MainMenu from '@/components/MainMenu.vue';
 export default {
   name: 'app',
   created(){
-    try{
-      document.addEventListener("deviceready", this.onDevReady, false);
-      if(this.$root.isMobile()){
-        this.$http.promptError = false;
-        if(this.$route.name=="home"||this.$route.name=="login"){
-          this.$store.commit('setPageType',1);
-        }else{
-          this.$store.commit('setPageType',2);
-          this.title = this.$root.getMobileTitle(this.$route.path);
-        }
+    document.addEventListener("deviceready", this.onDevReady, false);
+    if(this.$root.isMobile()){
+      this.$http.promptError = false;
+      if(this.$route.name=="home"||this.$route.name=="login"){
+        this.$store.commit('setPageType',1);
       }else{
-        this.$store.commit('setPageType',0)
+        this.$store.commit('setPageType',2);
+        this.title = this.$root.getMobileTitle(this.$route.path);
       }
-      this.$root.getTheme();
-      let session = JSON.parse(localStorage.getItem('aSession'));
-      let auth = JSON.parse(localStorage.getItem(`${process.env.VUE_APP_CODE}_Auth`));
-      if(session.token){
-        this.$root.auth = this.$root.deepClone(auth);
-        this.$root.initSession(session.user,session.token,auth);
-        this.$app.beforeHome(this.$root)
-        .then(() => {}).catch((err) => {
-          console.log(err)
-        });
-      }
+    }else{
+      this.$store.commit('setPageType',0)
+    }
+    this.$root.getTheme();
+    if(this.$http.token)
+    try{
+      let auth = JSON.parse(localStorage.getItem(`${process.env.VUE_APP_CODE}_Auth`))
+      this.$root.auth = this.$root.deepClone(auth)
+      this.$root.initSession(auth)
+      this.$root.getAuthed = true
     }catch(e){console.log(e)}
   },
   mounted(){
@@ -157,50 +152,60 @@ export default {
     Icons,ChangePsw,MainMenu
   },
   watch:{
-    $route(nVal){
-      this.showFrame = this.$http.token&&this.$route.meta.loginPass!=true&&this.$route.meta.showFrame!=false;
-      this.$root.clearMsgBox();
-      //页面的breadcrumbs
-      if(this.hasBreadcrumb)
-      this.getBreadcrumbs(nVal);
-      if(this.pageType == 0&&!nVal.meta.authPass){
-        // 路由权限拦截
-        try{
-          let p = this.$root.getMatchedPath(nVal);
-          let authItem = this.$root.findMenuItem(p,this.$root.auth);
-          if(!authItem&&this.$root.authCheck){
-            this.$router.push({path:'/403'})
-          }
-        }catch(e){
-          console.error(e)
+    $route: {
+      async handler(nVal){
+        this.showFrame = this.$http.token&&this.$route.meta.loginPass!=true&&this.$route.meta.showFrame!=false;
+        this.$root.clearMsgBox();
+        if(this.$root.getAuthed==undefined&&this.$http.token){
+          this.$root.getAuthed = true;
+          await this.$http.axios.get(`${this.$http.user_url}getAuthorityMenu?code=${this.$http.token}&projectId=${this.$http.projectId}`).then(response=>{
+            let auth = response.DATA.AUTHORITIES
+            this.$root.auth = this.$root.deepClone(auth)
+            this.$root.initSession(auth)
+          })
         }
-        if(!this.hasTabs){
-          return;
-        }
-        // 初始tab显示
-        if(this.editableTabsValue=="/"){
-          let item = this.$root.findMenuItem(nVal.path,this.$root.menuList);
-          // console.log(nVal.path,item)
-          if(item){
-            this.editableTabsValue = item.index;
-            this.editableTabs = [{name:item.index,path:item.index}];
-          }else if(nVal.path!="/login"){// 非菜单项页面
+        //页面的breadcrumbs
+        if(this.hasBreadcrumb)
+        this.getBreadcrumbs(nVal);
+        if(this.pageType == 0&&!nVal.meta.authPass){
+          // 路由权限拦截
+          try{
             let p = this.$root.getMatchedPath(nVal);
+            let authItem = this.$root.findMenuItem(p,this.$root.auth);
+            if(!authItem&&this.$root.authCheck){
+              this.$router.push({path:'/403'})
+            }
+          }catch(e){
+            console.error(e)
+          }
+          if(!this.hasTabs){
+            return;
+          }
+          // 初始tab显示
+          if(this.editableTabsValue=="/"){
+            let item = this.$root.findMenuItem(nVal.path,this.$root.menuList);
+            // console.log(nVal.path,item)
+            if(item){
+              this.editableTabsValue = item.index;
+              this.editableTabs = [{name:item.index,path:item.index}];
+            }else if(nVal.path!="/login"){// 非菜单项页面
+              let p = this.$root.getMatchedPath(nVal);
+              this.editableTabsValue = nVal.path;
+              this.editableTabs = [{name:p,path:nVal.path}];
+            }
+          }
+          // 更新tab.path
+          let tabIdx1 = this.editableTabs.findIndex(el=>el.path==this.editableTabsValue);
+          let tabIdx2 = this.editableTabs.findIndex(el=>el.path==nVal.path);
+          let menuIdx = this.menuPages.findIndex(el=>el.index==nVal.path);
+          if(tabIdx1>-1){
+            if(tabIdx2==-1&&menuIdx==-1){
+              this.editableTabs[tabIdx1].path=nVal.path;
+            }else if(menuIdx>-1){
+              this.addTab({name:nVal.path,path:nVal.path})
+            }
             this.editableTabsValue = nVal.path;
-            this.editableTabs = [{name:p,path:nVal.path}];
           }
-        }
-        // 更新tab.path
-        let tabIdx1 = this.editableTabs.findIndex(el=>el.path==this.editableTabsValue);
-        let tabIdx2 = this.editableTabs.findIndex(el=>el.path==nVal.path);
-        let menuIdx = this.menuPages.findIndex(el=>el.index==nVal.path);
-        if(tabIdx1>-1){
-          if(tabIdx2==-1&&menuIdx==-1){
-            this.editableTabs[tabIdx1].path=nVal.path;
-          }else if(menuIdx>-1){
-            this.addTab({name:nVal.path,path:nVal.path})
-          }
-          this.editableTabsValue = nVal.path;
         }
       }
     },

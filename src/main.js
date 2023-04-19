@@ -28,13 +28,30 @@ Vue.config.productionTip = false
 Vue.prototype.$http = http;
 Vue.prototype.$app = app;
 
+let project,beforeHomeResult;
 try {
     let session = JSON.parse(localStorage.getItem('aSession'));
     http.setToken(session.token)
+    store.commit('setUser', session.user);
+    if(process.env.VUE_APP_PROJECT_ONLY){
+        project = JSON.parse(process.env.VUE_APP_PROJECT_ONLY)
+    }else{
+        project = JSON.parse(localStorage.getItem(`${process.env.VUE_APP_CODE}_Project`));
+    }
+    http.setProjectId(project.id);
+    http.projectCode = project.projectCode;
 } catch (e) {console.log(e)}
 
-router.beforeEach((to, from, next) => {
-    if (to.meta.loginPass!=true && !http.token)
+router.beforeEach(async(to, from, next) => {
+    if(beforeHomeResult==undefined){
+        await app.beforeHome(Vue.prototype).then(r=>{
+            beforeHomeResult = true
+        }).catch(e=>{
+            console.error(e)
+            beforeHomeResult = false
+        })
+    }
+    if (to.meta.loginPass!=true && !(http.token && http.projectId && beforeHomeResult))
         next({ name: 'login' , query: { redirect: to.fullPath }})
     else if (to.matched.length > 0) {
         next()
@@ -104,7 +121,7 @@ new Vue({
         version: null,
         macAddress: "",
         screenSize: document.documentElement.clientWidth + '*' + document.documentElement.clientHeight, // 屏幕宽高
-        project: {}, // 当前项目
+        project: project, // 当前项目
         auth: [], // 用户所有权限菜单
         mobileList: [],
         menuList: []
@@ -122,38 +139,15 @@ new Vue({
           }
           return target;
         },
-        initSession(user, token, auth) {
-            this.$http.setToken(token);
-            try {
-                if(process.env.VUE_APP_PROJECT_ONLY){
-                    this.project = JSON.parse(process.env.VUE_APP_PROJECT_ONLY)
-                }else{
-                    this.project = JSON.parse(localStorage.getItem(`${process.env.VUE_APP_CODE}_Project`));
-                }
-                this.$http.setProjectId(this.project.id);
-                this.$http.projectCode = this.project.projectCode;
-                // 接口获取systemArr
-                // this.$children[0].systemArr = [{"projectName":"Zatanna","projectCode":"zatanna","url":"http://10.12.5.188:20003","id":3},{"projectName":"运营平台","projectCode":"omp","url":"http://10.12.7.111:6002","id":123}];
-                this.$children[0].systemArr = [this.project]
-                this.$children[0].systemCode = this.$http.projectId;
-                // if(applang[this.$http.projectCode]&&applang[this.$http.projectCode][this.$i18n.locale]){
-                //     this.$i18n.mergeLocaleMessage(this.$i18n.locale, applang[this.$http.projectCode][this.$i18n.locale]);
-                // }
-                // 路由守卫判断有延迟
-                // if(auth==undefined){
-                //     const res = await this.$http.axios.get(`${this.$http.user_url}getAuthorityMenu?code=${token}&projectId=${this.project.id}`)
-                //     if(res){
-                //         auth = res.DATA.AUTHORITIES;
-                //         this.$root.auth = this.$root.deepClone(auth);
-                //         this.initAuth(auth);
-                //     }
-                // }else{
-                //     this.initAuth(auth);
-                // }
-            } catch (err) {
-                alert(err)
-            }
-            this.$store.commit('setUser', user);
+        initSession(auth) {
+            this.$children[0].systemArr = [this.project]
+            this.$children[0].systemCode = this.$http.projectId;
+            // 接口获取systemArr
+            // this.$children[0].systemArr = [{"projectName":"Zatanna","projectCode":"zatanna","url":"http://10.12.5.188:20003","id":3},{"projectName":"运营平台","projectCode":"omp","url":"http://10.12.7.111:6002","id":123}];
+            
+            // if(applang[this.$http.projectCode]&&applang[this.$http.projectCode][this.$i18n.locale]){
+            //     this.$i18n.mergeLocaleMessage(this.$i18n.locale, applang[this.$http.projectCode][this.$i18n.locale]);
+            // }
             this.initAuth(auth);
         },
         initAuth(auth) {
