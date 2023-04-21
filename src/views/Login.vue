@@ -710,7 +710,6 @@ export default {
         token: response.DATA.TOKEN,
       };
       this.$http.setToken(session.token)
-      this.$store.commit('setUser', session.user);
       let pr = this.projects.find((el) => el.id == this.projectId);
       this.$root.project = pr
       this.$http.setProjectId(pr.id);
@@ -723,16 +722,9 @@ export default {
       localStorage.setItem(`${process.env.VUE_APP_CODE}_Auth`, JSON.stringify(this.$root.auth));
       if (response.DATA.OBJECT) {
         session.user.roleType = response.DATA.OBJECT.roleType;
-        localStorage.setItem(
-          `roles`,
-          JSON.stringify(response.DATA.OBJECT.roles)
-        );
-        localStorage.setItem(
-          `menus`,
-          JSON.stringify(response.DATA.OBJECT.menus)
-        );
       }
       localStorage.setItem("aHost", this.form.ip);
+      this.$store.commit('setUser', session.user);
       localStorage.setItem("aSession", JSON.stringify(session));
       this.$app
         .beforeHome(this)
