@@ -167,8 +167,9 @@ export default {
         //页面的breadcrumbs
         if(this.hasBreadcrumb)
         this.getBreadcrumbs(nVal);
-        if(this.pageType == 0&&!nVal.meta.authPass){
+        if(this.pageType == 0){
           // 路由权限拦截
+          if(!nVal.meta.authPass)
           try{
             let p = this.$root.getMatchedPath(nVal);
             let authItem = this.$root.findMenuItem(p,this.$root.auth);
@@ -313,6 +314,16 @@ export default {
       let index = this.$root.getMobileIndex(this.$route.name);
       const homePath = process.env.VUE_APP_HOME=='/'||!process.env.VUE_APP_HOME ? `/?index=${index}`: process.env.VUE_APP_HOME;
       this.$router.push({ path: homePath });
+    },
+    /**
+     * 手动添加页面breadcrumbs，适用于authPass:true的页面
+     */
+    addBreadcrumb(route){
+      let p = this.$root.getMatchedPath(route);
+      if(this.hasBreadcrumb && p)
+      this.breadcrumbs.push({
+        index: this.$t(p)
+      })
     },
     /**
      * 添加tab

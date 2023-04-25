@@ -57,6 +57,7 @@ export default {
   name: "config",
   created() {
     this.getProjectList();
+    this.$root.$children[0].addBreadcrumb(this.$route)
     if(false&&!window.cordova){
       this.$http.axios.get(`${this.$http.pre_url}mesResource/getMac`).then(response=>{
         if(!response.DATA){
