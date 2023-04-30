@@ -119,7 +119,6 @@ new Vue({
         packageName: process.env.VUE_APP_ID,
         salt: 'BYD',
         version: null,
-        macAddress: "",
         screenSize: document.documentElement.clientWidth + '*' + document.documentElement.clientHeight, // 屏幕宽高
         project: project, // 当前项目
         auth: [], // 用户所有权限菜单
@@ -426,7 +425,7 @@ new Vue({
         getMac(){
             if(window.cordova){
                 window.MacAddress.getMacAddress((macAddress)=>{
-                    this.macAddress = macAddress.toUpperCase();
+                    this.$http.macAddress = macAddress.toUpperCase();
                 },(fail)=>{alert(fail);});
             }
         },

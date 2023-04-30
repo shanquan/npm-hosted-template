@@ -13,6 +13,7 @@ var baseUrl = '/',
     token = '',
     projectCode = '',
     projectId = '',
+    macAddress = '',
     cmLoading,
     showLoading = false, // 是否显示加载中
     showError = true; // 是否处理请求错误
@@ -83,7 +84,15 @@ if (mock) {
         if (!config.url.startsWith('user') && (!config.url.startsWith('http://')) && Api.projectCode) {
             config.url = `${Api.projectCode}/` + config.url;
         }
-        appApi.addVConsoleLog(' Request: \n'+JSON.stringify(config))
+        config.headers['request-startTime'] = new Date().getTime()
+        if(config.headers.addLog!==false)
+        Api.addLog({
+            traceId: config.url,
+            type: 'api',
+            status: 's',
+            logLevel: 'INFO',
+            content: ' Request: \n'+JSON.stringify(config)
+        })
         return config;
     })
 }
@@ -120,7 +129,16 @@ const showErrMsg = function(title, msg) {
  * CODE: -2 JSON解析错误，返回非JSON格式
  */
 axios.interceptors.response.use(function(response) {
-        appApi.addVConsoleLog(' Response from '+response.config.url+': \n'+JSON.stringify(response.data))
+        const cost = (new Date().getTime() - response.config.headers['request-startTime'])
+        if(response.config.headers.addLog!==false)
+        Api.addLog({
+            traceId: response.config.url,
+            type: 'api',
+            status: 'e',
+            logLevel: 'INFO',
+            cost: cost,
+            content: ' Response: \n'+JSON.stringify(response.data)
+        })
         if (cmLoading) {
             Api.showLoading = false;
             cmLoading.close()
@@ -171,7 +189,16 @@ axios.interceptors.response.use(function(response) {
     },
     function(error) {
         // console.info([error])
-        appApi.addVConsoleLog(' Response Error: \n'+JSON.stringify(error))
+        const cost = (new Date().getTime() - error.config.headers['request-startTime'])
+        if(error.config.headers.addLog!==false)
+        Api.addLog({
+            traceId: error.config.url,
+            type: 'api',
+            status: 'e',
+            logLevel: 'ERROR',
+            cost: cost,
+            content: ' Response Error: \n'+JSON.stringify(error)
+        })
         if(!Api.promptError&&error.config.headers.playFailAudio == true)
         Api.playFailAudio();
         if (cmLoading) {
@@ -204,6 +231,7 @@ const Api = {
     mock,
     projectCode,
     projectId,
+    macAddress,
     token,
     setLangs,
     setForMock,
@@ -262,6 +290,20 @@ const Api = {
     resetPwd(data) {
         let promise = axios.post(`user/exi/resetPwd/resetPwd`, data);
         return promise;
+    },
+    addLog(body){
+        var timeNow = new Date();
+        timeNow.setHours(timeNow.getHours() + 8);
+        timeNow = timeNow.toJSON();
+        body.time = timeNow;
+        if(this.baseUrl=='/'){
+            body.traceId = `${window.location.origin}/${body.traceId}`
+        }
+        if(this.macAddress)
+        body.mac = this.macAddress
+        if(this.projectId)
+        body.project = this.projectId
+        appApi.addLog(body);
     }
 }
 export default Api;

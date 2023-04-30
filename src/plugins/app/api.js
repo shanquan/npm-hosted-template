@@ -8,6 +8,7 @@ import VConsole from 'vconsole';
 import VConsoleOutputLogsPlugin from '../vconsole-outputlog-plugin';
 
 export default {
+    log_url: "", // log/api/
     pre_url: process.env.VUE_APP_PRE_URL,
     checkResult(response){ // 非json格式，优先checkPass判断并返回
         return response.headers['content-type'] == 'application/msexcel'
@@ -72,12 +73,20 @@ export default {
      * @function addVConsoleLog 
      * @description 添加vConsole日志，支持导出与复制
      */
-    addVConsoleLog(str){
-        var timeNow = new Date();
-        timeNow.setHours(timeNow.getHours() + 8);
-        timeNow = timeNow.toJSON();
+    addLog(body){
+        if(this.log_url){
+            axios.post(`${this.log_url}log`,body, {
+                headers: {
+                    addLog:false,
+                    showError: false
+                },
+            })
+        }
         if(window.vConsole){
-            window.vConsole.log.info(timeNow+str+'\n');
+            if(body.status=='s')
+            window.vConsole.log.info(`${body.time},${body.content}\n`);
+            if(body.status=='e')
+            window.vConsole.log.info(`${body.time},${body.traceId},${body.cost},${body.content}\n`);
         }
     },
 }

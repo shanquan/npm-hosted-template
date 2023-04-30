@@ -13,7 +13,7 @@
       label-width="110px"
     >
       <el-form-item label="MACADDRESS">
-        {{$root.macAddress}}
+        {{$http.macAddress}}
       </el-form-item>
       <el-form-item label="工序" prop="process">
         <el-select @change="onProcessChange" v-model="form.process" clearable filterable>
@@ -66,7 +66,7 @@ export default {
             type:"warning"
           })
         }else{
-          this.$root.macAddress = response.DATA
+          this.$http.macAddress = response.DATA
           this.getProcessList();
         }
       })
@@ -101,13 +101,13 @@ export default {
   },
   methods: {
     getProcessList() {
-      if (!this.$root.macAddress) {
-        this.$root.macAddress = "34:2E:B7:B1:22:C7";
+      if (!this.$http.macAddress) {
+        this.$http.macAddress = "34:2E:B7:B1:22:C7";
       }
       this.$http.axios
         .post(
           "api/me/mesResource/getResourceListByCode",
-          `resourceCode=${this.$root.macAddress}&processStatus=0&resourceStatus=0`,
+          `resourceCode=${this.$http.macAddress}&processStatus=0&resourceStatus=0`,
           {
             headers: {
               "Content-Type": "application/x-www-form-urlencoded",
