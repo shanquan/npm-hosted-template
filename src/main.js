@@ -42,7 +42,17 @@ try {
     http.projectCode = project.projectCode;
 } catch (e) {console.log(e)}
 
-router.beforeEach(async(to, from, next) => {
+router.beforeEach(async(to, from, next) => {  
+    if(app.isMobile()){
+        http.promptError = false;
+        if(to.name=="home"||to.name=="login"){
+            store.commit('setPageType',1);
+        }else{
+            store.commit('setPageType',2);
+        }
+    }else{
+        store.commit('setPageType',0)
+    }
     if(beforeHomeResult==undefined){
         await app.beforeHome(Vue.prototype).then(r=>{
             beforeHomeResult = true
@@ -229,10 +239,6 @@ new Vue({
             this.project = {};
             localStorage.removeItem("aSession");
             localStorage.removeItem(`${process.env.VUE_APP_CODE}_Auth`);
-        },
-        isMobile() {
-            // for ipad: /macintosh|mac os x/i.test(navigator.userAgent) && window.screen.height > window.screen.width
-            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)||/macintosh|mac os x/i.test(navigator.userAgent) && window.screen.height > window.screen.width;
         },
         handleLang(lang) {
             localStorage.setItem('locale', lang)

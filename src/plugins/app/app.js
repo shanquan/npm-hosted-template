@@ -57,6 +57,10 @@ export default {
   langs:{...sysLang},
   data:{ // 项目自定义全局数据
   },
+  isMobile() {
+      // for ipad: /macintosh|mac os x/i.test(navigator.userAgent) && window.screen.height > window.screen.width
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)||/macintosh|mac os x/i.test(navigator.userAgent) && window.screen.height > window.screen.width;
+  },
   mobileClass(){
     if(/Android|Chrome|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
     return 'android'

@@ -123,17 +123,6 @@ export default {
   name: 'app',
   created(){
     document.addEventListener("deviceready", this.onDevReady, false);
-    if(this.$root.isMobile()){
-      this.$http.promptError = false;
-      if(this.$route.name=="home"||this.$route.name=="login"){
-        this.$store.commit('setPageType',1);
-      }else{
-        this.$store.commit('setPageType',2);
-        this.title = this.$root.getMobileTitle(this.$route.path);
-      }
-    }else{
-      this.$store.commit('setPageType',0)
-    }
     this.$root.getTheme();
     if(this.$http.token)
     try{
@@ -164,6 +153,8 @@ export default {
             this.$root.initSession(auth)
           })
         }
+        if(this.pageType==2)
+        this.title = this.$root.getMobileTitle(nVal.path);
         //页面的breadcrumbs
         if(this.hasBreadcrumb)
         this.getBreadcrumbs(nVal);

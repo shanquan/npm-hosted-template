@@ -523,7 +523,7 @@ export default {
         password: MD5(this.form.pwd + this.$root.salt).toString(),
         sysCode: process.env.VUE_APP_CODE,
       };
-      if (this.$root.isMobile() || !this.pwdPolicy) {
+      if (this.$app.isMobile() || !this.pwdPolicy) {
         user.type = "Client";
         user.single = true;
       }
@@ -765,7 +765,7 @@ export default {
         password: MD5(this.form.pwd + this.$root.salt).toString(),
         sysCode: process.env.VUE_APP_CODE,
       };
-      if (this.$root.isMobile() || !this.pwdPolicy) {
+      if (this.$app.isMobile() || !this.pwdPolicy) {
         user.type = "Client";
         user.single = true;
       }
