@@ -58,18 +58,18 @@
           <div class="center">{{ $t("L00037") }}</div>
           <el-form ref="form" :model="form" :rules="rules" label-width="80px">
             <el-form-item class="mt18" :label="$t('L10201')" prop="user">
-              <el-input v-model="form.user" size="medium" clearable></el-input>
+              <el-input v-model.trim="form.user" size="medium" clearable></el-input>
             </el-form-item>
             <el-form-item class="mt18" :label="$t('L00038')" prop="pwd">
-              <el-input v-model="form.pwd" show-password size="medium">
+              <el-input v-model.trim="form.pwd" show-password size="medium">
               </el-input>
             </el-form-item>
             <el-form-item class="mt18" :label="$t('L00039')" prop="newPwd">
-              <el-input v-model="form.newPwd" show-password size="medium">
+              <el-input v-model.trim="form.newPwd" show-password size="medium">
               </el-input>
             </el-form-item>
             <el-form-item class="mt18" :label="$t('L00040')" prop="repeat">
-              <el-input v-model="form.repeat" show-password size="medium">
+              <el-input v-model.trim="form.repeat" show-password size="medium">
               </el-input>
             </el-form-item>
           </el-form>
@@ -106,7 +106,7 @@
           </el-select>
           <span v-if="!loginDirectly" @keyup.enter="submitForm">
             <el-input
-              v-model="form.user"
+              v-model.trim="form.user"
               clearable
               class="mt18"
               :placeholder="$t('L10201')"
@@ -118,7 +118,7 @@
             </el-input>
             <el-input
               v-if="pwdPolicy"
-              v-model="form.pwd"
+              v-model.trim="form.pwd"
               :style="pwdType ? '-webkit-text-security:disc' : ''"
               class="mt18"
               :placeholder="$t('L10202')"
@@ -152,7 +152,7 @@
             </el-input>
             <el-input
               v-else
-              v-model="form.pwd"
+              v-model.trim="form.pwd"
               show-password
               class="mt18"
               :placeholder="$t('L10202')"
@@ -173,7 +173,7 @@
           </span>
           <span v-if="remPwd" @keyup.enter="submitForm">
             <el-input
-              v-model="form.captcha"
+              v-model.trim="form.captcha"
               class="mt18"
               :placeholder="$t('L10214')"
               style="width: 169px"
@@ -239,7 +239,7 @@
       <h3>{{ $t("L45010") }}</h3>
       <br />
       <el-input
-        v-model="workNo"
+        v-model.trim="workNo"
         clearable
         :placeholder="$t('L45013')"
         style="width: 200px"

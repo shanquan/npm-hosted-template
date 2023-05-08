@@ -10,13 +10,13 @@
       width="30%">
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item :label="$t('L00038')" prop="oldPwd">
-          <el-input v-model="form.oldPwd" type="password" show-password></el-input>
+          <el-input v-model.trim="form.oldPwd" type="password" show-password></el-input>
         </el-form-item>
         <el-form-item :label="$t('L00039')" prop="newPwd">
-          <el-input v-model="form.newPwd" type="password" show-password></el-input>
+          <el-input v-model.trim="form.newPwd" type="password" show-password></el-input>
         </el-form-item>
         <el-form-item :label="$t('L00040')" prop="repeat">
-          <el-input v-model="form.repeat" type="password" show-password></el-input>
+          <el-input v-model.trim="form.repeat" type="password" show-password></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">

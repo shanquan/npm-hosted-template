@@ -25,7 +25,7 @@
         <el-form class="mt18" :rules="rules" ref="form" :model="form">
         <el-form-item prop="newPwd"> 
           <el-input
-            v-model="form.newPwd" show-password class="mt18" :placeholder="$t('L45001')" size="medium">
+            v-model.trim="form.newPwd" show-password class="mt18" :placeholder="$t('L45001')" size="medium">
             <svg slot="prefix" class="icon-inner">
                 <use xlink:href="#user"></use>
               </svg>
@@ -33,7 +33,7 @@
         </el-form-item>
         <el-form-item prop="confirm">
           <el-input
-            v-model="form.confirm" show-password class="mt12" :placeholder="$t('L45002')" size="medium">
+            v-model.trim="form.confirm" show-password class="mt12" :placeholder="$t('L45002')" size="medium">
             <svg slot="prefix" class="icon-inner">
               <use xlink:href="#psw"></use>
             </svg>
