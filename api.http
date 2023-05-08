@@ -235,3 +235,17 @@ PUT {{url}}/pdalog/{{filename}} HTTP/1.1
 Content-Type: image/png
 
 < ./{{filename}}
+
+### @name log
+POST http://10.12.4.223:10099/log/exi/log
+Content-Type: application/json
+
+{
+  "traceId":"",
+  "type":"api",
+  "status":"s",
+  "logLevel":"INFO",
+  "content":" Request: \n",
+  "time":"2023-05-06 16:36:18",
+  "mac": "00"
+}

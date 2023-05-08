@@ -295,7 +295,7 @@ const Api = {
         var timeNow = new Date();
         timeNow.setHours(timeNow.getHours() + 8);
         timeNow = timeNow.toJSON();
-        body.time = timeNow;
+        body.time = timeNow.replace('T',' ').substring(0,19);
         if(this.baseUrl=='/'){
             body.traceId = `${window.location.origin}/${body.traceId}`
         }
