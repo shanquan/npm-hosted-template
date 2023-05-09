@@ -8,7 +8,7 @@ import VConsole from 'vconsole';
 import VConsoleOutputLogsPlugin from '../vconsole-outputlog-plugin';
 
 export default {
-    log_url: "log/exi/", // log/exi/
+    log_url: "",
     pre_url: process.env.VUE_APP_PRE_URL,
     checkResult(response){ // 非json格式，优先checkPass判断并返回
         return response.headers['content-type'] == 'application/msexcel'
@@ -75,10 +75,11 @@ export default {
      */
     addLog(body){
         if(this.log_url&&(body.mac||body.ip)){
-            axios.post(`${this.log_url}log`,body, {
+            axios.post(`${this.log_url}log/exi/log`,body, {
                 headers: {
                     addLog:false,
-                    showError: false
+                    showError: false,
+                    token:''
                 },
             })
         }

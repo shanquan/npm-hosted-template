@@ -4,6 +4,7 @@
  * @description: 项目定制全局数据及公共方法,directives,filters
  */
 import Vue from 'vue'
+import api from './api'
 import sysRouter from 'user-sys/router.sys'
 import sysLang from 'user-sys/zh-CN.sys'
 
@@ -77,6 +78,11 @@ export default {
     for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
     return buf;
   },
+  /**
+   * 影响登录页跳转的条件判断
+   * @param {*} vm 
+   * @returns Promise.reject可阻止页面跳转，继续停留登录页
+   */
   beforeHome(vm){
     // console.log(vm.$store.state.user)
     return new Promise((resolve,reject)=>{
@@ -91,6 +97,31 @@ export default {
       // }).catch(err=>{
       //   reject(err)
       // })
+    })
+  },
+  /**
+   * 登录后执行
+   * @param {*} vm 
+   */
+  afterHome(vm){
+    vm.$children[0].systemArr = [vm.project]
+    vm.$children[0].systemCode = vm.$http.projectId;
+    // 接口获取systemArr
+    // vm.$children[0].systemArr = [{"projectName":"Zatanna","projectCode":"zatanna","url":"http://10.12.5.188:20003","id":3},{"projectName":"运营平台","projectCode":"omp","url":"http://10.12.7.111:6002","id":123}];
+    
+    // if(applang[vm.$http.projectCode]&&applang[vm.$http.projectCode][vm.$i18n.locale]){
+    //     vm.$i18n.mergeLocaleMessage(vm.$i18n.locale, applang[vm.$http.projectCode][vm.$i18n.locale]);
+    // }
+    vm.$http.showError = false
+    vm.$http.getPage(`${vm.$http.pre_url}mesSysConfig`,{
+      name:"LOG_URL"
+    },1,1).then(res=>{
+      if(res.DATA.length){
+        let url = res.DATA[0].value
+        url = url.endsWith('/')?url:url+'/';
+        vm.$http.log_url = url
+        api.log_url = url
+      }
     })
   }
 }

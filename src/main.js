@@ -53,7 +53,7 @@ router.beforeEach(async(to, from, next) => {
     }else{
         store.commit('setPageType',0)
     }
-    if(beforeHomeResult==undefined){
+    if(http.token && beforeHomeResult==undefined){
         await app.beforeHome(Vue.prototype).then(r=>{
             beforeHomeResult = true
         }).catch(e=>{
@@ -149,14 +149,7 @@ new Vue({
           return target;
         },
         initSession(auth) {
-            this.$children[0].systemArr = [this.project]
-            this.$children[0].systemCode = this.$http.projectId;
-            // 接口获取systemArr
-            // this.$children[0].systemArr = [{"projectName":"Zatanna","projectCode":"zatanna","url":"http://10.12.5.188:20003","id":3},{"projectName":"运营平台","projectCode":"omp","url":"http://10.12.7.111:6002","id":123}];
-            
-            // if(applang[this.$http.projectCode]&&applang[this.$http.projectCode][this.$i18n.locale]){
-            //     this.$i18n.mergeLocaleMessage(this.$i18n.locale, applang[this.$http.projectCode][this.$i18n.locale]);
-            // }
+            app.afterHome(this);
             this.initAuth(auth);
         },
         initAuth(auth) {
@@ -218,7 +211,7 @@ new Vue({
             this.$http.axios.post('user/api/mesSysMenu/getByIds',{
                 ids: iconIds
             },{
-                headers:{'showError': false}
+                headers:{'showError': false,'addLog': false}
             }).then(res=>{
                 iconIds = res.DATA.filter(el=>el.iconAddress)
                 this.menuList = this.menuList.map(el=>{
@@ -440,7 +433,8 @@ new Vue({
             this.$http.showError = false;
             this.$http.axios.post('user/exi/loginSource/getLoginSource',null,{
                 headers: {
-                    'showError': false
+                    'showError': false,
+                    'addLog': false
                 }
             }).then(res=>{
                 let themeSet = {}

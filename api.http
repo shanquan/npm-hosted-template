@@ -242,10 +242,10 @@ Content-Type: application/json
 
 {
   "traceId":"",
-  "type":"api",
+  "type":"pda_api",
   "status":"s",
   "logLevel":"INFO",
-  "content":" Request: \n",
+  "content":" Response",
   "time":"2023-05-06 16:36:18",
   "mac": "00"
 }

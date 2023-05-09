@@ -268,7 +268,11 @@ export default {
     },
     getPV(){
       this.$http.showError=false;
-      this.$http.axios.post(`${this.$http.user_url}sysAccessLog/getPV`).then(res=>{
+      this.$http.axios.post(`${this.$http.user_url}sysAccessLog/getPV`,null,{
+        headers:{
+          addLog: false
+        }
+      }).then(res=>{
         this.pvData.xAxis[0].data = res.DATA.list.map(el=>el.label);
         this.pvData.xAxis[0].show = true;
         this.pvData.series[0].data = res.DATA.list.map(el=>el.value);
@@ -287,6 +291,7 @@ export default {
       this.$http.axios.post(`${this.$http.pre_url}mesSysMaintainSche/getList`,param,{
           headers: {
             showError: false,
+            addLog: false
           },
         })
         .then(res=>{

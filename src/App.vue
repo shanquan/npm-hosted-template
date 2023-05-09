@@ -145,7 +145,7 @@ export default {
       async handler(nVal){
         this.showFrame = this.$http.token&&this.$route.meta.loginPass!=true&&this.$route.meta.showFrame!=false;
         this.$root.clearMsgBox();
-        if(this.$root.getAuthed==undefined&&this.$http.token){
+        if(this.$http.token && this.$root.getAuthed==undefined){
           this.$root.getAuthed = true;
           await this.$http.axios.get(`${this.$http.user_url}getAuthorityMenu?code=${this.$http.token}&projectId=${this.$http.projectId}`).then(response=>{
             let auth = response.DATA.AUTHORITIES
@@ -201,13 +201,6 @@ export default {
         }
       }
     },
-    // 统一设置监听窗口事件
-    // '$root.screenSize':function(){
-    //   let $tb = document.querySelector('.el-table');
-    //   // 如果页面中有表格，且表格设置了Height属性
-    //   if($tb&&Array.from($tb.classList).includes('el-table--scrollable-y'))
-    //   this.$root.resizeTable();
-    // }
   },
   computed:{
     isCollapse(){

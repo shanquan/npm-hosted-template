@@ -88,7 +88,7 @@ if (mock) {
         if(config.headers.addLog!==false)
         Api.addLog({
             traceId: config.url,
-            type: 'api',
+            type: 'pda_api',
             status: 's',
             logLevel: 'INFO',
             content: ' Request: \n'+JSON.stringify(config)
@@ -133,7 +133,7 @@ axios.interceptors.response.use(function(response) {
         if(response.config.headers.addLog!==false)
         Api.addLog({
             traceId: response.config.url,
-            type: 'api',
+            type: 'pda_api',
             status: 'e',
             logLevel: 'INFO',
             cost: cost,
@@ -193,7 +193,7 @@ axios.interceptors.response.use(function(response) {
         if(error.config.headers.addLog!==false)
         Api.addLog({
             traceId: error.config.url,
-            type: 'api',
+            type: 'pda_api',
             status: 'e',
             logLevel: 'ERROR',
             cost: cost,
