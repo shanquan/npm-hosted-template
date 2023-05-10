@@ -298,6 +298,8 @@ const Api = {
         body.time = timeNow.replace('T',' ').substring(0,19);
         if(this.baseUrl=='/'){
             body.traceId = `${window.location.origin}/${body.traceId}`
+        }else{
+            body.traceId = `${this.baseUrl}/${body.traceId}`
         }
         if(this.macAddress)
         body.mac = this.macAddress

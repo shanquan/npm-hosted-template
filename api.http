@@ -194,6 +194,9 @@ projectId:90
 
 ### # ======================= 其他 =======================
 
+### @name getSysTime
+POST {{base_url}}/{{project}}/exi/me/zerodowntime/getSysTime
+
 # 作业规则维护：/mesActivityOption ，支持多个值
 @code=LOCK_LIMIT
 ### @name getListByCode
@@ -222,6 +225,7 @@ Content-Type: application/x-www-form-urlencoded
 projectId:{{projectId}}
 
 &dictType=FONTCOLOR
+
 
 ### # ======================= 宝龙minio（PDA日志文件上传） =======================
 @url = http://10.12.7.46:20005/test-upload
