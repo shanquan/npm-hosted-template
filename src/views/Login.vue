@@ -367,6 +367,8 @@ export default {
         }
       } catch (e) {
         // console.log(e);
+        this.projectId = "";
+        this.projects = [];
         if (this.$store.state.pageType == 1 && !this.form.ip) {
           this.errMsg = "请输入地址";
         } else if (
@@ -383,8 +385,6 @@ export default {
           } else {
             formParam.hostName = this.form.ip;
           }
-          this.projectId = "";
-          this.projects = [];
           this.$http.showError = false;
           this.$http
             .getList(this.getConfigUrl("user/exi/mesSysProject"), formParam)
