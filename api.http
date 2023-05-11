@@ -1,5 +1,5 @@
 ### ======================= API接口定义 =======================
-@base_url = http://10.12.5.188:20003
+@base_url = http://10.12.5.188:20008
 @local_base_url = http://127.0.0.1:10020
 @project = zatanna
 @projectId = 3
@@ -196,7 +196,6 @@ projectId:90
 
 ### @name getSysTime
 POST {{base_url}}/{{project}}/exi/me/zerodowntime/getSysTime
-
 # 作业规则维护：/mesActivityOption ，支持多个值
 @code=LOCK_LIMIT
 ### @name getListByCode
@@ -206,16 +205,9 @@ token:{{token}}
 
 # 系统参数: /mesSysConfig，默认只能配置一个值
 ### @name mesSysConfig
-POST {{url}}/mesSysConfig/getPage
+POST {{base_url}}/{{project}}/api/me/mesSysConfig/config?name=DAYS_LIMIT
 Content-Type: application/json
 token:{{token}}
-projectId:{{projectId}}
-
-{
-    "currentPageNo":1,
-    "pageSize":1,
-    "name": "DAYS_LIMIT"
-}
 
 # 运营平台字典配置: 
 # 统一主题字体：dictType:FONTCOLOR；系统UI配置：dictType值配置为sysCode
@@ -228,20 +220,21 @@ projectId:{{projectId}}
 
 
 ### # ======================= 宝龙minio（PDA日志文件上传） =======================
-@url = http://10.12.7.46:20005/test-upload
+@minio_url = http://10.12.7.46:20005/test-upload
+@log_url = http://10.12.4.223:10099
 @filename = free_software_licenses.png
 
 ### @name download
-GET {{url}}/pdalog/{{filename}} HTTP/1.1
+GET {{minio_url}}/pdalog/{{filename}} HTTP/1.1
 
 ### @name upload
-PUT {{url}}/pdalog/{{filename}} HTTP/1.1
+PUT {{minio_url}}/pdalog/{{filename}} HTTP/1.1
 Content-Type: image/png
 
 < ./{{filename}}
 
 ### @name log
-POST http://10.12.4.223:10099/log/exi/log
+POST {{log_url}}/log/exi/log
 Content-Type: application/json
 
 {

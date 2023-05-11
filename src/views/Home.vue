@@ -193,13 +193,11 @@ export default {
     if(query.index>=0&&query.index<this.$root.mobileList.length){
       this.levelTop = this.$root.mobileList[query.index].subs==undefined?true:false;
     }
-    this.getPV();
-    this.getPersons();
-    this.$root.$on('detected',(data)=>{
-      console.log(data);
-    })
     if(this.pageType!=0){
       this.$store.commit('setPageType',1)
+    }else{
+      this.getPV();
+      this.getPersons();
     }
   },
   components: {

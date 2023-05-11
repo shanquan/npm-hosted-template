@@ -71,8 +71,8 @@ export default {
     onDetected(result){
       // console.log(result)
       var code = result.codeResult.code;
-      if(code)
-        this.$root.$emit('detected',code)
+      // if(code)
+      //   this.$root.$emit('detected',code)
     }
   }
 }

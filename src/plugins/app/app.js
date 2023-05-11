@@ -113,11 +113,9 @@ export default {
     //     vm.$i18n.mergeLocaleMessage(vm.$i18n.locale, applang[vm.$http.projectCode][vm.$i18n.locale]);
     // }
     vm.$http.showError = false
-    vm.$http.getPage(`${vm.$http.pre_url}mesSysConfig`,{
-      name:"LOG_URL"
-    },1,1).then(res=>{
-      if(res.DATA.length){
-        let url = res.DATA[0].value
+    vm.$http.axios.post('api/me/mesSysConfig/config?name=LOG_URL').then(res=>{
+      if(res.DATA){
+        let url = res.DATA
         url = url.endsWith('/')?url:url+'/';
         vm.$http.log_url = url
         api.log_url = url
