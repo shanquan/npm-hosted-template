@@ -55,7 +55,7 @@
       </div>
     </el-header>
     <!-- mobile page header -->
-    <el-header height="45px" class="mb-header" v-if="showFrame&&pageType==2"><el-page-header @back="goBack" :content="title"></el-page-header></el-header>
+    <el-header height="45px" class="mb-header" v-if="showFrame&&pageType==2"><i v-if="false" class="el-icon-s-home" @click="goBack(true)"></i><el-page-header @back="goBack(true)" :content="title"></el-page-header></el-header>
     <el-main>
     <!-- common parts -->
     <el-backtop target=".el-scroll" :bottom="100"></el-backtop>
@@ -293,11 +293,15 @@ export default {
     chgPsw(){
       this.dialogVisible = true;
     },
-    goBack(){
-      this.$store.commit('setPageType',1)
-      let index = this.$root.getMobileIndex(this.$route.name);
-      const homePath = process.env.VUE_APP_HOME=='/'||!process.env.VUE_APP_HOME ? `/?index=${index}`: process.env.VUE_APP_HOME;
-      this.$router.push({ path: homePath });
+    goBack(isHome){
+      if(isHome){
+        this.$store.commit('setPageType',1)
+        let index = this.$root.getMobileIndex(this.$route.name);
+        const homePath = process.env.VUE_APP_HOME=='/'||!process.env.VUE_APP_HOME ? `/?index=${index}`: process.env.VUE_APP_HOME;
+        this.$router.push({ path: homePath });
+      }else{
+        this.$router.go(-1)
+      }
     },
     /**
      * 手动添加页面breadcrumbs，适用于authPass:true的页面

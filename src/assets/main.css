@@ -357,6 +357,12 @@ width: 100%;}
     color: #fff
 }
 
+.mb-header i.el-icon-s-home{
+    position:absolute;
+    top: 13px;
+    left: 1px;
+    font-size: 20px;
+}
 .main-view {
     height: 100%;
     padding: 0px;
