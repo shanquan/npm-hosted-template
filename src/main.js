@@ -419,7 +419,7 @@ new Vue({
                 // if(window.cordova), 移动端从APP版本插件获取
                 this.version=process.env.VUE_APP_VERSION
             }
-            return this.version
+            return `V${this.version}.${process.env.VUE_APP_BUILD}`
         },
         getMac(){
             if(window.cordova){

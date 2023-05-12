@@ -1,5 +1,5 @@
 ### ======================= API接口定义 =======================
-@base_url = http://10.12.5.188:20008
+@base_url = http://10.12.5.188:20003
 @local_base_url = http://127.0.0.1:10020
 @project = zatanna
 @projectId = 3
@@ -196,6 +196,10 @@ projectId:90
 
 ### @name getSysTime
 POST {{base_url}}/{{project}}/exi/me/zerodowntime/getSysTime
+
+### @name version
+POST {{base_url}}/{{project}}/exi/me/zerodowntime/version
+
 # 作业规则维护：/mesActivityOption ，支持多个值
 @code=LOCK_LIMIT
 ### @name getListByCode
@@ -221,7 +225,10 @@ projectId:{{projectId}}
 
 ### # ======================= 宝龙minio（PDA日志文件上传） =======================
 @minio_url = http://10.12.7.46:20005/test-upload
+# 宝龙
 @log_url = http://10.12.4.223:10099
+# 中山
+# @log_url = http://10.71.190.70:20001
 @filename = free_software_licenses.png
 
 ### @name download
