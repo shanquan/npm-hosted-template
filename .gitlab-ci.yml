@@ -12,7 +12,7 @@ test:
   stage: test
   script:
     - echo $pwd
-    - $date = $(Get-Date -Format 'yyyymmdd')
+    - $date = $(Get-Date -Format 'yyyyMMdd')
     - echo $date
     - $content=get-content "vue.config.js"
     - $content = $content -replace "1.0.0",$VERSION
