@@ -15,14 +15,14 @@ process.env.VUE_APP_MENU_ROOT = "web"
 
 process.env.VUE_APP_MENU_MOBILE = "pda"
 process.env.VUE_APP_ID = "com.byd.flames"
-process.env.VUE_APP_VERSION = "1.0.0"
-process.env.VUE_APP_BUILD = "20230512_Release"
+process.env.VUE_APP_VERSION="1.0.0"
+process.env.VUE_APP_BUILD="Flames-Master_buildDate" // Flames-Master_20230515
 // process.env.VUE_APP_PROJECT_ONLY = '{"id":3,"projectName":"Zatanna","projectCode":""}' // 唯一项目，如果配置VUE_APP_PROJECT_ONLY，登录页不显示项目下拉框
 process.env.VUE_APP_HOME = "/" // 登录后主页路径，默认: /, 客户端配置：/config
 
 module.exports = {
     publicPath: "/admin", // /android_asset/www
-    // outputDir: "D://work/cordovaBuilder/www", // your cordova project directory
+    //outputDir: "D://work/cordovaBuilder/www", // your cordova project directory
     productionSourceMap: false,
     transpileDependencies: ["crypto-js"], // fix android6 unexpected token =
     // configureWebpack: config => {

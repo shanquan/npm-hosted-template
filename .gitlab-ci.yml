@@ -1,23 +1,97 @@
 stages:
+  - test
+  - compile
+  - build
   - deploy
 
-cache:
-  key: "npmCache"
-  paths:
-    - node_modules
+# cache:
+#   key: "npmCache"
+#   paths:
+#     - node_modules
 
-my_deploy:
-  stage: deploy
+variables:
+  APPID: Flames
+  VERSION: 1.0.0
+  LASTVERSION: 1.0.0
+  PROJECTDIR: D:\wwl\abuwms\
+  GRADLE_USER_HOME: C:\Users\wwl\.gradle
+
+test:
+  stage: test
   script:
+    # - cd ~
+    - echo $pwd
+    # C:\Windows\system32\config\systemprofile
+    - $date = $(Get-Date -Format 'yyyymmdd')
+    - echo $date
+  tags:
+    - tobeshell
+  only:
+    - master
+
+compile:
+  stage: compile
+  script:
+    - echo $pwd
     - npm -v
+    # - Expand-Archive -Path D:\wwl\gitlab\cache\root\flames-pda\npmCache\cache.zip ./
+    # - $content=get-content "vue.config.js"
+    # - $content = $content -replace "pda","android_asset/www"
+    # - $content = $content -replace "//outputDir","outputDir"
+    # - $content | out-file "vue.config.js" -encoding utf8
     - npm install --registry=http://10.12.5.188:10018/repository/npm-registry
-    - echo "start to build"
+    - echo "start to compile"
     - npm run build
-    - echo "build ok"
+    - echo "compile ok"
   artifacts:
     paths:
       - dist/
   tags:
-    - to-be-shell
+    - tobeshell
+  only:
+    - master
+  
+build:
+  stage: build
+  script:
+    - echo $pwd
+    - echo $GRADLE_USER_HOME
+    - echo "prepare project"
+    - rm $PROJECTDIR/www -r -fo
+    - rm $PROJECTDIR/config.xml -r -fo
+    - cp -R www $PROJECTDIR/
+    - cp config.xml $PROJECTDIR/
+    - echo "start to build"
+    - cd $PROJECTDIR
+    # - git restore .
+    # - git checkout flames
+    # - (Get-Content config.xml) | Foreach-Object {$_ -replace 'flames',$APPID} | Foreach-Object {$_ -replace '1.0.0',$VERSION} | Out-File -Encoding utf8 config.xml
+    # ./gradlew assembleRelease
+    - cordova build android --release
+    - echo "build ok"
+  tags:
+    - tobeshell
+  only:
+    - master
+
+release:
+  stage: release
+  script:
+    - echo $pwd
+    - cd $PROJECTDIR
+    # - ssh pda@10.12.6.67 "rm -rf /home/pda/server-deploy/public/$APPID"
+    # - scp -r ./www pda@10.12.6.67:/home/pda/server-deploy/public/$APPID
+    - scp -r platforms/android/app/build/outputs/apk/release/app-release.apk pda@10.12.6.67:/home/pda/server-deploy/public/uploads/$APPID'V'$VERSION.apk
+    # 更新版本：
+    - if($LASTVERSION -ne $VERSION) { ssh pda@10.12.6.67 "sed -i s/$APPID'V'$LASTVERSION/$APPID'V'$VERSION/ /home/pda/server-deploy/public/index.html" }
+    - mv platforms/android/app/build/outputs/apk/release/app-release.apk $dir/$APPID'V'$VERSION.apk
+    - echo $APPID'V'$VERSION.apk
+    - echo "deploy OK"
+  artifacts:
+    name: "${CI_COMMIT_REF_NAME}"
+    paths:
+      - $APPID"V"$VERSION.apk
+  tags:
+    - tobeshell  
   only:
     - master

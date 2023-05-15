@@ -67,7 +67,7 @@
       <!-- web side-menu -->
       <el-aside class="asidebg" v-if="showFrame&&this.pageType==0&&menuMode=='vertical'" style="width:auto">
         <main-menu :menuMode="menuMode" :menuList="$root.menuList"></main-menu>
-        <div v-if="!isCollapse" class="footer asidebg">{{$t('L10210')}}：{{$root.getAppVersion()}}</div>
+        <div v-if="!isCollapse" class="footer asidebg">{{$t('L10210')}}：{{appVersion}}</div>
       </el-aside>
       <el-main class="el-scroll">
         <div class="mt10" v-if="showFrame&&noticeMsg&&pageType==1"><span class="notice"><i class="el-icon-message-solid"></i> {{$t('L10217')}}：<marquee>{{noticeMsg}}</marquee></span></div>
@@ -234,7 +234,8 @@ export default {
       hasBreadcrumb: this.$root.hasBreadcrumb,
       hasTabs: this.$root.hasTabs, 
       menuMode: 'vertical',
-      vConsoleVisible: false
+      vConsoleVisible: false,
+      appVersion:this.$root.getAppVersion()
     }
   },
   methods:{

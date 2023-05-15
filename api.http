@@ -198,7 +198,7 @@ projectId:90
 POST {{base_url}}/{{project}}/exi/me/zerodowntime/getSysTime
 
 ### @name version
-POST {{base_url}}/{{project}}/exi/me/zerodowntime/version
+POST {{base_url}}/{{project}}/exi/me/sys/version
 
 # 作业规则维护：/mesActivityOption ，支持多个值
 @code=LOCK_LIMIT

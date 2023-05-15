@@ -112,14 +112,24 @@ export default {
     // if(applang[vm.$http.projectCode]&&applang[vm.$http.projectCode][vm.$i18n.locale]){
     //     vm.$i18n.mergeLocaleMessage(vm.$i18n.locale, applang[vm.$http.projectCode][vm.$i18n.locale]);
     // }
-    vm.$http.showError = false
-    vm.$http.axios.post('api/me/mesSysConfig/config?name=LOG_URL').then(res=>{
+    vm.$http.axios.post('api/me/mesSysConfig/config?name=LOG_URL',null,{
+      headers:{
+        showError: false
+      }
+    }).then(res=>{
       if(res.DATA){
         let url = res.DATA
         url = url.endsWith('/')?url:url+'/';
         vm.$http.log_url = url
         api.log_url = url
       }
+    })
+    vm.$http.axios.post('exi/me/sys/version',null,{
+      headers:{
+        showError: false
+      }
+    }).then(res=>{
+      vm.$children[0].appVersion = vm.$children[0].appVersion+'_'+res.DATA
     })
   }
 }

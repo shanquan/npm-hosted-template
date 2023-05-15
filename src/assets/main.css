@@ -480,7 +480,7 @@ td.dangerbg,th.dangerbg{background-color:#f33030!important;}
   .logo{width:200px;padding-left:20px;display:inline-block;}
   .logo svg{width:124px;height:28px}
   .el-aside .footer{height:34px;position:fixed;bottom:0;border-top:1px solid #fff;
-    line-height: 34px;
+    line-height: 18px;
     padding-left: 10px;font-size:10px;width:210px;z-index:2}
   .el-aside.asidebg{padding-bottom:34px;}
   .ad>img{
