@@ -154,7 +154,7 @@ export default {
           })
         }
         if(this.pageType==2)
-        this.title = this.$root.getMobileTitle(nVal.path);
+        this.title = this.$root.getMobileTitle(nVal.path)+'_'+this.$root.getAppVersion();
         //页面的breadcrumbs
         if(this.hasBreadcrumb)
         this.getBreadcrumbs(nVal);

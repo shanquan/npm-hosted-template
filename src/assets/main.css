@@ -352,9 +352,12 @@ width: 100%;}
 .mb-header .el-page-header {
     line-height: 45px
 }
-
+.mb-header .el-page-header__left{
+    min-width: 52px
+}
 .mb-header .el-page-header__content {
-    color: #fff
+    color: #fff;
+    line-height:24px;
 }
 
 .mb-header i.el-icon-s-home{

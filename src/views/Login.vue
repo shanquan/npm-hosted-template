@@ -83,7 +83,7 @@
         </div>
         <div class="midlayer" v-else>
           <el-input
-            v-if="pageType == 1"
+            v-if="isCordova && pageType == 1"
             type="text"
             class="mt18"
             size="medium"
@@ -355,6 +355,7 @@ export default {
       isChangePwd: false,
       loginDirectly: false,
       publicKey: "",
+      isCordova: window.cordova
     };
   },
   methods: {
@@ -369,10 +370,10 @@ export default {
         // console.log(e);
         this.projectId = "";
         this.projects = [];
-        if (this.$store.state.pageType == 1 && !this.form.ip) {
+        if (this.isCordova && this.$store.state.pageType == 1 && !this.form.ip) {
           this.errMsg = "请输入地址";
         } else if (
-          this.$store.state.pageType == 1 &&
+          this.isCordova && this.$store.state.pageType == 1 &&
           !this.$root.validIp(this.form.ip)
         ) {
           this.errMsg = "地址格式不正确";
@@ -511,7 +512,7 @@ export default {
       this.checked = verifyCode.validate(this.form.captcha);
     },
     getConfigUrl(url) {
-      if (this.$store.state.pageType == 1) {
+      if (this.isCordova && this.$store.state.pageType == 1) {
         return this.prefix + this.form.ip + "/" + url;
       }
       return url;
@@ -528,7 +529,7 @@ export default {
         user.single = true;
       }
       this.$http.setProjectId(this.projectId);
-      if (this.$store.state.pageType == 1) {
+      if (this.isCordova && this.$store.state.pageType == 1) {
         this.$http.setBaseUrl(this.prefix + this.form.ip);
       }
       this.$http.showLoading = true;
@@ -773,7 +774,7 @@ export default {
       rsa.setPublicKey(this.publicKey);
       const oaIdentification = rsa.encrypt(this.form.pwd);
       this.$http.setProjectId(this.projectId);
-      if (this.$store.state.pageType == 1) {
+      if (this.isCordova && this.$store.state.pageType == 1) {
         this.$http.setBaseUrl(this.prefix + this.form.ip);
       }
       this.$http.showLoading = true;
