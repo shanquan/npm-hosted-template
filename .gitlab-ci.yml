@@ -17,7 +17,7 @@ test:
     - $content=get-content "vue.config.js"
     - $content = $content -replace "1.0.0",$VERSION
     # - $content = $content -replace "master","$APPID-$CI_COMMIT_REF_NAME"
-    - $content = $content -replace "buildDate",$date
+    - $content = $content -replace "versionDate",$date
     - $content | out-file "vue.config.js" -encoding utf8
   tags:
     - tobeshell
