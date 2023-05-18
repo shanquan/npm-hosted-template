@@ -350,7 +350,9 @@ width: 100%;}
 }
 
 .mb-header .el-page-header {
-    line-height: 45px
+    line-height: 45px;
+    height: 45px;
+    overflow: hidden;
 }
 .mb-header .el-page-header__left{
     min-width: 52px
@@ -358,6 +360,7 @@ width: 100%;}
 .mb-header .el-page-header__content {
     color: #fff;
     line-height:24px;
+    text-overflow:ellipsis;
 }
 
 .mb-header i.el-icon-s-home{

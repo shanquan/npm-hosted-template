@@ -421,7 +421,7 @@ new Vue({
             }
             try{
                 var br = process.env.VUE_APP_BUILD.split('_')
-                return `${br[0]}-${this.version}-${br[1]}`
+                return `${br[0]}-${this.version}.${br[1]}-${br[2]}`
             }catch(e){console.error(e)}
             return `${process.env.VUE_APP_BUILD}-${this.version}`
         },
