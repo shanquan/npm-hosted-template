@@ -129,7 +129,7 @@ export default {
         showError: false
       }
     }).then(res=>{
-      vm.$children[0].appVersion = vm.$children[0].appVersion+'_'+res.DATA
+      vm.$children[0].appVersion = vm.getAppVersion()+'_'+res.DATA
     })
   }
 }
