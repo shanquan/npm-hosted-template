@@ -83,7 +83,7 @@
         </div>
         <div class="midlayer" v-else>
           <el-input
-            v-if="isCordova && pageType == 1"
+            v-if="isCordova"
             type="text"
             class="mt18"
             size="medium"
@@ -308,6 +308,7 @@ export default {
   data() {
     return {
       prefix: prefix,
+      isCordova: window.cordova,
       form: {
         user: "",
         pwd: "",
@@ -354,8 +355,7 @@ export default {
       email: "",
       isChangePwd: false,
       loginDirectly: false,
-      publicKey: "",
-      isCordova: window.cordova
+      publicKey: ""
     };
   },
   methods: {
@@ -370,10 +370,10 @@ export default {
         // console.log(e);
         this.projectId = "";
         this.projects = [];
-        if (this.isCordova && this.$store.state.pageType == 1 && !this.form.ip) {
+        if (this.isCordova && !this.form.ip) {
           this.errMsg = "请输入地址";
         } else if (
-          this.isCordova && this.$store.state.pageType == 1 &&
+          this.isCordova &&
           !this.$root.validIp(this.form.ip)
         ) {
           this.errMsg = "地址格式不正确";
@@ -381,7 +381,7 @@ export default {
           let formParam = {
             sysCode: process.env.VUE_APP_CODE,
           };
-          if (!this.isCordova || this.$store.state.pageType == 0) {
+          if (!this.isCordova) {
             formParam.hostName = process.env.NODE_ENV == 'development'?process.env.VUE_APP_DEV.substring(prefix.length,process.env.VUE_APP_DEV.length-1):window.location.host;
           } else {
             formParam.hostName = this.form.ip;
@@ -512,7 +512,7 @@ export default {
       this.checked = verifyCode.validate(this.form.captcha);
     },
     getConfigUrl(url) {
-      if (this.isCordova && this.$store.state.pageType == 1) {
+      if (this.isCordova) {
         return this.prefix + this.form.ip + "/" + url;
       }
       return url;
@@ -529,7 +529,7 @@ export default {
         user.single = true;
       }
       this.$http.setProjectId(this.projectId);
-      if (this.isCordova && this.$store.state.pageType == 1) {
+      if (this.isCordova) {
         this.$http.setBaseUrl(this.prefix + this.form.ip);
       }
       this.$http.showLoading = true;
@@ -650,7 +650,7 @@ export default {
       formParam.workNo = this.workNo;
       // formParam.email = this.email;
       //@todo 后端去掉写死flames-web
-      if (this.$store.state.pageType == 0) {
+      if (!this.isCordova) {
         formParam.baseUrl = `${window.location.origin}${
           process.env.BASE_URL ? process.env.BASE_URL : "/"
         }`;
@@ -774,7 +774,7 @@ export default {
       rsa.setPublicKey(this.publicKey);
       const oaIdentification = rsa.encrypt(this.form.pwd);
       this.$http.setProjectId(this.projectId);
-      if (this.isCordova && this.$store.state.pageType == 1) {
+      if (this.isCordova) {
         this.$http.setBaseUrl(this.prefix + this.form.ip);
       }
       this.$http.showLoading = true;
