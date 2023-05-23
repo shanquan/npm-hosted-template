@@ -381,7 +381,7 @@ export default {
           let formParam = {
             sysCode: process.env.VUE_APP_CODE,
           };
-          if (this.$store.state.pageType == 0) {
+          if (!this.isCordova || this.$store.state.pageType == 0) {
             formParam.hostName = process.env.NODE_ENV == 'development'?process.env.VUE_APP_DEV.substring(prefix.length,process.env.VUE_APP_DEV.length-1):window.location.host;
           } else {
             formParam.hostName = this.form.ip;
