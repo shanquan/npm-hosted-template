@@ -432,7 +432,7 @@ export default {
     },
     showHelpFn(){
       this.$http.showLoading = true;
-      let title = this.$route.path=="/"?"web页面":this.$t(this.$route.path,'zh');
+      let title = this.$route.path=="/"?this.$t(process.env.VUE_APP_MENU_ROOT,'zh-CN'):this.$t(this.$route.path,'zh-CN');
       this.$http.axios.get(`${this.$http.pre_url}mesSysWebhelp/getHtmlByTitle?title=${title}`,{
         headers: {
           showError: false

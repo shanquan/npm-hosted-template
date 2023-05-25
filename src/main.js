@@ -177,7 +177,7 @@ new Vue({
             let iconIds = [];
             if (webMenu && webMenu.subs) {
                 iconIds = iconIds.concat(webMenu.subs.map(el=>el.id));
-                this.getAuthLangs(webMenu.subs);
+                this.getAuthLangs(webMenu);
                 this.menuList = webMenu.subs.map(el => {
                     let iconEl = app.config.iconSet.find(e => e.index == el.index);
                     el.icon = iconEl ? iconEl.icon : 'el-icon-tickets';
@@ -198,7 +198,7 @@ new Vue({
             }
             if (mbMenu && mbMenu.subs) {
                 iconIds = iconIds.concat(mbMenu.subs.map(el=>el.id));
-                this.getAuthLangs(mbMenu.subs);
+                this.getAuthLangs(mbMenu);
                 this.mobileList = mbMenu.subs.map(el => {
                     let iconEl = app.config.iconSet.find(e => e.index == el.index);
                     el.icon = iconEl ? iconEl.icon : 'el-icon-tickets';
@@ -262,11 +262,13 @@ new Vue({
             })
             return item;
         },
-        getAuthLangs(list) {
+        getAuthLangs(menu) {
             let langSets = {
                 en: {},
                 zh: {}
             }
+            langSets.zh[menu.index] = menu.menuName;
+            langSets.en[menu.index] = menu.menuNameEn;
             const iteratorItem = function(el) {
                 let idx = el.index.startsWith('/')||el.index.startsWith('http') ? el.index : '/' + el.index;
                 langSets.zh[idx] = el.menuName;
@@ -277,7 +279,7 @@ new Vue({
                     })
                 }
             }
-            list.forEach(el => {
+            menu.subs.forEach(el => {
                     langSets.zh[el.index] = el.menuName;
                     langSets.en[el.index] = el.menuNameEn;
                     if (el.subs && el.subs.length) {
