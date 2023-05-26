@@ -525,11 +525,11 @@ td.dangerbg,th.dangerbg{background-color:#f33030!important;}
     .el-header.main {
         padding-left: 0px
     }
-    .login .el-footer{line-height: 30px;}
 }
 
 @media screen and (max-width: 767px) {
     .ms-hide {
         display: none;
     }
+    .login .el-footer{line-height: 30px;}
 }

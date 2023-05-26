@@ -110,7 +110,7 @@
             <div v-html="html"></div>
           </el-dialog>
       </el-main>
-      <el-footer height="40" v-if="pageType==1&&isHome||(pageType==2&&$root.mbVersionPos=='bottom')">{{appVersion}}</el-footer>
+      <el-footer class="center" height="40" v-if="pageType==1&&isHome||(pageType==2&&$root.mbVersionPos=='bottom')">{{appVersion}}</el-footer>
     </el-container>
     </el-main>
   </el-container>
