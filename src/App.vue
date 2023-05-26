@@ -154,12 +154,8 @@ export default {
             this.$root.initSession(auth)
           })
         }
-        if(this.pageType==2){
-          let title = this.$root.getMobileTitle(nVal.path);
-          if(this.$root.mbVersionPos=='top')
-          title += '_'+this.$root.getAppVersion();
-          this.title = title;
-        }
+        if(this.pageType==2)
+          this.title = this.$root.getMobileTitle(nVal.path);
         //页面的breadcrumbs
         if(this.hasBreadcrumb)
         this.getBreadcrumbs(nVal);

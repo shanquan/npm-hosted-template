@@ -79,7 +79,7 @@ export default {
     this.dom = echarts.init(this.$refs.dom);
     this.dom.setOption(option);
     if (this.data) this.drawing();
-    if (this.chartData.length) this.drawingData();
+    if (this.chartData) this.drawingData();
     // this.$root.charts.push(this);
     window.addEventListener("resize", this.resize);
   },
@@ -108,6 +108,7 @@ export default {
     },
     drawingData() {
       try {
+        if(!this.chartData.length) return;
         var columns = Object.keys(this.chartData[0]);
         var category = this.chartData.map(
           (el) => el[columns[0]]

@@ -300,6 +300,8 @@ new Vue({
                 if (item)
                     title = this.$i18n.t(item.index)
             }
+            if(this.mbVersionPos=='top')
+            title += '_'+this.getAppVersion();
             return title
         },
         getMobileIndex(name) {
