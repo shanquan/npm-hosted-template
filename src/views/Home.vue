@@ -322,7 +322,10 @@ export default {
   beforeRouteLeave (to,from,next) {
     if(this.pageType!=0&&this.levelTop==false&&to.name!="login"){
       this.$store.commit('setPageType',2)
-      this.$root.$children[0].title=this.$root.getMobileTitle(to.path);
+      let title = this.$root.getMobileTitle(to.path);
+      if(this.$root.mbVersionPos=='top')
+      title += '_'+this.$root.getAppVersion();
+      this.$root.$children[0].title = title;
     }
     next();
   }

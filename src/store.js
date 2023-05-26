@@ -12,7 +12,7 @@ export default new Vuex.Store({
 
   state: {
     menuCollapse: false,
-    pageType: 0, // 0: web menu 1: mobile menu 2: mobile page
+    pageType: 0, // 0: web menu&page 1: mobile menu 2: mobile page
     user: {}
   },
   mutations: {

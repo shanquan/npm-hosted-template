@@ -63,15 +63,15 @@
     <audio id="failAudio" src="./assets/audio/exclam.wav" hidden="true"></audio>
     <input id="copyIpt" type="text"/>
     <change-psw :dialogVisible="dialogVisible" @close="dialogVisible=false"></change-psw>
-    <el-container :class="{ topper: pageType==2, frame: showFrame }">
+    <el-container :class="{ topper: pageType==2, frame: showFrame }" :direction="pageType==0?'horizontal':'vertical'">
       <!-- web side-menu -->
-      <el-aside class="asidebg" v-if="showFrame&&this.pageType==0&&menuMode=='vertical'" style="width:auto">
+      <el-aside class="asidebg" v-if="showFrame&&pageType==0&&menuMode=='vertical'" style="width:auto">
         <main-menu :menuMode="menuMode" :menuList="$root.menuList"></main-menu>
         <div v-if="!isCollapse" class="footer asidebg">{{$t('L10210')}}：{{appVersion}}</div>
       </el-aside>
       <el-main class="el-scroll">
         <div class="mt10" v-if="showFrame&&noticeMsg&&pageType==1"><span class="notice"><i class="el-icon-message-solid"></i> {{$t('L10217')}}：<marquee>{{noticeMsg}}</marquee></span></div>
-        <el-header height="46px" class="tab-head" v-if="showFrame&&this.pageType==0&&($route.path=='/'||hasTabs)">
+        <el-header height="46px" class="tab-head" v-if="showFrame&&pageType==0&&(isHome||hasTabs)">
             <el-tabs
               v-model="editableTabsValue"
               type="card"
@@ -81,7 +81,7 @@
             >
             <el-tab-pane
                 :label="$t('L00016')"
-                name="/"
+                :name="homePath"
                 class="unclosable"
                 :closable="false"
               ></el-tab-pane>
@@ -95,9 +95,9 @@
             <span v-if="hasTabs &&editableTabs.length" :title="$t('L10230')" @click="closeTabs"><i class="el-icon-circle-close"></i></span>
             <span v-else class="icon primary" @click="showHelpFn" :title="$t('L50109')"><i class="el-icon-question"></i></span>
           </el-header>
-        <el-header height="38px" class="breadcrumbs-head" v-if="showFrame&&this.pageType==0&&$route.path!='/'&&hasBreadcrumb">
+        <el-header height="38px" class="breadcrumbs-head" v-if="showFrame&&pageType==0&&!isHome&&hasBreadcrumb">
           <el-breadcrumb v-if="pageType!=2&&breadcrumbs.length" class="padding" separator-class="el-icon-arrow-right"  :class="hasTabs?'has-tabs':''">
-            <el-breadcrumb-item :to="{ path: '/' }">{{$t('L00016')}}</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: homePath }">{{$t('L00016')}}</el-breadcrumb-item>
             <el-breadcrumb-item v-for="(item,idx) in breadcrumbs" :to="item.path?{path: item.path}:''" :key="idx">{{$t(item.index)}}</el-breadcrumb-item>
           </el-breadcrumb>
           <span class="icon primary" @click="showHelpFn" :title="$t('L50109')" v-if="showHelp"><i class="el-icon-question"></i></span>
@@ -110,6 +110,7 @@
             <div v-html="html"></div>
           </el-dialog>
       </el-main>
+      <el-footer height="40" v-if="pageType==1&&isHome||(pageType==2&&$root.mbVersionPos=='bottom')">{{appVersion}}</el-footer>
     </el-container>
     </el-main>
   </el-container>
@@ -153,8 +154,12 @@ export default {
             this.$root.initSession(auth)
           })
         }
-        if(this.pageType==2)
-        this.title = this.$root.getMobileTitle(nVal.path)+'_'+this.$root.getAppVersion();
+        if(this.pageType==2){
+          let title = this.$root.getMobileTitle(nVal.path);
+          if(this.$root.mbVersionPos=='top')
+          title += '_'+this.$root.getAppVersion();
+          this.title = title;
+        }
         //页面的breadcrumbs
         if(this.hasBreadcrumb)
         this.getBreadcrumbs(nVal);
@@ -174,13 +179,12 @@ export default {
             return;
           }
           // 初始tab显示
-          if(this.editableTabsValue=="/"){
+          if(this.editableTabsValue==this.homePath){
             let item = this.$root.findMenuItem(nVal.path,this.$root.menuList);
-            // console.log(nVal.path,item)
             if(item){
               this.editableTabsValue = item.index;
               this.editableTabs = [{name:item.index,path:item.index}];
-            }else if(nVal.path!="/login"){// 非菜单项页面
+            }else if(nVal.path!="/login"&&!this.isHome){// 非菜单项页面
               let p = this.$root.getMatchedPath(nVal);
               this.editableTabsValue = nVal.path;
               this.editableTabs = [{name:p,path:nVal.path}];
@@ -211,17 +215,21 @@ export default {
     },
     showHelp(){
       let menuIdx = this.menuPages.findIndex(el=>el.index==this.$route.path);
-      return menuIdx!=-1||this.$route.path=='/'
+      return menuIdx!=-1||this.isHome
     },
     menuPages(){
       return this.getMenuPages(this.$root.menuList)
+    },
+    isHome(){
+      return this.$route.path==this.homePath
     }
   },
   data(){
     return{
       user:this.$store.state.user,
       title:"",
-      editableTabsValue: "/",
+      homePath: process.env.VUE_APP_HOME||'/',
+      editableTabsValue: process.env.VUE_APP_HOME||'/',
       editableTabs: [],
       noticeMsg: "", // 系统通知
       dialogVisible: false,
@@ -298,7 +306,7 @@ export default {
       if(isHome){
         this.$store.commit('setPageType',1)
         let index = this.$root.getMobileIndex(this.$route.name);
-        const homePath = process.env.VUE_APP_HOME=='/'||!process.env.VUE_APP_HOME ? `/?index=${index}`: process.env.VUE_APP_HOME;
+        const homePath = this.homePath=='/' ? `/?index=${index}`: this.homePath;
         this.$router.push({ path: homePath });
       }else{
         this.$router.go(-1)
@@ -352,7 +360,7 @@ export default {
       if (this.editableTabsValue === targetName) {
         tabs.forEach((tab, index) => {
           if (tab.path === targetName) {
-            nextTab = tabs[index + 1] || tabs[index - 1] || {path:'/'};
+            nextTab = tabs[index + 1] || tabs[index - 1] || {path:this.homePath};
           }
         });
       }
@@ -426,13 +434,13 @@ export default {
         }catch(e){console.log(e)}
       })
       this.editableTabs = [];
-      this.editableTabsValue = '/';
+      this.editableTabsValue = this.homePath;
       if(pushnone!==true)
-      this.$router.push("/")
+      this.$router.push(this.homePath)
     },
     showHelpFn(){
       this.$http.showLoading = true;
-      let title = this.$route.path=="/"?this.$t(process.env.VUE_APP_MENU_ROOT,'zh-CN'):this.$t(this.$route.path,'zh-CN');
+      let title = this.isHome?this.$t(process.env.VUE_APP_MENU_ROOT,'zh-CN'):this.$t(this.$route.path,'zh-CN');
       this.$http.axios.get(`${this.$http.pre_url}mesSysWebhelp/getHtmlByTitle?title=${title}`,{
         headers: {
           showError: false
@@ -450,10 +458,10 @@ export default {
       let className="main-view";
       if(this.pageType==0&&this.$root.hasTabs&&!this.$root.hasBreadcrumb){
         className="tab-view";
-      }else if(this.pageType==0&&this.$root.hasBreadcrumb&&!this.$root.hasTabs&&this.$route.path!=='/'){
+      }else if(this.pageType==0&&this.$root.hasBreadcrumb&&!this.$root.hasTabs&&!this.isHome){
         className="breadcrumb-view";
       }else if(this.pageType==0&&this.$root.hasBreadcrumb&&this.$root.hasTabs){
-        className=this.$route.path=='/'?'tab-view':'mix-view'
+        className=this.isHome?'tab-view':'mix-view'
       }
       return className;
     },
