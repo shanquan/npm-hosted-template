@@ -147,9 +147,9 @@ axios.interceptors.response.use(function(response) {
             if(!Api.promptError&&response.config.headers.playFailAudio==true)
             Api.playFailAudio();
             if (Api.showError&&response.config.headers.showError!==false&& appApi.checkInvalid(response)) {
-                // localStorage.removeItem("aSession");
-                // window.location.href = `${window.location.origin}${process.env.BASE_URL?process.env.BASE_URL:'/'}index.html`;
-                // return;
+                localStorage.removeItem("aSession");
+                window.location.href = `${window.location.origin}${process.env.BASE_URL?process.env.BASE_URL:'/'}index.html`;
+                return;
             }
             let method = getMethod(response.config.url);
             if (Api.showError&&response.config.headers.showError!==false)
