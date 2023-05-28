@@ -102,7 +102,7 @@ const showErrMsg = function(title, msg) {
                 type: "error",
                 callback: (res) => {
                     if(res=='cancel'){
-                        MessageBox.closeAll()
+                        MessageBox.close()
                     }
                 }
             })
@@ -146,10 +146,10 @@ axios.interceptors.response.use(function(response) {
         const execErr = function() {
             if(!Api.promptError&&response.config.headers.playFailAudio==true)
             Api.playFailAudio();
-            if (Api.showError&&response.config.headers.showError!==false&&response.data.CODE == -1 && response.data.MESSAGE && response.data.MESSAGE.indexOf('登录') > -1) {
-                localStorage.removeItem("aSession");
-                window.location.href = `${window.location.origin}${process.env.BASE_URL?process.env.BASE_URL:'/'}index.html`;
-                return;
+            if (Api.showError&&response.config.headers.showError!==false&& appApi.checkInvalid(response)) {
+                // localStorage.removeItem("aSession");
+                // window.location.href = `${window.location.origin}${process.env.BASE_URL?process.env.BASE_URL:'/'}index.html`;
+                // return;
             }
             let method = getMethod(response.config.url);
             if (Api.showError&&response.config.headers.showError!==false)

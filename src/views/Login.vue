@@ -706,6 +706,7 @@ export default {
       this.errMsg = "";
     },
     loginPass(response) {
+      delete response.DATA.USER.password
       let session = {
         user: response.DATA.USER,
         token: response.DATA.TOKEN,
