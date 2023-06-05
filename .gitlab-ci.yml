@@ -15,7 +15,7 @@ test:
     - $date = $(Get-Date -Format 'yyyyMMdd')
     - echo $date
     - $content=get-content "vue.config.js"
-    - $content = $content -replace "1.0.0",$VERSION
+    - $content = $content -replace "process.env.VUE_APP_VERSION = [`"|'](.*?)[`"|']","process.env.VUE_APP_VERSION = `"$VERSION`""
     # - $content = $content -replace "Flames-M","$APPID-$CI_COMMIT_REF_NAME"
     # - $content = $content -replace "builds",$CI_PIPELINE_ID
     - $content = $content -replace "versionDate",$date
