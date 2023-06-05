@@ -297,10 +297,11 @@ const Api = {
         timeNow = timeNow.toJSON();
         body.time = timeNow.replace('T',' ').substring(0,19);
         if(this.baseUrl=='/'){
-            body.traceId = `${window.location.origin}/${body.traceId}`
+            body.content = `Url:${window.location.origin}/${body.traceId} `+body.content;
         }else{
-            body.traceId = `${this.baseUrl}/${body.traceId}`
+            body.content = `Url:${this.baseUrl}/${body.traceId} `+body.content;
         }
+        body.traceId = ""
         if(this.macAddress)
         body.mac = this.macAddress
         if(this.projectId)
