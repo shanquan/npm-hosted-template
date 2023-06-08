@@ -189,12 +189,22 @@ export default {
           // 更新tab.path
           let tabIdx1 = this.editableTabs.findIndex(el=>el.path==this.editableTabsValue);
           let tabIdx2 = this.editableTabs.findIndex(el=>el.path==nVal.path);
+          let p = this.$root.getMatchedPath(nVal);
+          let tabIdx3 = this.editableTabs.findIndex(el=>el.name==p);
           let menuIdx = this.menuPages.findIndex(el=>el.index==nVal.path);
           if(tabIdx1>-1){
-            if(tabIdx2==-1&&menuIdx==-1){
-              this.editableTabs[tabIdx1].path=nVal.path;
-            }else if(menuIdx>-1){
-              this.addTab({name:nVal.path,path:nVal.path})
+            if(this.$root.addNewTabMode){
+              if(tabIdx3==-1&&p){
+                this.addTab({name:p,path:nVal.path})
+              }else if(tabIdx3>-1){
+                this.editableTabs[tabIdx3].path = nVal.path
+              }
+            }else{
+              if(tabIdx2==-1&&menuIdx==-1){
+                this.editableTabs[tabIdx1].path=nVal.path;
+              }else if(menuIdx>-1){
+                this.addTab({name:nVal.path,path:nVal.path})
+              }
             }
             this.editableTabsValue = nVal.path;
           }
@@ -338,19 +348,7 @@ export default {
      * @param {Object} targetName
      */
     removeTab(targetName) {
-      // see ref: https://github.com/vuejs/vue/issues/6509
-      // 以下key仅支持当前页
-      // let key = this.$refs.rv.$vnode.key == null
-      //           ? this.$refs.rv.$vnode.componentOptions.Ctor.cid + (this.$refs.rv.$vnode.componentOptions.tag ? `::${this.$refs.rv.$vnode.componentOptions.tag}` : '')
-      //           : this.$refs.rv.$vnode.key;
-      try{
-        let vm = this.$router.getMatchedComponents(targetName);
-        if(vm&&vm[0]){
-          let key = vm[0]._Ctor[0].cid;
-          this.removeCache(key);
-        }
-      }catch(e){console.log(e)}
-
+      this.removeCache(targetName)
       let tabs = this.editableTabs;
       var nextTab = "";
       if (this.editableTabsValue === targetName) {
@@ -369,20 +367,31 @@ export default {
     /**
      * 移除keep-alive中的缓存组件
      */
-    removeCache(key){
-      let cache = this.$refs.rv.$vnode.parent.componentInstance.cache;
-      let keys = this.$refs.rv.$vnode.parent.componentInstance.keys;
-      if (cache[key])
-      {
-          if (keys.length) {
-              var index = keys.indexOf(key);
-              if (index > -1) {
-                  keys.splice(index, 1);
+    removeCache(path){
+      // see ref: https://github.com/vuejs/vue/issues/6509
+      // 以下key仅支持当前页
+      // let key = this.$refs.rv.$vnode.key == null
+      //           ? this.$refs.rv.$vnode.componentOptions.Ctor.cid + (this.$refs.rv.$vnode.componentOptions.tag ? `::${this.$refs.rv.$vnode.componentOptions.tag}` : '')
+      //           : this.$refs.rv.$vnode.key;
+      try{
+        let vm = this.$router.getMatchedComponents(path);
+        if(vm&&vm[0]){
+          let key = vm[0]._Ctor[0].cid;
+          let cache = this.$refs.rv.$vnode.parent.componentInstance.cache;
+          let keys = this.$refs.rv.$vnode.parent.componentInstance.keys;
+          if (cache[key])
+          {
+              if (keys.length) {
+                  var index = keys.indexOf(key);
+                  if (index > -1) {
+                      keys.splice(index, 1);
+                  }
               }
+              cache[key].componentInstance.$destroy();
+              delete cache[key];
           }
-          cache[key].componentInstance.$destroy();
-          delete cache[key];
-      }
+        }
+      }catch(e){console.log(e)}
     },
     /**
      * 点击切换路由
@@ -420,14 +429,7 @@ export default {
     },
     closeTabs(pushnone){
       this.editableTabs.forEach(tab=>{
-        try{
-          // 根据tab.path找到对应component并清除缓存
-          let vm = this.$router.getMatchedComponents(tab.path);
-          if(vm&&vm[0]){
-            let key = vm[0]._Ctor[0].cid;
-            this.removeCache(key);
-          }
-        }catch(e){console.log(e)}
+        this.removeCache(tab.path)
       })
       this.editableTabs = [];
       this.editableTabsValue = this.homePath;

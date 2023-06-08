@@ -79,6 +79,7 @@ const appConfigDefault = {
     pwdRule: {pattern:/^(?![A-Z0-9]+$)(?![a-zA-Z]+$)(?![a-z0-9]+$)(?![a-z&*%#@]+$)(?![A-Z&*%#@]+$)(?![0-9&*%#@]+$)[a-z0-9A-Z&*%#@]{8,}$/,message:'L00041',trigger:'blur'},// 所有特殊字符含中文：\W_
     hasBreadcrumb: true,
     hasTabs: false,
+    addNewTabMode: false, // 新增、修改页添加新标签
     pwdPolicy: false, // 定期修改密码且浏览器不能记住密码（生产类系统，安全性要求较高），默认：false
     remPwd: false, // 人机校验，默认：false
     mbVersionPos: 'top', // 移动页面版本信息显示位置('',top,bottom)，默认top

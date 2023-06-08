@@ -48,6 +48,9 @@ const iconSet = [{
 export default {
   config:{ // 项目自定义配置，可覆盖默认main.js中的appConfigDefault
     iconSet,
+    hasBreadcrumb: true,
+    hasTabs: false,
+    addNewTabMode: true
     // patternRule: { pattern: /^[^`!#%&+=<>?:"{}|,.\/;'\\[\]·！#￥%……&（）——+={}|《》？：“”【】、；‘'，。、]+$/, message: 'L00033', trigger: 'blur' }, // 名称（含中文）/通用输入规则,黑名单,
     // patternEnRule: { pattern: /^[A-Za-z0-9\*\-_(\)\^@~\$]+$/, message: 'L00036', trigger: 'blur' }, // 英文数字/通用输入规则,白名单
     // patternDspRule: { pattern: /^[A-Za-z0-9\u4e00-\u9fa5\*\-\_\(\)\^@~\$ ,\.\?;:!，。；、？！\r\n]+$/, message: 'L00033', trigger: 'blur' }, // 描述输入规则，白名单
