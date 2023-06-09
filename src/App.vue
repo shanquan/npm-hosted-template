@@ -428,9 +428,13 @@ export default {
       this[command]();
     },
     closeTabs(pushnone){
-      // 清除所有页面keepAlive缓存
-      this.$refs.rv.$vnode.parent.componentInstance.cache = {};
-      this.$refs.rv.$vnode.parent.componentInstance.keys = [];
+      try{
+        // 清除所有页面keepAlive缓存
+        this.$refs.rv.$vnode.parent.componentInstance.cache = {};
+        this.$refs.rv.$vnode.parent.componentInstance.keys = [];
+      }catch(e){
+        console.info(e)
+      }
       this.editableTabs = [];
       this.editableTabsValue = this.homePath;
       if(pushnone!==true)
