@@ -4,11 +4,13 @@
  * @description: 框架公共文件，慎重修改
  */
 import axios from 'axios'
+import VConsole from 'vconsole';
+import VConsoleOutputLogsPlugin from './plugins/vconsole-outputlog-plugin';
 import {
     // Message,
     Loading,MessageBox,Notification} from 'element-ui'
 import i18n from '@/i18n'
-import appApi from '@/plugins/app/api'
+import appApi from './app/api'
 var baseUrl = '/',
     token = '',
     projectCode = '',
@@ -28,8 +30,10 @@ var baseUrl = '/',
  * 
  */
 const MOCKMETHORDS = ['save', 'updateById', 'removeById', 'remoteListId', 'changePwd'], // 模拟接口默认返回PASS的接口名
-    user_url = 'user/api/';
+    user_url = 'user/api/',
+    mes_url = "mes/api/";
 var promptError = true, // 请求错误是否弹窗，false时使用消息提示框
+log_url = '',
 mock = false;
 
 axios.defaults.baseURL = baseUrl;
@@ -228,6 +232,8 @@ const Api = {
     axios,
     baseUrl,
     user_url,
+    mes_url,
+    log_url,
     mock,
     projectCode,
     projectId,
@@ -291,6 +297,10 @@ const Api = {
         let promise = axios.post(`user/exi/resetPwd/resetPwd`, data);
         return promise;
     },
+    initVConsole(){
+        window.vConsole = new VConsole()
+        const plugin = new VConsoleOutputLogsPlugin(window.vConsole)
+    },
     addLog(body){
         var timeNow = new Date();
         timeNow.setHours(timeNow.getHours() + 8);
@@ -306,7 +316,7 @@ const Api = {
         body.mac = this.macAddress
         if(this.projectId)
         body.project = this.projectId
-        appApi.addLog(body);
+        appApi.addLog(body,this.log_url);
     }
 }
 export default Api;

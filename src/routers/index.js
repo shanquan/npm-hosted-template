@@ -15,8 +15,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/views/Home.vue'
 import Login from '@/views/Login.vue'
-import Config from '@/views/Config.vue'
-import app from '@/plugins/app/app'
+import app from '../app/main'
 
 Vue.use(Router)
 let routers = [...app.routers];
@@ -73,11 +72,6 @@ export default new Router({
             meta: { loginPass: true, authPass: true},
             component: () =>
                 import ('../views/resetPwd.vue')
-        }, {
-            path: '/config',
-            name: 'config',
-            meta: { authPass: true },
-            component: Config
         }
     ].concat(routers)
 })

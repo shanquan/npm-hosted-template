@@ -13,20 +13,15 @@ import i18n from './i18n'
 import './plugins/element.js'
 import './theme/index.css'; // 主题css，不动
 import './assets/main.css'; // 框架css, 不动
-import './assets/app/app.css'; // 应用定制css
 import './plugins/echarts.js';
 import fullscreen from 'vue-fullscreen';
-import directives from '@/plugins/directives';
-import filters from '@/plugins/filters';
-import app from './plugins/app/app.js'; // 应用定制js
+import app from './app/main'; // 应用定制js
 
 Vue.use(fullscreen);
-Vue.use(directives);
-Vue.use(filters);
 
 Vue.config.productionTip = false
 Vue.prototype.$http = http;
-Vue.prototype.$app = app;
+Vue.prototype.$app = app; // 应用定制配置
 
 let project,beforeHomeResult;
 try {
@@ -70,7 +65,6 @@ router.beforeEach(async(to, from, next) => {
     }
 })
 const appConfigDefault = {
-    salt: 'BYD',
     authCheck: true, // 全局菜单权限开关
     pageList: [10, 20, 50, 100, 200, 500],
     pageSize: 10,
@@ -82,7 +76,7 @@ const appConfigDefault = {
     addNewTabMode: false, // 新增、修改页添加新标签
     pwdPolicy: false, // 定期修改密码且浏览器不能记住密码（生产类系统，安全性要求较高），默认：false
     remPwd: false, // 人机校验，默认：false
-    mbVersionPos: 'top', // 移动页面版本信息显示位置('',top,bottom)，默认top
+    mbVersionPos: '', // 移动页面版本信息显示位置('',top,bottom)，默认top
     theme: 'default', // 默认主题
     themeSets:{
         filtergray:{

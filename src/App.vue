@@ -443,7 +443,7 @@ export default {
     showHelpFn(){
       this.$http.showLoading = true;
       let title = this.isHome?this.$t(process.env.VUE_APP_MENU_ROOT,'zh-CN'):this.$t(this.$route.path,'zh-CN');
-      this.$http.axios.get(`${this.$http.pre_url}mesSysWebhelp/getHtmlByTitle?title=${title}`,{
+      this.$http.axios.get(`${this.$http.mes_url}mesSysWebhelp/getHtmlByTitle?title=${title}`,{
         headers: {
           showError: false
         }

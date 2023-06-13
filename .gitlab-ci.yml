@@ -14,7 +14,7 @@ test:
     - echo $pwd
     - $date = $(Get-Date -Format 'yyyyMMdd')
     - echo $date
-    - $content=get-content "vue.config.js" -encoding utf8
+    - $content=get-content "vue.config.js" -encoding utf8 -Raw
     # powershell ref: https://learn.microsoft.com/zh-cn/powershell/module/microsoft.powershell.core/about/about_comparison_operators?view=powershell-7.2#matching-operators
     - if ($content -match "process.env.VUE_APP_VERSION = [`"|'](.*?)[`"|']") {    $Matches   }
     - if ($Matches.Count -gt 1) {$VERSION = $Matches[1]}

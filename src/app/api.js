@@ -4,12 +4,9 @@
  * @description: app api定义
  */
 import axios from 'axios'
-import VConsole from 'vconsole';
-import VConsoleOutputLogsPlugin from '../vconsole-outputlog-plugin';
 
 export default {
-    log_url: "",
-    pre_url: process.env.VUE_APP_PRE_URL,
+    app_url: "app/api/",
     checkInvalid(response){
         return response.data.MESSAGE && response.data.MESSAGE.indexOf('登录') > -1
     },
@@ -68,17 +65,13 @@ export default {
         });
         return promise;
     },
-    initVConsole(){
-        window.vConsole = new VConsole()
-        const plugin = new VConsoleOutputLogsPlugin(window.vConsole)
-    },
     /**
      * @function addVConsoleLog 
      * @description 添加vConsole日志，支持导出与复制
      */
-    addLog(body){
-        if(this.log_url&&(body.mac||body.ip)){
-            axios.post(`${this.log_url}log/exi/log`,body, {
+    addLog(body,log_url){
+        if(log_url&&(body.mac||body.ip)){
+            axios.post(`${log_url}log/exi/log`,body, {
                 headers: {
                     addLog:false,
                     showError: false,

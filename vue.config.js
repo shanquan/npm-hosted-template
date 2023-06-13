@@ -7,10 +7,8 @@
 process.env.VUE_APP_DEV = "http://10.12.5.188:20003/"
 process.env.VUE_APP_PRO = "http://10.12.5.188:20008/"
 process.env.VUE_APP_LOCAL = "http://127.0.0.1:10020/"
-process.env.VUE_APP_LOG = "http://10.12.4.223:10099/"
 
 process.env.VUE_APP_CODE = "BYD_FLAMES"
-process.env.VUE_APP_PRE_URL = "mes/api/"
 process.env.VUE_APP_MENU_ROOT = "web"
 
 process.env.VUE_APP_MENU_MOBILE = "pda"
@@ -45,16 +43,6 @@ module.exports = {
                 // onProxyReq: (proxyReq)=>{
                 //     console.log(proxyReq.getHeader('host')+proxyReq.path)
                 // }
-            },
-            '/zatanna/log/*': {
-                target: process.env.VUE_APP_LOG,
-                changeOrigin: true,
-                pathRewrite: {
-                    "^/zatanna": '/'
-                },
-                onProxyReq: (proxyReq)=>{
-                    console.log(proxyReq.getHeader('host')+proxyReq.path)
-                }
             },
             '/zatanna//*': {
                 target: process.env.VUE_APP_DEV,

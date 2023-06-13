@@ -4,7 +4,9 @@
  * @description: 项目定制全局数据及公共方法,directives,filters
  */
 import Vue from 'vue'
-import api from './api'
+import directives from './directives';
+import filters from './filters';
+import './assets/app.css';
 import sysRouter from 'user-sys/router.sys'
 import sysLang from 'user-sys/zh-CN.sys'
 
@@ -14,11 +16,8 @@ import sysLang from 'user-sys/zh-CN.sys'
 /**
  * global filters
  */
-Vue.filter('capitalize', function (value) {
-  if (!value) return ''
-  value = value.toString()
-  return value.charAt(0).toUpperCase() + value.slice(1)
-})
+Vue.use(directives);
+Vue.use(filters);
 
 /**
  * global data, cache or localstorage
@@ -59,7 +58,13 @@ export default {
   },
   routers: [].concat(sysRouter.router),
   langs:{...sysLang},
-  data:{ // 项目自定义全局数据
+  data:{
+  },
+  getBuffer(s) {
+    let buf = new ArrayBuffer(s.length);
+    let view = new Uint8Array(buf);
+    for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+    return buf;
   },
   isMobile() {
       // for ipad: /macintosh|mac os x/i.test(navigator.userAgent) && window.screen.height > window.screen.width
@@ -74,12 +79,6 @@ export default {
   },
   devReady(){
     // 应用cordova插件方法
-  },
-  getBuffer(s) {
-    let buf = new ArrayBuffer(s.length);
-    let view = new Uint8Array(buf);
-    for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
-    return buf;
   },
   /**
    * 影响登录页跳转的条件判断
@@ -124,7 +123,6 @@ export default {
         let url = res.DATA
         url = url.endsWith('/')?url:url+'/';
         vm.$http.log_url = url
-        api.log_url = url
       }
     })
     vm.$http.axios.post('exi/me/sys/version',null,{

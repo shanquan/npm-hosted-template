@@ -4,7 +4,7 @@
  * @description: 本文件为框架基础文件之一，慎重修改
  */
 import applang from './app'
-import app from '@/plugins/app/app'
+import app from '../app/main'
 
 let langs = {};
 Object.assign(langs,app.langs)

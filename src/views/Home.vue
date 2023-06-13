@@ -115,8 +115,8 @@ const order={
   qty: 1,
   progress: 76
 }
-import apiTop from '@/components/home/ApiTop.vue'
-import orderProgress from '@/components/home/OrderProgress.vue'
+import apiTop from '../app/components/home/ApiTop.vue'
+import orderProgress from '../app/components/home/OrderProgress.vue'
 import chartArea from '@/components/Chart.vue'
 const listPersonCount=6000,scrollNum=1;
 let playTimer;
@@ -286,7 +286,7 @@ export default {
     getPersons(){
       var param = {};
       // this.$http.getMockFile('mesSysMaintainSche_getList.json')
-      this.$http.axios.post(`${this.$http.pre_url}mesSysMaintainSche/getList`,param,{
+      this.$http.axios.post(`${this.$http.mes_url}mesSysMaintainSche/getList`,param,{
           headers: {
             showError: false,
             addLog: false

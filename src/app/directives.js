@@ -1,3 +1,8 @@
+/**
+ * @author wang.weili
+ * @since : 2023/06/13
+ * @description: app directives
+ */
 export default {
     install (Vue) {
       // 防重复点击(指令实现)
