@@ -348,6 +348,9 @@ new Vue({
             try {
                 // 默认减去Tabs栏高度(46)||Breadcrumbs栏高度(38)+分页组件高度(32)+空白边距(5)=83
                 offset = offset || 37;
+                if(app.isMobile()){
+                    offset -= 40
+                }
                 if(this.hasTabs){
                     offset += 46
                 }
