@@ -11,21 +11,20 @@ Object.assign(langs,app.langs)
 
 // 自动合并langs下所有zh-CN.xx.js（公共）和views下所有zh-CN.xx.js（页面）
 try{
-  const files = require.context("./", false, /^\.\/zh-CN.*\.js$/);
-  const viewFiles = require.context("@/views/", true, /zh-CN.*\.js$/);
-  files.keys().forEach((file) => {
-    const obj = files(file).default;
+  const files = import.meta.globEager("./zh-CN.*.js");
+  const viewFiles = import.meta.globEager("@/views/**/zh-CN.*.js");
+  for (const path in files) {
+    const obj = files[path].default;
     if (obj){
       Object.assign(langs, obj)
     }
-  });
-  viewFiles.keys().forEach((file) => {
-    // console.log(file)
-    const obj = viewFiles(file).default;
+  }
+  for (const path in viewFiles) {
+    const obj = viewFiles[path].default;
     if (obj){
       Object.assign(langs, obj)
     }
-  });
+  }
   // 合并系统定制翻译字段
   Object.assign(langs, applang[process.env.VUE_APP_CODE])
 }catch(e){
