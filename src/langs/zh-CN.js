@@ -11,8 +11,8 @@ Object.assign(langs,app.langs)
 
 // 自动合并langs下所有zh-CN.xx.js（公共）和views下所有zh-CN.xx.js（页面）
 try{
-  const files = import.meta.globEager("./zh-CN.*.js");
-  const viewFiles = import.meta.globEager("@/views/**/zh-CN.*.js");
+  const files = import.meta.glob("./zh-CN.*.js",{eager:true});
+  const viewFiles = import.meta.glob("@/views/**/zh-CN.*.js",{eager:true});
   for (const path in files) {
     const obj = files[path].default;
     if (obj){

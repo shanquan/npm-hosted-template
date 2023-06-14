@@ -21,8 +21,8 @@ Vue.use(Router)
 let routers = [...app.routers];
 // 自动合并routers下所有router.xx.js（公共）和views下所有router.xx.js（页面）
 try{
-    const files = import.meta.globEager("./router.*.js");
-    const viewFiles = import.meta.globEager("@/views/**/router.*.js");
+    const files = import.meta.glob("./router.*.js",{eager:true});
+    const viewFiles = import.meta.glob("@/views/**/router.*.js",{eager:true});
     for (const path in files) {
         const obj = files[path].default;
         if (obj){
