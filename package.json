@@ -29,10 +29,10 @@
     "devDependencies": {
         "@vue/cli-plugin-babel": "~4.5.18",
         "@vue/cli-plugin-eslint": "~4.5.18",
-        "@originjs/vite-plugin-require-context": "^1.0.9",
-        "@vitejs/plugin-legacy": "^4.0.4",
         "babel-eslint": "^10.1.0",
         "eslint-plugin-vue": "^6.2.2",
+        "@originjs/vite-plugin-require-context": "^1.0.9",
+        "@vitejs/plugin-legacy": "^4.0.4",
         "vite": "^4.3.9",
         "vite-plugin-html": "^3.2.0",
         "vite-plugin-vue2": "^2.0.3",
@@ -55,7 +55,8 @@
             "no-constant-condition": "off",
             "no-unused-vars": "off",
             "no-redeclare": "off",
-            "no-extra-semi": "off"
+            "no-extra-semi": "off",
+            "no-empty": "off"
         }
     },
     "browserslist": [

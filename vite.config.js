@@ -20,10 +20,11 @@ process.env.VUE_APP_VERSION = "1.0.0"
 process.env.VUE_APP_BUILD = "Flames-M_builds_versionDate"
 // process.env.VUE_APP_PROJECT_ONLY = '{"id":3,"projectName":"Zatanna","projectCode":""}' // 唯一项目，如果配置VUE_APP_PROJECT_ONLY，登录页不显示项目下拉框
 process.env.VUE_APP_HOME = "/" // 登录后主页路径，默认: /, 客户端配置：/config
+process.env.BASE_URL = "/admin"
 
 export default (mode) => {
     return defineConfig({
-        base: '/',
+        base: process.env.BASE_URL,
         build:{
             outDir: 'dist',
             sourcemap: false

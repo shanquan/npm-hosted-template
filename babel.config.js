@@ -1,6 +1,7 @@
 module.exports = {
   "presets": [
-    "@vue/app",
+    // "@babel/env" // for vite
+    "@vue/app", // for webpack
     // "es2015"
   ],
   "plugins": [
