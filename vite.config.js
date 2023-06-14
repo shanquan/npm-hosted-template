@@ -35,7 +35,11 @@ export default (mode) => {
                 template: 'public/index.html',
                 inject: {
                     data: {
-                        title: 'ADMIN',
+                        htmlWebpackPlugin:{
+                            options: {
+                                title: 'ADMIN',
+                            }
+                        }
                     }
                 }
             }),
