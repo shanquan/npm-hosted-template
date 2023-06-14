@@ -85,7 +85,7 @@ if (mock) {
             return config
         }
         // 非user类接口请求统一添加projectCode前缀
-        if (!config.url.startsWith('user') && (!config.url.startsWith('http://')) && Api.projectCode) {
+        if (!config.url.startsWith('user') && (!config.url.startsWith('http')) && Api.projectCode) {
             config.url = `${Api.projectCode}/` + config.url;
         }
         config.headers['request-startTime'] = new Date().getTime()

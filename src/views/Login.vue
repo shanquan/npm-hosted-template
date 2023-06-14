@@ -90,7 +90,7 @@
             v-model.trim="form.ip"
             @change="getProjectList"
           >
-            <template slot="prepend">{{ prefix }}</template>
+            <template slot="prepend"><div @click="prefixChange">{{ prefix }}</div></template>
           </el-input>
           <el-select v-if="!$root.project.id" v-model="projectId" class="mt18" size="medium">
             <svg slot="prefix" class="icon-inner">
@@ -258,13 +258,21 @@
 import GVerify from "../plugins/gVerify.js";
 import { AES, MD5, enc } from "crypto-js";
 import { JSEncrypt } from "jsencrypt";
-const prefix = "http://",
-  nonce = "bn000f";
+
+const nonce = "bn000f";
 let verifyCode,
   msgIdx = 0;
+
 export default {
   name: "login",
   created() {
+    if(localStorage.getItem("aHost")&&localStorage.getItem("aHost").startsWith('http')){
+      this.form.ip = localStorage.getItem("aHost").substring(this.prefix.length)
+    }else if(localStorage.getItem("aHost")){
+      this.form.ip = localStorage.getItem("aHost")
+    }else{
+      this.form.ip = process.env.VUE_APP_DEV.substring(this.prefix.length)
+    }
     let pwdRule = Object.assign({}, this.$root.pwdRule);
     pwdRule.message = this.$t(pwdRule.message);
     this.rules.newPwd = [pwdRule];
@@ -307,7 +315,7 @@ export default {
   },
   data() {
     return {
-      prefix: prefix,
+      prefix: localStorage.getItem("aHost")&&localStorage.getItem("aHost").startsWith('https://')?'https://':'http://',
       isCordova: window.cordova,
       form: {
         user: "",
@@ -315,12 +323,7 @@ export default {
         newPwd: "",
         repeat: "",
         captcha: "",
-        ip:
-          localStorage.getItem("aHost") ||
-          process.env.VUE_APP_DEV.substring(
-            prefix.length,
-            process.env.VUE_APP_DEV.length - 1
-          ),
+        ip: "",
       },
       rules: {
         repeat: [
@@ -382,7 +385,7 @@ export default {
             sysCode: process.env.VUE_APP_CODE,
           };
           if (!this.isCordova) {
-            formParam.hostName = process.env.NODE_ENV == 'development'?process.env.VUE_APP_DEV.substring(prefix.length,process.env.VUE_APP_DEV.length-1):window.location.host;
+            formParam.hostName = process.env.NODE_ENV == 'development'?process.env.VUE_APP_DEV.substring(this.prefix.length,process.env.VUE_APP_DEV.length-1):window.location.host;
           } else {
             formParam.hostName = this.form.ip;
           }
@@ -725,7 +728,7 @@ export default {
       if (response.DATA.OBJECT) {
         session.user.roleType = response.DATA.OBJECT.roleType;
       }
-      localStorage.setItem("aHost", this.form.ip);
+      localStorage.setItem("aHost", this.prefix+this.form.ip);
       this.$store.commit('setUser', session.user);
       localStorage.setItem("aSession", JSON.stringify(session));
       this.$app
@@ -808,6 +811,10 @@ export default {
         .catch((err) => {
           this.errMsg = err.MESSAGE || err.toString();
         });
+    },
+    prefixChange(){
+      this.prefix = this.prefix=='http://'?'https://':'http://';
+      this.getProjectList()
     },
   },
 };
