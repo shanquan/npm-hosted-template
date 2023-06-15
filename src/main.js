@@ -6,7 +6,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 
-import router from './routers'
+import router from './routers/router'
 import store from './store'
 import http from './api'
 import i18n from './i18n'

@@ -26,7 +26,7 @@ module.exports = {
     configureWebpack: {
         module: {
             rules:[{
-                test: /\.js$/,
+                test: /router.js|zh-CN.js/,
                 loader: require.resolve('@open-wc/webpack-import-meta-loader'),
             }],
         }
