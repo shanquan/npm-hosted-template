@@ -19,5 +19,9 @@ export default {
         L10051: 'Electronics Product Lifecycle Management',
         L10052: '测试环境',
         L10053: 'EPLM',
+    },
+    // process.env.VUE_APP_CUSTOMIZE 优先级高于process.env.VUE_APP_CODE
+    Car_Trial: {
+        L10206: '汽车规划院智慧工厂管理系统'
     }
 }

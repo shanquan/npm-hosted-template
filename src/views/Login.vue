@@ -214,10 +214,8 @@
         <p class="ms-hide" @click="getMsg(true)">{{ msg }}</p>
       </el-main>
     </el-container>
-    <el-footer
-      >&copy; Copyright {{ $t("L00017") }}
-      {{ $root.getAppVersion() }}</el-footer
-    >
+    <el-footer>Copyright &copy; {{ $t("L00017") }}
+      {{ $root.getAppVersion() }}</el-footer>
     <!-- 忘记密码dialog Auther：xu.weijie -->
     <el-dialog width="30%" :title="$t('L45008')" :visible.sync="outerVisible">
       <el-dialog

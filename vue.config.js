@@ -9,6 +9,7 @@ process.env.VUE_APP_PRO = "http://10.12.5.188:20008/"
 process.env.VUE_APP_LOCAL = "http://127.0.0.1:10020/"
 
 process.env.VUE_APP_CODE = "BYD_FLAMES"
+process.env.VUE_APP_CUSTOMIZE = "CUSTOMIZED" // jenkins发布定制系统配置标识
 process.env.VUE_APP_MENU_ROOT = "web"
 
 process.env.VUE_APP_MENU_MOBILE = "pda"

@@ -28,6 +28,9 @@ try{
   });
   // 合并系统定制翻译字段
   Object.assign(langs, applang[process.env.VUE_APP_CODE])
+  if(applang[process.env.VUE_APP_CUSTOMIZE]){
+    Object.assign(langs,applang[process.env.VUE_APP_CUSTOMIZE])
+  }
 }catch(e){
   console.log(e)
 }
