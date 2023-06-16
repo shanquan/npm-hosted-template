@@ -5,8 +5,8 @@
 | 名称 | 示例 | 说明 | 
 | ------ | ------ | ------ |
 | mock | /login?mock=true | 是否使用模拟数据服务 |
-| baseUrl | /login?baseUrl=http://10.12.5.20008/ | 改写axios的baseUrl，移动端不支持，可能有bug |
-| redirect | /login?redirect=/config | 登录后跳转至/config页面，默认跳转至process.env.VUE_APP_HOME配置路由 |
+| isCordova | /login?isCordova | 显示地址输入框 |
+| redirect | /login?redirect=/config | 登录后跳转至/config页面，默认跳转至this.$root.homePath配置路由 |
 | encrypted | /login?encrypted=xxx | 加密方式自动登录 |
 | token | /login?token=xxx | token方式自动登录，同用户模块 |
 | source | /login?source=xxx | token方式自动登录，不同用户模块source传用户模块地址 |
@@ -214,7 +214,7 @@
         <p class="ms-hide" @click="getMsg(true)">{{ msg }}</p>
       </el-main>
     </el-container>
-    <el-footer>Copyright &copy; {{ $t("L00017") }}
+    <el-footer>Copyright&copy; {{ $t("L00017") }}<br/>
       {{ $root.getAppVersion() }}</el-footer>
     <!-- 忘记密码dialog Auther：xu.weijie -->
     <el-dialog width="30%" :title="$t('L45008')" :visible.sync="outerVisible">
@@ -260,7 +260,6 @@ import { JSEncrypt } from "jsencrypt";
 const nonce = "bn000f";
 let verifyCode,
   msgIdx = 0;
-
 export default {
   name: "login",
   created() {
@@ -269,7 +268,7 @@ export default {
     }else if(localStorage.getItem("aHost")){
       this.form.ip = localStorage.getItem("aHost")
     }else{
-      this.form.ip = process.env.VUE_APP_DEV.substring(this.prefix.length)
+      this.form.ip = process.env.VUE_APP_DEV.match("^https?://(.*)/$")[1]
     }
     let pwdRule = Object.assign({}, this.$root.pwdRule);
     pwdRule.message = this.$t(pwdRule.message);
@@ -277,8 +276,8 @@ export default {
     if (this.$route.query.mock === "true") {
       this.$http.mock = true;
       this.$http.setForMock();
-    } else if (this.$route.query.baseUrl) {
-      this.$http.setBaseUrl(this.$route.query.baseUrl);
+    } else if (this.$route.query.isCordova!==undefined) {
+      this.isCordova = true;
     }
     this.$root.clearSession();
     this.getProjectList();
@@ -383,7 +382,7 @@ export default {
             sysCode: process.env.VUE_APP_CODE,
           };
           if (!this.isCordova) {
-            formParam.hostName = process.env.NODE_ENV == 'development'?process.env.VUE_APP_DEV.substring(this.prefix.length,process.env.VUE_APP_DEV.length-1):window.location.host;
+            formParam.hostName = process.env.NODE_ENV == 'development'?process.env.VUE_APP_DEV.match("^https?://(.*)/$")[1]:window.location.host;
           } else {
             formParam.hostName = this.form.ip;
           }
@@ -736,8 +735,8 @@ export default {
           if (fullPath) {
             this.$router.push(fullPath);
           } else {
-            const homePath = process.env.VUE_APP_HOME
-              ? process.env.VUE_APP_HOME
+            const homePath = this.$root.homePath
+              ? this.$root.homePath
               : "/";
             this.$router.push({ path: homePath });
           }
@@ -838,7 +837,7 @@ export default {
 .login .el-footer {
   border-top: none;
   text-align: center;
-  line-height: 60px;
+  line-height: 22px;
   color: var(--fontColorFooter);
 }
 .login .el-main {

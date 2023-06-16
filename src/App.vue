@@ -234,8 +234,8 @@ export default {
     return{
       user:this.$store.state.user,
       title:"",
-      homePath: process.env.VUE_APP_HOME||'/',
-      editableTabsValue: process.env.VUE_APP_HOME||'/',
+      homePath: this.$root.homePath || '/',
+      editableTabsValue: this.$root.homePath || '/',
       editableTabs: [],
       noticeMsg: "", // 系统通知
       dialogVisible: false,
@@ -442,7 +442,7 @@ export default {
     },
     showHelpFn(){
       this.$http.showLoading = true;
-      let title = this.isHome?this.$t(process.env.VUE_APP_MENU_ROOT,'zh-CN'):this.$t(this.$route.path,'zh-CN');
+      let title = this.isHome?this.$t(this.$root.menuRoot,'zh-CN'):this.$t(this.$route.path,'zh-CN');
       this.$http.axios.get(`${this.$http.mes_url}mesSysWebhelp/getHtmlByTitle?title=${title}`,{
         headers: {
           showError: false

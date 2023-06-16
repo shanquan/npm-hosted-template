@@ -1,7 +1,7 @@
 /**
  * @author: wang.weili
  * @since : 2020/11/12
- * @description: 框架公共文件，慎重修改（优先修改app.css,app.js项目定制文件）
+ * @description: 框架公共文件，慎重修改（优先修改app下项目定制文件）
  */
 import Vue from 'vue'
 import App from './App.vue'
@@ -16,6 +16,7 @@ import './assets/main.css'; // 框架css, 不动
 import './plugins/echarts.js';
 import fullscreen from 'vue-fullscreen';
 import app from './app/main'; // 应用定制js
+import {appConfig} from './app/config'
 
 Vue.use(fullscreen);
 
@@ -130,7 +131,7 @@ new Vue({
         auth: [], // 用户所有权限菜单
         mobileList: [],
         menuList: []
-    },appConfigDefault,app.config),
+    },appConfigDefault,appConfig),
     methods: {
         deepClone(source, hash = new WeakMap()){
             if(typeof source != 'object'|| !source) return source;
@@ -168,15 +169,14 @@ new Vue({
                         return el;
                     }
                 }
-            let webMenu = auth.find(el => el.index == process.env.VUE_APP_MENU_ROOT);
-            let mbMenu = this.findMenuItem(`/${process.env.VUE_APP_MENU_MOBILE}`,auth);
+            let webMenu = auth.find(el => el.index == this.menuRoot);
+            let mbMenu = this.findMenuItem(`/${this.menuMobile}`,auth);
             let iconIds = [];
             if (webMenu && webMenu.subs) {
                 iconIds = iconIds.concat(webMenu.subs.map(el=>el.id));
                 this.getAuthLangs(webMenu);
                 this.menuList = webMenu.subs.map(el => {
-                    let iconEl = app.config.iconSet.find(e => e.index == el.index);
-                    el.icon = iconEl ? iconEl.icon : 'el-icon-tickets';
+                    el.icon = el.icon || 'el-icon-tickets';
                     return getMenuItems(el)
                 })
                 this.menuList = this.menuList.map(el => {
@@ -196,8 +196,7 @@ new Vue({
                 iconIds = iconIds.concat(mbMenu.subs.map(el=>el.id));
                 this.getAuthLangs(mbMenu);
                 this.mobileList = mbMenu.subs.map(el => {
-                    let iconEl = app.config.iconSet.find(e => e.index == el.index);
-                    el.icon = iconEl ? iconEl.icon : 'el-icon-tickets';
+                    el.icon = el.icon || 'el-icon-tickets';
                     return getMenuItems(el)
                 })
             } else {

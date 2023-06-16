@@ -10,7 +10,7 @@ import {
     // Message,
     Loading,MessageBox,Notification} from 'element-ui'
 import i18n from '@/i18n'
-import appApi from './app/api'
+import {appApi} from './app/config'
 var baseUrl = '/',
     token = '',
     projectCode = '',
@@ -19,9 +19,8 @@ var baseUrl = '/',
     cmLoading,
     showLoading = false, // 是否显示加载中
     showError = true; // 是否处理请求错误
-
 /**
- * apiConfig 配置项
+ * 配置项
  * axios headers: 
  * showLoading // 是否显示加载中，默认：false
  * showError // 是否自动处理请求错误，默认：true
@@ -30,8 +29,7 @@ var baseUrl = '/',
  * 
  */
 const MOCKMETHORDS = ['save', 'updateById', 'removeById', 'remoteListId', 'changePwd'], // 模拟接口默认返回PASS的接口名
-    user_url = 'user/api/',
-    mes_url = "mes/api/";
+    user_url = 'user/api/';
 var promptError = true, // 请求错误是否弹窗，false时使用消息提示框
 log_url = '',
 mock = false;
@@ -232,7 +230,6 @@ const Api = {
     axios,
     baseUrl,
     user_url,
-    mes_url,
     log_url,
     mock,
     projectCode,
@@ -263,7 +260,7 @@ const Api = {
         let promise = axios.get(`mock/${name}`);
         return promise;
     },
-    // 登录页支持query.baseUrl配置baseUrl
+    // 登录页支持配置baseUrl
     setBaseUrl(bl) {
         if (this.mock) {
             return false

@@ -23,43 +23,9 @@ Vue.use(filters);
  * global data, cache or localstorage
  * @example const globalSet = true;
  */
-// 一级菜单图标配置，支持菜单模块配置，默认图标：el-icon-tickets
-const iconSet = [{
-  "index": "base",
-  "icon": "el-icon-tickets"
-}, {
-  "index": "noLib",
-  "icon": "el-icon-postcard"
-}, {
-  "index": "report",
-  "icon": "el-icon-data-analysis"
-}, {
-  "index": "pda",
-  "icon": "el-icon-mobile"
-}, {
-  "icon": "el-icon-s-cooperation",
-  "index": "repair"
-}, {
-  "icon": "el-icon-setting",
-  "index": "sys"
-}]
-
 export default {
-  config:{ // 项目自定义配置，可覆盖默认main.js中的appConfigDefault
-    iconSet,
-    hasBreadcrumb: true,
-    hasTabs: false,
-    addNewTabMode: true
-    // patternRule: { pattern: /^[^`!#%&+=<>?:"{}|,.\/;'\\[\]·！#￥%……&（）——+={}|《》？：“”【】、；‘'，。、]+$/, message: 'L00033', trigger: 'blur' }, // 名称（含中文）/通用输入规则,黑名单,
-    // patternEnRule: { pattern: /^[A-Za-z0-9\*\-_(\)\^@~\$]+$/, message: 'L00036', trigger: 'blur' }, // 英文数字/通用输入规则,白名单
-    // patternDspRule: { pattern: /^[A-Za-z0-9\u4e00-\u9fa5\*\-\_\(\)\^@~\$ ,\.\?;:!，。；、？！\r\n]+$/, message: 'L00033', trigger: 'blur' }, // 描述输入规则，白名单
-    // boolList: [{ value: true }, { value: false }],
-    // statusOptions: [{ label: 'enabled', value: 0 }, { label: 'disabled', value: 1 }],
-  },
   routers: [].concat(sysRouter.router),
   langs:{...sysLang},
-  data:{
-  },
   getBuffer(s) {
     let buf = new ArrayBuffer(s.length);
     let view = new Uint8Array(buf);

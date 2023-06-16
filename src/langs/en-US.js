@@ -23,7 +23,7 @@ export default {
     "L00014": "Nav",
     "L00015": "Logout",
     "L00016": "Home",
-    "L00017": "Electronics Business Unit : IT Service Management Center",
+    "L00017": "Electronics Business Unit IT Service Management Center",
     "L00018": "Download Template",
     "L00019": "Operation",
     "L00020": "Save",
