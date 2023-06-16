@@ -10,18 +10,14 @@ import {
     // Message,
     Loading,MessageBox,Notification} from 'element-ui'
 import i18n from '@/i18n'
-import appApi from './app/api'
+import {appApi} from './app/config'
 var baseUrl = '/',
     token = '',
-    projectCode = '',
-    projectId = '',
-    macAddress = '',
     cmLoading,
     showLoading = false, // 是否显示加载中
     showError = true; // 是否处理请求错误
-
 /**
- * apiConfig 配置项
+ * 配置项
  * axios headers: 
  * showLoading // 是否显示加载中，默认：false
  * showError // 是否自动处理请求错误，默认：true
@@ -30,8 +26,7 @@ var baseUrl = '/',
  * 
  */
 const MOCKMETHORDS = ['save', 'updateById', 'removeById', 'remoteListId', 'changePwd'], // 模拟接口默认返回PASS的接口名
-    user_url = 'user/api/',
-    mes_url = "mes/api/";
+    user_url = 'user/api/';
 var promptError = true, // 请求错误是否弹窗，false时使用消息提示框
 log_url = '',
 mock = false;
@@ -85,8 +80,8 @@ if (mock) {
             return config
         }
         // 非user类接口请求统一添加projectCode前缀
-        if (!config.url.startsWith('user') && (!config.url.startsWith('http://')) && Api.projectCode) {
-            config.url = `${Api.projectCode}/` + config.url;
+        if (!config.url.startsWith('user') && (!config.url.startsWith('http')) && Api.project.projectCode) {
+            config.url = `${Api.project.projectCode}/` + config.url;
         }
         config.headers['request-startTime'] = new Date().getTime()
         if(config.headers.addLog!==false)
@@ -232,12 +227,8 @@ const Api = {
     axios,
     baseUrl,
     user_url,
-    mes_url,
     log_url,
     mock,
-    projectCode,
-    projectId,
-    macAddress,
     token,
     setLangs,
     setForMock,
@@ -263,7 +254,7 @@ const Api = {
         let promise = axios.get(`mock/${name}`);
         return promise;
     },
-    // 登录页支持query.baseUrl配置baseUrl
+    // 登录页支持配置baseUrl
     setBaseUrl(bl) {
         if (this.mock) {
             return false
@@ -282,7 +273,6 @@ const Api = {
         axios.defaults.headers.common['token'] = token;
     },
     setProjectId(pId) {
-        this.projectId = pId;
         axios.defaults.headers.common['projectId'] = pId;
     },
     changePwd(data) {
@@ -314,8 +304,8 @@ const Api = {
         body.traceId = ""
         if(this.macAddress)
         body.mac = this.macAddress
-        if(this.projectId)
-        body.project = this.projectId
+        if(this.project.id)
+        body.project = this.project.projectCode
         appApi.addLog(body,this.log_url);
     }
 }

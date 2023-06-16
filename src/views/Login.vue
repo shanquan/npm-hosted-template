@@ -5,8 +5,8 @@
 | 名称 | 示例 | 说明 | 
 | ------ | ------ | ------ |
 | mock | /login?mock=true | 是否使用模拟数据服务 |
-| baseUrl | /login?baseUrl=http://10.12.5.20008/ | 改写axios的baseUrl，移动端不支持，可能有bug |
-| redirect | /login?redirect=/config | 登录后跳转至/config页面，默认跳转至process.env.VUE_APP_HOME配置路由 |
+| isCordova | /login?isCordova | 显示地址输入框 |
+| redirect | /login?redirect=/config | 登录后跳转至/config页面，默认跳转至this.$root.homePath配置路由 |
 | encrypted | /login?encrypted=xxx | 加密方式自动登录 |
 | token | /login?token=xxx | token方式自动登录，同用户模块 |
 | source | /login?source=xxx | token方式自动登录，不同用户模块source传用户模块地址 |
@@ -90,9 +90,9 @@
             v-model.trim="form.ip"
             @change="getProjectList"
           >
-            <template slot="prepend">{{ prefix }}</template>
+            <template slot="prepend"><div @click="prefixChange">{{ prefix }}</div></template>
           </el-input>
-          <el-select v-if="!$root.project.id" v-model="projectId" class="mt18" size="medium">
+          <el-select v-if="!$http.project.id" v-model="projectId" class="mt18" size="medium">
             <svg slot="prefix" class="icon-inner">
               <use xlink:href="#client"></use>
             </svg>
@@ -214,10 +214,8 @@
         <p class="ms-hide" @click="getMsg(true)">{{ msg }}</p>
       </el-main>
     </el-container>
-    <el-footer
-      >&copy; Copyright {{ $t("L00017") }}
-      {{ $root.getAppVersion() }}</el-footer
-    >
+    <el-footer>Copyright&copy; {{ $t("L00017") }}<br/>
+      {{ $root.getAppVersion() }}</el-footer>
     <!-- 忘记密码dialog Auther：xu.weijie -->
     <el-dialog width="30%" :title="$t('L45008')" :visible.sync="outerVisible">
       <el-dialog
@@ -258,21 +256,28 @@
 import GVerify from "../plugins/gVerify.js";
 import { AES, MD5, enc } from "crypto-js";
 import { JSEncrypt } from "jsencrypt";
-const prefix = "http://",
-  nonce = "bn000f";
+
+const nonce = "bn000f";
 let verifyCode,
   msgIdx = 0;
 export default {
   name: "login",
   created() {
+    if(localStorage.getItem("aHost")&&localStorage.getItem("aHost").startsWith('http')){
+      this.form.ip = localStorage.getItem("aHost").substring(this.prefix.length)
+    }else if(localStorage.getItem("aHost")){
+      this.form.ip = localStorage.getItem("aHost")
+    }else{
+      this.form.ip = process.env.VUE_APP_DEV.match("^https?://(.*)/$")[1]
+    }
     let pwdRule = Object.assign({}, this.$root.pwdRule);
     pwdRule.message = this.$t(pwdRule.message);
     this.rules.newPwd = [pwdRule];
     if (this.$route.query.mock === "true") {
       this.$http.mock = true;
       this.$http.setForMock();
-    } else if (this.$route.query.baseUrl) {
-      this.$http.setBaseUrl(this.$route.query.baseUrl);
+    } else if (this.$route.query.isCordova!==undefined) {
+      this.isCordova = true;
     }
     this.$root.clearSession();
     this.getProjectList();
@@ -307,7 +312,7 @@ export default {
   },
   data() {
     return {
-      prefix: prefix,
+      prefix: localStorage.getItem("aHost")&&localStorage.getItem("aHost").startsWith('https://')?'https://':'http://',
       isCordova: window.cordova,
       form: {
         user: "",
@@ -315,12 +320,7 @@ export default {
         newPwd: "",
         repeat: "",
         captcha: "",
-        ip:
-          localStorage.getItem("aHost") ||
-          process.env.VUE_APP_DEV.substring(
-            prefix.length,
-            process.env.VUE_APP_DEV.length - 1
-          ),
+        ip: "",
       },
       rules: {
         repeat: [
@@ -361,10 +361,10 @@ export default {
   methods: {
     getProjectList() {
       try {
-        this.$root.project = JSON.parse(process.env.VUE_APP_PROJECT_ONLY);
-        if (this.$root.project.id) {
-          this.projects.push(this.$root.project);
-          this.projectId = this.$root.project.id;
+        this.$http.project = JSON.parse(process.env.VUE_APP_PROJECT_ONLY);
+        if (this.$http.project.id) {
+          this.projects.push(this.$http.project);
+          this.projectId = this.$http.project.id;
         }
       } catch (e) {
         // console.log(e);
@@ -382,7 +382,7 @@ export default {
             sysCode: process.env.VUE_APP_CODE,
           };
           if (!this.isCordova) {
-            formParam.hostName = process.env.NODE_ENV == 'development'?process.env.VUE_APP_DEV.substring(prefix.length,process.env.VUE_APP_DEV.length-1):window.location.host;
+            formParam.hostName = process.env.NODE_ENV == 'development'?process.env.VUE_APP_DEV.match("^https?://(.*)/$")[1]:window.location.host;
           } else {
             formParam.hostName = this.form.ip;
           }
@@ -713,9 +713,8 @@ export default {
       };
       this.$http.setToken(session.token)
       let pr = this.projects.find((el) => el.id == this.projectId);
-      this.$root.project = pr
+      this.$http.project = pr
       this.$http.setProjectId(pr.id);
-      this.$http.projectCode = pr.projectCode;
       localStorage.setItem(`${process.env.VUE_APP_CODE}_Project`, JSON.stringify(pr));
       let auth = response.DATA.AUTHORITIES;
       this.$root.auth = this.$root.deepClone(auth)
@@ -725,7 +724,8 @@ export default {
       if (response.DATA.OBJECT) {
         session.user.roleType = response.DATA.OBJECT.roleType;
       }
-      localStorage.setItem("aHost", this.form.ip);
+      if(this.isCordova)
+      localStorage.setItem("aHost", this.prefix+this.form.ip);
       this.$store.commit('setUser', session.user);
       localStorage.setItem("aSession", JSON.stringify(session));
       this.$app
@@ -735,8 +735,8 @@ export default {
           if (fullPath) {
             this.$router.push(fullPath);
           } else {
-            const homePath = process.env.VUE_APP_HOME
-              ? process.env.VUE_APP_HOME
+            const homePath = this.$root.homePath
+              ? this.$root.homePath
               : "/";
             this.$router.push({ path: homePath });
           }
@@ -809,6 +809,10 @@ export default {
           this.errMsg = err.MESSAGE || err.toString();
         });
     },
+    prefixChange(){
+      this.prefix = this.prefix=='http://'?'https://':'http://';
+      this.getProjectList()
+    },
   },
 };
 </script>
@@ -833,7 +837,7 @@ export default {
 .login .el-footer {
   border-top: none;
   text-align: center;
-  line-height: 60px;
+  line-height: 22px;
   color: var(--fontColorFooter);
 }
 .login .el-main {

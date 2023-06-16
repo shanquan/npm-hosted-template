@@ -21,7 +21,7 @@
         <el-card id="orderBox" class="box-card">
           <div slot="header">
             <span>{{$t('L10220')}}</span>
-            <span class="notes">（{{$t(`${$http.projectCode}.L10221`)==`${$http.projectCode}.L10221`?$t('L10221'):$t(`${$http.projectCode}.L10221`)}}）</span>
+            <span class="notes">（{{$t(`${$http.project.projectCode}.L10221`)==`${$http.project.projectCode}.L10221`?$t('L10221'):$t(`${$http.project.projectCode}.L10221`)}}）</span>
             <span class="float-right"><i class="el-icon-full-screen primary" @click="toggle"></i><i class="el-icon-refresh success" @click="refresh"></i></span>
           </div>
           <orderProgress :data="orderData"></orderProgress>

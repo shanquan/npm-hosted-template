@@ -3,7 +3,7 @@
  * @since : 2022/02/26
  * @description: 本文件为框架基础文件之一，慎重修改
  */
-import applang from './app'
+import {applang} from '../app/config'
 import app from '../app/main'
 
 let langs = {};
@@ -26,7 +26,7 @@ try{
     }
   }
   // 合并系统定制翻译字段
-  Object.assign(langs, applang[process.env.VUE_APP_CODE])
+  Object.assign(langs, applang)
 }catch(e){
   console.log(e)
 }

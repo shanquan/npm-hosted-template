@@ -24,7 +24,7 @@ export default {
     L00014: 'Điều hướng',
     L00015: 'Thoát',
     L00016: 'Trang chủ',
-    L00017: 'Công ty điện tử : Trung tâm quản lý dịch vụ',
+    L00017: 'Trung tâm công nghệ thông minh IT, nhóm nghiệp vụ điện tử',
     L00018: 'Tải xuống mẫu',
     L00019: 'Hoạt động',
     L00020: 'Lưu',
