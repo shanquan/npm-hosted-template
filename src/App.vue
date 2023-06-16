@@ -20,7 +20,7 @@
       <main-menu v-if="pageType==0&&menuMode=='horizontal'" :menuList="$root.menuList" :menuMode="menuMode"></main-menu>
       <span class="notice" v-if="pageType==0&&noticeMsg"><i class="el-icon-message-solid"></i> {{$t('L10217')}}：<marquee>{{noticeMsg}}</marquee></span>
       <div class="ad">
-        <!-- <span class="mr10">{{$root.project?$root.project.projectName:''}}</span> -->
+        <!-- <span class="mr10">{{$http.project?$http.project.projectName:''}}</span> -->
         <el-select class="w100 mr10" v-model="systemCode">
           <el-option
               v-for="item in systemArr"

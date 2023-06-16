@@ -92,7 +92,7 @@
           >
             <template slot="prepend"><div @click="prefixChange">{{ prefix }}</div></template>
           </el-input>
-          <el-select v-if="!$root.project.id" v-model="projectId" class="mt18" size="medium">
+          <el-select v-if="!$http.project.id" v-model="projectId" class="mt18" size="medium">
             <svg slot="prefix" class="icon-inner">
               <use xlink:href="#client"></use>
             </svg>
@@ -361,10 +361,10 @@ export default {
   methods: {
     getProjectList() {
       try {
-        this.$root.project = JSON.parse(process.env.VUE_APP_PROJECT_ONLY);
-        if (this.$root.project.id) {
-          this.projects.push(this.$root.project);
-          this.projectId = this.$root.project.id;
+        this.$http.project = JSON.parse(process.env.VUE_APP_PROJECT_ONLY);
+        if (this.$http.project.id) {
+          this.projects.push(this.$http.project);
+          this.projectId = this.$http.project.id;
         }
       } catch (e) {
         // console.log(e);
@@ -713,9 +713,8 @@ export default {
       };
       this.$http.setToken(session.token)
       let pr = this.projects.find((el) => el.id == this.projectId);
-      this.$root.project = pr
+      this.$http.project = pr
       this.$http.setProjectId(pr.id);
-      this.$http.projectCode = pr.projectCode;
       localStorage.setItem(`${process.env.VUE_APP_CODE}_Project`, JSON.stringify(pr));
       let auth = response.DATA.AUTHORITIES;
       this.$root.auth = this.$root.deepClone(auth)
@@ -725,6 +724,7 @@ export default {
       if (response.DATA.OBJECT) {
         session.user.roleType = response.DATA.OBJECT.roleType;
       }
+      if(this.isCordova)
       localStorage.setItem("aHost", this.prefix+this.form.ip);
       this.$store.commit('setUser', session.user);
       localStorage.setItem("aSession", JSON.stringify(session));

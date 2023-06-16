@@ -7,7 +7,7 @@ process.env.VUE_APP_DEV = "http://10.12.5.188:20003/"
 process.env.VUE_APP_LOCAL = "http://127.0.0.1:10020/"
 
 process.env.VUE_APP_CODE = "BYD_FLAMES"
-// process.env.VUE_APP_PROJECT_ONLY = '{"id":3,"projectName":"Zatanna","projectCode":""}' // 唯一项目，如果配置VUE_APP_PROJECT_ONLY，登录页不显示项目下拉框
+process.env.VUE_APP_PROJECT_ONLY = '{"id":3,"projectName":"Zatanna","projectCode":""}' // 唯一项目，如果配置VUE_APP_PROJECT_ONLY，登录页不显示项目下拉框
 process.env.VUE_APP_ID = "com.byd.flames"
 process.env.VUE_APP_VERSION = "1.0.0"
 process.env.VUE_APP_BUILD = "Flames-M_builds_versionDate"

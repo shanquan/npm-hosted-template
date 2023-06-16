@@ -7,6 +7,8 @@
 import axios from 'axios'
 // 项目自定义api配置，可覆盖默认api.js
 var appApi = {
+    macAddress: '',
+    project:{},
     app_url: "app/api/",
     mes_url: "mes/api/",
     checkInvalid(response){

@@ -72,13 +72,13 @@ export default {
    * @param {*} vm 
    */
   afterHome(vm){
-    vm.$children[0].systemArr = [vm.project]
-    vm.$children[0].systemCode = vm.$http.projectId;
+    vm.$children[0].systemArr = [vm.$http.project]
+    vm.$children[0].systemCode = vm.$http.project.id;
     // 接口获取systemArr
     // vm.$children[0].systemArr = [{"projectName":"Zatanna","projectCode":"zatanna","url":"http://10.12.5.188:20003","id":3},{"projectName":"运营平台","projectCode":"omp","url":"http://10.12.7.111:6002","id":123}];
     
-    // if(applang[vm.$http.projectCode]&&applang[vm.$http.projectCode][vm.$i18n.locale]){
-    //     vm.$i18n.mergeLocaleMessage(vm.$i18n.locale, applang[vm.$http.projectCode][vm.$i18n.locale]);
+    // if(applang[vm.$http.project.projectCode]&&applang[vm.$http.project.projectCode][vm.$i18n.locale]){
+    //     vm.$i18n.mergeLocaleMessage(vm.$i18n.locale, applang[vm.$http.project.projectCode][vm.$i18n.locale]);
     // }
     vm.$http.axios.post('api/me/mesSysConfig/config?name=LOG_URL',null,{
       headers:{

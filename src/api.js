@@ -13,9 +13,6 @@ import i18n from '@/i18n'
 import {appApi} from './app/config'
 var baseUrl = '/',
     token = '',
-    projectCode = '',
-    projectId = '',
-    macAddress = '',
     cmLoading,
     showLoading = false, // 是否显示加载中
     showError = true; // 是否处理请求错误
@@ -83,8 +80,8 @@ if (mock) {
             return config
         }
         // 非user类接口请求统一添加projectCode前缀
-        if (!config.url.startsWith('user') && (!config.url.startsWith('http')) && Api.projectCode) {
-            config.url = `${Api.projectCode}/` + config.url;
+        if (!config.url.startsWith('user') && (!config.url.startsWith('http')) && Api.project.projectCode) {
+            config.url = `${Api.project.projectCode}/` + config.url;
         }
         config.headers['request-startTime'] = new Date().getTime()
         if(config.headers.addLog!==false)
@@ -232,9 +229,6 @@ const Api = {
     user_url,
     log_url,
     mock,
-    projectCode,
-    projectId,
-    macAddress,
     token,
     setLangs,
     setForMock,
@@ -279,7 +273,6 @@ const Api = {
         axios.defaults.headers.common['token'] = token;
     },
     setProjectId(pId) {
-        this.projectId = pId;
         axios.defaults.headers.common['projectId'] = pId;
     },
     changePwd(data) {
@@ -311,8 +304,8 @@ const Api = {
         body.traceId = ""
         if(this.macAddress)
         body.mac = this.macAddress
-        if(this.projectId)
-        body.project = this.projectId
+        if(this.project.id)
+        body.project = this.project.projectCode
         appApi.addLog(body,this.log_url);
     }
 }

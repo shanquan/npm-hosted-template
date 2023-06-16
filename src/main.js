@@ -35,7 +35,7 @@ try {
         project = JSON.parse(localStorage.getItem(`${process.env.VUE_APP_CODE}_Project`));
     }
     http.setProjectId(project.id);
-    http.projectCode = project.projectCode;
+    http.project = project;
 } catch (e) {console.log(e)}
 
 router.beforeEach(async(to, from, next) => {  
@@ -57,7 +57,7 @@ router.beforeEach(async(to, from, next) => {
             beforeHomeResult = false
         })
     }
-    if (to.meta.loginPass!=true && !(http.token && http.projectId && beforeHomeResult))
+    if (to.meta.loginPass!=true && !(http.token && http.project.id && beforeHomeResult))
         next({ name: 'login' , query: { redirect: to.fullPath }})
     else if (to.matched.length > 0) {
         next()
@@ -224,7 +224,7 @@ new Vue({
         clearSession() {
             this.$http.setToken("");
             this.auth = [];
-            this.project = {};
+            this.$http.project = {};
             localStorage.removeItem("aSession");
             localStorage.removeItem(`${process.env.VUE_APP_CODE}_Auth`);
         },
