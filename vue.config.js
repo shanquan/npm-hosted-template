@@ -25,6 +25,7 @@ module.exports = {
     publicPath: "/admin", // /android_asset/www
     //outputDir: "D://work/cordovaBuilder/www", // your cordova project directory
     productionSourceMap: false,
+    parallel:false,
     transpileDependencies: ["crypto-js"], // fix android6 unexpected token =
     configureWebpack: {
         module: {
