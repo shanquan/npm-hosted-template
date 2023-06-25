@@ -211,7 +211,7 @@
             $t("L10203")
           }}</el-button>
         </div>
-        <p class="ms-hide" @click="getMsg(true)">{{ msg }}</p>
+        <p class="ms-hide" @click="getMsg()">{{ msg }}</p>
       </el-main>
     </el-container>
     <el-footer>Copyright&copy; {{ $t("L00017") }}<br/>
@@ -458,13 +458,10 @@ export default {
           });
       }
     },
-    getMsg(refresh) {
+    getMsg() {
       let l = this.msgList.length;
-      if (refresh) {
-        msgIdx = msgIdx == l - 1 ? 0 : msgIdx + 1;
-      } else {
-        msgIdx = Math.floor(Math.random() * l);
-      }
+      msgIdx = Math.floor(Math.random() * l);
+      console.log(msgIdx)
       this.msg =
         this.$i18n.locale == "zh-CN"
           ? this.msgList[msgIdx].content
