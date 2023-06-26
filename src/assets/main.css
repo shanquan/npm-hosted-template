@@ -20,6 +20,7 @@
         #58ade5
       );
     --tloginbg: url("../assets/login_bg_default.jpg");
+    --loginbox: url("/img/login_box_default.png");
     --fontColorBox: #fff;
     --fontColorFooter: #fff;
     --fontColorError: #fff;

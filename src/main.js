@@ -443,31 +443,49 @@ new Vue({
                     'addLog': false
                 }
             }).then(res=>{
-                let themeSet = {}
-                if(res.DATA&&res.DATA.name)
-                this.$root.theme = res.DATA.name;
-                if(this.$root.theme&&this.$root.themeSets[this.$root.theme]){
-                    themeSet = this.$root.themeSets[this.$root.theme];
+                if(res.DATA.resource&&res.DATA.resource.length){
+                    let imgUrl = res.DATA.resource[0].url;
+                    this.$http.axios.get(imgUrl,{
+                        headers: {
+                            'showError': false,
+                            'addLog': false
+                        },
+                        timeout: 10000
+                    }).then(()=>{
+                        let themeSet = {}
+                        if(res.DATA&&res.DATA.name)
+                        this.$root.theme = res.DATA.name;
+                        if(this.$root.theme&&this.$root.themeSets[this.$root.theme]){
+                            themeSet = this.$root.themeSets[this.$root.theme];
+                        }
+                        if(res.DATA.resource)
+                        res.DATA.resource.forEach(el=>{
+                            themeSet['--'+el.code] = `url("${el.url}")`;
+                        })
+                        if(res.DATA.fonts)
+                        res.DATA.fonts.forEach(el=>{
+                            themeSet['--'+el.code] = el.value;
+                        })
+                        for(let k in themeSet){
+                            document.body.style.setProperty(k,themeSet[k]);
+                        }
+                    }).catch(()=>{
+                        this.setDefaultTheme()
+                    })
+                }else{
+                    this.setDefaultTheme()
                 }
-                if(res.DATA.resource)
-                res.DATA.resource.forEach(el=>{
-                    themeSet['--'+el.code] = `url("${el.url}")`;
-                })
-                if(res.DATA.fonts)
-                res.DATA.fonts.forEach(el=>{
-                    themeSet['--'+el.code] = el.value;
-                })
+            }).catch(()=>{
+                this.setDefaultTheme()
+            })
+        },
+        setDefaultTheme(){
+            if(this.$root.theme&&this.$root.themeSets[this.$root.theme]){
+                let themeSet = this.$root.themeSets[this.$root.theme];
                 for(let k in themeSet){
                     document.body.style.setProperty(k,themeSet[k]);
                 }
-            }).catch(()=>{
-                if(this.$root.theme&&this.$root.themeSets[this.$root.theme]){
-                    let themeSet = this.$root.themeSets[this.$root.theme];
-                    for(let k in themeSet){
-                        document.body.style.setProperty(k,themeSet[k]);
-                    }
-                }
-            })
+            }
         },
         getImageBase64(file){
             return new Promise(function(resolve, reject) {
