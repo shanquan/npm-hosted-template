@@ -27,14 +27,6 @@ module.exports = {
     productionSourceMap: false,
     parallel:false,
     transpileDependencies: ["crypto-js"], // fix android6 unexpected token =
-    configureWebpack: {
-        module: {
-            rules:[{
-                test: /router.*.js|zh-CN.*.js/,
-                loader: require.resolve('@open-wc/webpack-import-meta-loader'),
-            }],
-        }
-    },
     // configureWebpack: config => {
     //     // 关闭代码压缩
     //     // config.optimization.minimize = false;

@@ -6,6 +6,10 @@ import path from 'path'
 import { defineConfig } from 'vite';
 import { createVuePlugin } from 'vite-plugin-vue2';
 import { createHtmlPlugin } from 'vite-plugin-html'
+import ViteRequireContext from '@originjs/vite-plugin-require-context'
+import { viteCommonjs,esbuildCommonjs } from '@originjs/vite-plugin-commonjs'
+
+
 
 process.env.VUE_APP_DEV = "http://10.12.5.188:20003/"
 process.env.VUE_APP_LOCAL = "http://127.0.0.1:10020/"
@@ -34,6 +38,7 @@ export default (mode) => {
             sourcemap: false
         },
         plugins: [
+            viteCommonjs(),
             createVuePlugin(),
             createHtmlPlugin({
                 minify: true,
@@ -48,6 +53,7 @@ export default (mode) => {
                     }
                 }
             }),
+            ViteRequireContext(),
         ],
         define: {
             'process.env': process.env
@@ -58,6 +64,14 @@ export default (mode) => {
               vue: 'vue/dist/vue.esm.js',
               '@': path.join(__dirname, 'src'),
               '~': path.join(__dirname, 'node_modules'),
+            }
+        },
+        optimizeDeps:{
+            include:['@riophae/vue-treeselect','user-sys'],
+            esbuildOptions:{
+              plugins:[
+                esbuildCommonjs(['@riophae/vue-treeselect'])
+              ]
             }
         },
         server: {
