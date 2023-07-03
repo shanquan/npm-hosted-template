@@ -7,13 +7,13 @@ import { defineConfig } from 'vite';
 import { createVuePlugin } from 'vite-plugin-vue2';
 import { createHtmlPlugin } from 'vite-plugin-html'
 import ViteRequireContext from '@originjs/vite-plugin-require-context'
-import { viteCommonjs,esbuildCommonjs } from '@originjs/vite-plugin-commonjs'
+import { viteCommonjs } from '@originjs/vite-plugin-commonjs'
 
 
 
 process.env.VUE_APP_DEV = "http://10.12.5.188:20003/"
 process.env.VUE_APP_LOCAL = "http://127.0.0.1:10020/"
-process.env.BASE_URL = "/admin" // vue-cli自动添加
+process.env.BASE_URL = "/admin/" // vue-cli自动添加
 
 process.env.VUE_APP_CODE = "BYD_FLAMES"
 process.env.VUE_APP_PROJECT_ONLY = '{"id":3,"projectName":"Zatanna","projectCode":""}' // 唯一项目，如果配置VUE_APP_PROJECT_ONLY，登录页不显示项目下拉框
@@ -67,12 +67,8 @@ export default (mode) => {
             }
         },
         optimizeDeps:{
-            include:['@riophae/vue-treeselect','user-sys'],
-            esbuildOptions:{
-              plugins:[
-                esbuildCommonjs(['@riophae/vue-treeselect'])
-              ]
-            }
+            exclude:['el-input-ex'],
+            include:['@riophae/vue-treeselect']
         },
         server: {
             port: 8080,
