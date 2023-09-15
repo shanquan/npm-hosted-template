@@ -33,8 +33,8 @@ export default {
     return buf;
   },
   isMobile() {
-      // for ipad: /macintosh|mac os x/i.test(navigator.userAgent) && window.screen.height > window.screen.width
-      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)||/macintosh|mac os x/i.test(navigator.userAgent) && window.screen.height > window.screen.width;
+      // for ipad: /macintosh|mac os x/i.test(navigator.userAgent)
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && window.screen.height > window.screen.width && window.screen.width < 768;
   },
   mobileClass(){
     if(/Android|Chrome|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
