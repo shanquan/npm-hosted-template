@@ -75,13 +75,7 @@ var appApi = {
      */
     addLog(body,log_url){
         if(log_url&&(body.mac||body.ip)){
-            axios.post(`${log_url}log/exi/log`,body, {
-                headers: {
-                    addLog:false,
-                    showError: false,
-                    token:''
-                },
-            })
+            axios.create().post(`${log_url}log/exi/log`,body)
         }
         if(window.vConsole){
             if(body.status=='s')

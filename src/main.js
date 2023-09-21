@@ -9,6 +9,7 @@ import App from './App.vue'
 import router from './routers'
 import store from './store'
 import http from './api'
+import axios from 'axios'
 import i18n from './i18n'
 import './plugins/element.js'
 import './theme/index.css'; // 主题css，不动
@@ -445,11 +446,7 @@ new Vue({
             }).then(res=>{
                 if(res.DATA.resource&&res.DATA.resource.length){
                     let imgUrl = res.DATA.resource[0].url;
-                    this.$http.axios.get(imgUrl,{
-                        headers: {
-                            'showError': false,
-                            'addLog': false
-                        },
+                    axios.create().get(imgUrl,{
                         timeout: 10000
                     }).then(()=>{
                         let themeSet = {}
