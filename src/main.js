@@ -445,7 +445,7 @@ new Vue({
                 }
             }).then(res=>{
                 if(res.DATA.resource&&res.DATA.resource.length){
-                    let imgUrl = res.DATA.resource[0].url;
+                    let imgUrl = res.DATA.resource.find(el=>el.code=='bydlogo')?.url;
                     axios.create().get(imgUrl,{
                         timeout: 10000
                     }).then(()=>{
