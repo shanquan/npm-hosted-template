@@ -445,10 +445,10 @@ new Vue({
                 }
             }).then(res=>{
                 if(res.DATA.resource&&res.DATA.resource.length){
-                    let imgUrl = res.DATA.resource.find(el=>el.code=='bydlogo')?.url;
-                    axios.create().get(imgUrl,{
-                        timeout: 10000
-                    }).then(()=>{
+                    // let imgUrl = res.DATA.resource.find(el=>el.code=='bydlogo')?.url;
+                    // axios.create().get(imgUrl,{
+                    //     timeout: 3000
+                    // }).then(()=>{
                         let themeSet = {}
                         if(res.DATA&&res.DATA.name)
                         this.$root.theme = res.DATA.name;
@@ -466,9 +466,9 @@ new Vue({
                         for(let k in themeSet){
                             document.body.style.setProperty(k,themeSet[k]);
                         }
-                    }).catch(()=>{
-                        this.setDefaultTheme()
-                    })
+                    // }).catch(()=>{
+                    //     this.setDefaultTheme()
+                    // })
                 }else{
                     this.setDefaultTheme()
                 }
