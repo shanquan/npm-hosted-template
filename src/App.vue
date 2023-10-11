@@ -144,7 +144,7 @@ export default {
   watch:{
     $route: {
       async handler(nVal){
-        this.showFrame = this.$http.token&&this.$route.meta.loginPass!=true&&this.$route.meta.showFrame!=false;
+        this.showFrame = this.$http.token&&this.$route.meta.loginPass!=true&&this.$route.meta.showFrame!=false&&this.$route.query.showFrame!='false';
         this.$root.clearMsgBox();
         if(this.$http.token && this.$root.getAuthed==undefined){
           this.$root.getAuthed = true;
