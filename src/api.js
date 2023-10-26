@@ -31,10 +31,6 @@ var promptError = true, // 请求错误是否弹窗，false时使用消息提示
 log_url = '',
 mock = false;
 
-axios.defaults.baseURL = baseUrl;
-axios.defaults.headers.post['Content-Type'] = 'application/json';
-axios.defaults.timeout = 30 * 60 * 1000;
-
 function getMethod(url) {
     let pathIdx = url.lastIndexOf("?");
     pathIdx = pathIdx > 0 ? pathIdx : url.length
@@ -63,9 +59,10 @@ const setForMock = function() {
         return config;
     })
 }
-if (mock) {
-    setForMock();
-} else {
+const setForServer = function() {
+    axios.defaults.baseURL = baseUrl;
+    axios.defaults.headers.post['Content-Type'] = 'application/json';
+    axios.defaults.timeout = 30 * 60 * 1000;
     setLangs(i18n.locale);
     axios.interceptors.request.use((config) => {
         if (Api.showLoading||config.headers.showLoading) {
@@ -94,6 +91,11 @@ if (mock) {
         })
         return config;
     })
+}
+if (mock) {
+    setForMock();
+} else {
+    setForServer()
 }
 const showErrMsg = function(title, msg) {
         if(Api.promptError){
@@ -232,6 +234,7 @@ const Api = {
     token,
     setLangs,
     setForMock,
+    setForServer,
     showError,
     promptError,
     showLoading,
