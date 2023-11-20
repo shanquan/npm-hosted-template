@@ -148,8 +148,9 @@ axios.interceptors.response.use(function(response) {
             if(!Api.promptError&&response.config.headers.playFailAudio==true)
             Api.playFailAudio();
             if (Api.showError&&response.config.headers.showError!==false&& appApi.checkInvalid(response)) {
+                let redirect = (window.location.pathname+window.location.search).substring(process.env.BASE_URL.length-1)
                 localStorage.removeItem("aSession");
-                window.location.href = `${window.location.origin}${process.env.BASE_URL?process.env.BASE_URL:'/'}index.html`;
+                window.location.href = `${window.location.origin}${process.env.BASE_URL?process.env.BASE_URL:'/'}index.html?redirect=${redirect}`;
                 return;
             }
             let method = getMethod(response.config.url);

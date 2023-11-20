@@ -54,9 +54,13 @@ router.beforeEach(async(to, from, next) => {
             beforeHomeResult = false
         })
     }
-    if (to.meta.loginPass!=true && !(http.token && http.project.id && beforeHomeResult))
-        next({ name: 'login' , query: { redirect: to.fullPath }})
-    else if (to.matched.length > 0) {
+    if (to.meta.loginPass!=true && !(http.token && http.project.id && beforeHomeResult)){
+        if(to.query&&to.query.redirect){
+            next({ name: 'login' , query: { redirect: to.query.redirect }})
+        }else{
+            next({ name: 'login' , query: { redirect: to.fullPath }})
+        }
+    }else if (to.matched.length > 0) {
         next()
     } else {
         next('/404')

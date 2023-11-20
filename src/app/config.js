@@ -15,7 +15,7 @@ var appApi = {
         return response.data.MESSAGE && response.data.MESSAGE.indexOf('登录') > -1
     },
     checkResult(response){ // 非json格式，优先checkPass判断并返回
-        return response.headers['content-type'] != 'application/json'
+        return response.headers['content-type'].indexOf('application/json') == -1
     },
     checkPass(response){ // json格式返回PASS/FAIL判断规则
         return response.data.RESULT == "PASS"
