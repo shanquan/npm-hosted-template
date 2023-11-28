@@ -15,7 +15,7 @@ var appApi = {
         return response.data.MESSAGE && response.data.MESSAGE.indexOf('登录') > -1
     },
     checkResult(response){ // 非json格式，优先checkPass判断并返回
-        return response.headers['content-type'] == 'application/msexcel'
+        return response.headers['content-type'].indexOf('application/json') == -1
     },
     checkPass(response){ // json格式返回PASS/FAIL判断规则
         return response.data.RESULT == "PASS"
@@ -75,13 +75,7 @@ var appApi = {
      */
     addLog(body,log_url){
         if(log_url&&(body.mac||body.ip)){
-            axios.post(`${log_url}log/exi/log`,body, {
-                headers: {
-                    addLog:false,
-                    showError: false,
-                    token:''
-                },
-            })
+            axios.create().post(`${log_url}log/exi/log`,body)
         }
         if(window.vConsole){
             if(body.status=='s')

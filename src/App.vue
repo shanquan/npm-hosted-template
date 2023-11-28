@@ -55,7 +55,7 @@
       </div>
     </el-header>
     <!-- mobile page header -->
-    <el-header height="45px" class="mb-header" v-if="showFrame&&pageType==2"><i v-if="false" class="el-icon-s-home" @click="goBack(true)"></i><el-page-header @back="goBack(true)" :content="title"></el-page-header></el-header>
+    <el-header height="45px" class="mb-header" v-if="showFrame&&pageType==2"><i v-if="false" class="el-icon-s-home" @click="goBack(true)"></i><el-page-header :class="$root.mbVersionPos" @back="goBack(true)" :content="title"></el-page-header></el-header>
     <el-main>
     <!-- common parts -->
     <el-backtop target=".el-scroll" :bottom="100"></el-backtop>
@@ -144,7 +144,7 @@ export default {
   watch:{
     $route: {
       async handler(nVal){
-        this.showFrame = this.$http.token&&this.$route.meta.loginPass!=true&&this.$route.meta.showFrame!=false;
+        this.showFrame = this.$http.token&&this.$route.meta.loginPass!=true&&this.$route.meta.showFrame!=false&&this.$route.query.showFrame!='false';
         this.$root.clearMsgBox();
         if(this.$http.token && this.$root.getAuthed==undefined){
           this.$root.getAuthed = true;

@@ -9,16 +9,13 @@ import App from './App.vue'
 import router from './routers/router'
 import store from './store'
 import http from './api'
+import axios from 'axios'
 import i18n from './i18n'
 import './plugins/element.js'
 import './theme/index.css'; // 主题css，不动
 import './assets/main.css'; // 框架css, 不动
-import './plugins/echarts.js';
-import fullscreen from 'vue-fullscreen';
 import app from './app/main'; // 应用定制js
 import {appConfig} from './app/config'
-
-Vue.use(fullscreen);
 
 Vue.config.productionTip = false
 Vue.prototype.$http = http;
@@ -57,9 +54,13 @@ router.beforeEach(async(to, from, next) => {
             beforeHomeResult = false
         })
     }
-    if (to.meta.loginPass!=true && !(http.token && http.project.id && beforeHomeResult))
-        next({ name: 'login' , query: { redirect: to.fullPath }})
-    else if (to.matched.length > 0) {
+    if (to.meta.loginPass!=true && !(http.token && http.project.id && beforeHomeResult)){
+        if(to.query&&to.query.redirect){
+            next({ name: 'login' , query: { redirect: to.query.redirect }})
+        }else{
+            next({ name: 'login' , query: { redirect: to.fullPath }})
+        }
+    }else if (to.matched.length > 0) {
         next()
     } else {
         next('/404')
@@ -443,31 +444,45 @@ new Vue({
                     'addLog': false
                 }
             }).then(res=>{
-                let themeSet = {}
-                if(res.DATA&&res.DATA.name)
-                this.$root.theme = res.DATA.name;
-                if(this.$root.theme&&this.$root.themeSets[this.$root.theme]){
-                    themeSet = this.$root.themeSets[this.$root.theme];
+                if(res.DATA.resource&&res.DATA.resource.length){
+                    // let imgUrl = res.DATA.resource.find(el=>el.code=='bydlogo')?.url;
+                    // axios.create().get(imgUrl,{
+                    //     timeout: 3000
+                    // }).then(()=>{
+                        let themeSet = {}
+                        if(res.DATA&&res.DATA.name)
+                        this.$root.theme = res.DATA.name;
+                        if(this.$root.theme&&this.$root.themeSets[this.$root.theme]){
+                            themeSet = this.$root.themeSets[this.$root.theme];
+                        }
+                        if(res.DATA.resource)
+                        res.DATA.resource.forEach(el=>{
+                            themeSet['--'+el.code] = `url("${el.url}")`;
+                        })
+                        if(res.DATA.fonts)
+                        res.DATA.fonts.forEach(el=>{
+                            themeSet['--'+el.code] = el.value;
+                        })
+                        for(let k in themeSet){
+                            document.body.style.setProperty(k,themeSet[k]);
+                        }
+                    // }).catch(()=>{
+                    //     this.setDefaultTheme()
+                    // })
+                }else{
+                    this.setDefaultTheme()
                 }
-                if(res.DATA.resource)
-                res.DATA.resource.forEach(el=>{
-                    themeSet['--'+el.code] = `url("${el.url}")`;
-                })
-                if(res.DATA.fonts)
-                res.DATA.fonts.forEach(el=>{
-                    themeSet['--'+el.code] = el.value;
-                })
+            }).catch(()=>{
+                this.setDefaultTheme()
+            })
+        },
+        setDefaultTheme(){
+            if(this.$root.theme&&this.$root.themeSets[this.$root.theme]){
+                let themeSet = this.$root.themeSets[this.$root.theme];
                 for(let k in themeSet){
                     document.body.style.setProperty(k,themeSet[k]);
                 }
-            }).catch(()=>{
-                if(this.$root.theme&&this.$root.themeSets[this.$root.theme]){
-                    let themeSet = this.$root.themeSets[this.$root.theme];
-                    for(let k in themeSet){
-                        document.body.style.setProperty(k,themeSet[k]);
-                    }
-                }
-            })
+            }
         },
         getImageBase64(file){
             return new Promise(function(resolve, reject) {

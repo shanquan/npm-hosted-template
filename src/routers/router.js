@@ -7,7 +7,7 @@
  * | ------ | ------ | ------ | ------ |
  * | loginPass | true | 免登录 | /resetPwd |
  * | authPass | true |  免菜单权限 | /config |
- * | showFrame | false | 隐藏默认menu和header | /404 |
+ * | showFrame | false | 隐藏默认menu和header，全局支持URL传参配置?showFrame=false | /404 |
  * | blank | true |  新窗口打开 | /mesSysProjects |
  * | keepAlive | false |  页面缓存 | /publicCombination |
  */

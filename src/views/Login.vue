@@ -268,7 +268,7 @@ export default {
     }else if(localStorage.getItem("aHost")){
       this.form.ip = localStorage.getItem("aHost")
     }else{
-      this.form.ip = process.env.VUE_APP_DEV.match("^https?://(.*)/$")[1]
+      this.form.ip = process.env.VUE_APP_DEV.match("^https?://(.*)/$")?.[1];
     }
     let pwdRule = Object.assign({}, this.$root.pwdRule);
     pwdRule.message = this.$t(pwdRule.message);
@@ -276,7 +276,8 @@ export default {
     if (this.$route.query.mock === "true") {
       this.$http.mock = true;
       this.$http.setForMock();
-    } else if (this.$route.query.isCordova!==undefined) {
+    } 
+    if (this.$route.query.isCordova!==undefined) {
       this.isCordova = true;
     }
     this.$root.clearSession();
@@ -382,7 +383,7 @@ export default {
             sysCode: process.env.VUE_APP_CODE,
           };
           if (!this.isCordova) {
-            formParam.hostName = process.env.NODE_ENV == 'development'?process.env.VUE_APP_DEV.match("^https?://(.*)/$")[1]:window.location.host;
+            formParam.hostName = process.env.NODE_ENV == 'development'?process.env.VUE_APP_DEV.match("^https?://(.*)/$")?.[1]:window.location.host;
           } else {
             formParam.hostName = this.form.ip;
           }
@@ -860,6 +861,10 @@ export default {
 /* .syslogo{height:18px;display:inline-block;background-image: var(--syslogo);background-repeat: no-repeat;
     background-size: contain;width: 90px;
     vertical-align: text-bottom;} */
+@font-face {
+  font-family: "logoFont";
+  src: url('../assets/fonts/logoFont.ttf') format('truetype')
+}
 .syslogo {
   color: transparent;
   display: inline-block;
@@ -868,7 +873,7 @@ export default {
   -webkit-background-clip: text;
   font-size: 18px;
   font-weight: bolder;
-  font-style: italic;
+  font-family: 'logoFont';
 }
 .headlayer {
   height: 70px;

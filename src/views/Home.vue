@@ -103,6 +103,9 @@
   </div>
 </template>
 <script>
+import Vue from 'vue'
+import fullscreen from 'vue-fullscreen';
+Vue.use(fullscreen);
 const api={
   name: "LoadMaterialUp",
   ip: "170.20.200.119",
