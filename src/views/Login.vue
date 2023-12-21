@@ -367,6 +367,8 @@ export default {
           this.projects.push(this.$http.project);
           this.projectId = this.$http.project.id;
         }
+        if (this.$route.query.token || this.$route.query.encrypted)
+        this.loginDirect();
       } catch (e) {
         // console.log(e);
         this.projectId = "";
