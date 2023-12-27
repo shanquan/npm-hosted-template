@@ -511,7 +511,7 @@ new Vue({
                 return true
             }
             }
-            return false
+            return false||Object.keys(formParam).length==0
         },
     },
     render: h => h(App)

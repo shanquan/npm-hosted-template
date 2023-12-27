@@ -878,6 +878,7 @@ export default {
   -webkit-background-clip: text;
   font-size: 18px;
   font-weight: bolder;
+  font-style: italic;
   font-family: 'logoFont';
 }
 .headlayer {
