@@ -121,7 +121,7 @@ const order={
 import apiTop from '../app/components/home/ApiTop.vue'
 import orderProgress from '../app/components/home/OrderProgress.vue'
 import chartArea from '@/components/Chart.vue'
-const listPersonCount=6000,scrollNum=1;
+const listPersonCount=6000,scrollNum=1,showRows=3;
 let playTimer;
 let option = {
   title: {
@@ -223,7 +223,7 @@ export default {
       return subList;
     },
     listPersonFilter(){
-      return this.listPerson.slice(this.listPersonIndex*scrollNum,this.listPersonIndex*scrollNum+3);
+      return this.listPerson.slice(this.listPersonIndex*scrollNum,this.listPersonIndex*scrollNum+showRows);
     }
   },
   data(){
@@ -308,7 +308,7 @@ export default {
             this.listPerson.push({personDay:((i<=iPersonDay-1)?listDay[i]:null), personNight:((i<=iPersonNight-1)?listNight[i]:null)});
           }
         }
-        if(this.listPerson.length>3){ // 启动轮播定时器
+        if(this.listPerson.length>showRows){ // 启动轮播定时器
           if(playTimer)
           window.cancelInterval(playTimer);
           playTimer = setInterval(()=>{
@@ -340,9 +340,9 @@ export default {
 .box-card{width:100%;height:calc(50% - 10px);margin-bottom:10px;overflow-y:auto}
 .box-card .el-card__header{padding:11px 20px;font-size:16px;color:rgba(0,0,0,0.85)}
 .box-card .el-card__body{min-width:410px;min-height:228px}
-.box-card-person{width:100%;height:calc(50% - 10px);margin-bottom:10px;overflow-y:auto}
+.box-card-person{width:100%;margin-bottom:10px}
 .box-card-person .el-card__header{padding:11px 20px;font-size:16px;color:rgba(0,0,0,0.85)}
-.box-card-person .el-card__body{min-width:410px;height:242px;padding-top:5px}
+.box-card-person .el-card__body{min-width:410px;height:242px;padding-top:5px;overflow-y:auto}
 #orderBox .el-card__body{height: 346px}
 .notes{font-size:12px;color:rgba(0,0,0,0.45);line-height:22px;}
 .el-card__header i{margin-left:10px}
