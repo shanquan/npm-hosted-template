@@ -24,7 +24,7 @@
             <span class="notes">（{{$t(`${$http.project.projectCode}.L10221`)==`${$http.project.projectCode}.L10221`?$t('L10221'):$t(`${$http.project.projectCode}.L10221`)}}）</span>
             <span class="float-right"><i class="el-icon-full-screen primary" @click="toggle"></i><i class="el-icon-refresh success" @click="refresh"></i></span>
           </div>
-          <orderProgress :data="orderData"></orderProgress>
+          <orderProgress ref="orderProgress"></orderProgress>
         </el-card>
       </el-col>
       <el-col :xs="24" :sm="12">
@@ -32,16 +32,6 @@
           <div slot="header">
             <span>{{$t('L10222')}}</span>
           </div>
-          <!-- <el-row :gutter="10" style="margin-bottom:-15px">
-            <el-col :span="12" v-for="item in persons" :key="item.$index" class="info">
-              <-- <i class="el-icon-user primary-bg white"></i> --
-              <el-avatar size="small" src="images/user.png"></el-avatar>
-              <span>{{item.name}}</span>
-              <p>{{$t('email')}}：<a :href="'mailto:'+item.email">{{item.email}}</a></p>
-              <p>{{$t('tel')}}：<label>{{item.tel}}</label></p>
-              <label class="last">{{item.phone}}</label>
-            </el-col>
-          </el-row> -->
           <el-table stripe border :data="listPersonFilter" :header-cell-style="{'text-align':'center'}"
           style="width:100%" class="info">
             <el-table-column prop="personDay" :label="$t('dayShift')" :span="12">
@@ -67,8 +57,9 @@
         <el-card class="box-card">
           <div slot="header">
             <span>{{$t('L10225')}}</span>
+            <span class="float-right"><i class="el-icon-refresh success" @click="refresh2"></i></span>
           </div>
-          <apiTop :data="apiData"></apiTop>
+          <apiLog ref="apiLog"></apiLog>
         </el-card>
       </el-col>
       <!-- chart组件循环 -->
@@ -106,22 +97,10 @@
 import Vue from 'vue'
 import fullscreen from 'vue-fullscreen';
 Vue.use(fullscreen);
-const api={
-  name: "LoadMaterialUp",
-  ip: "170.20.200.119",
-  url: "#",
-  time: "7.23",
-  upward: true
-}
-const order={
-  name: "B18S01-DWB0035",
-  qty: 1,
-  progress: 76
-}
-import apiTop from '../app/components/home/ApiTop.vue'
+import apiLog from '../app/components/home/ApiLog.vue'
 import orderProgress from '../app/components/home/OrderProgress.vue'
 import chartArea from '@/components/Chart.vue'
-const listPersonCount=6000,scrollNum=1;
+const listPersonCount=6000,scrollNum=1,showRows=3;
 let playTimer;
 let option = {
   title: {
@@ -204,7 +183,7 @@ export default {
     }
   },
   components: {
-    apiTop,orderProgress,
+    apiLog,orderProgress,
     chartArea
   },
   computed:{
@@ -223,7 +202,7 @@ export default {
       return subList;
     },
     listPersonFilter(){
-      return this.listPerson.slice(this.listPersonIndex*scrollNum,this.listPersonIndex*scrollNum+3);
+      return this.listPerson.slice(this.listPersonIndex*scrollNum,this.listPersonIndex*scrollNum+showRows);
     }
   },
   data(){
@@ -233,20 +212,14 @@ export default {
       fullscreen: false,
       datetime: "2020-12-22 19:20:00",
       pvData:option,
-      apiData:[Object.assign({},api,{time:"12.23"}),Object.assign({},api,{upward:false}),api,Object.assign({},api,{upward:false,time:"2.23"}),api,api,api,api,api,api],
-      orderData:[order,Object.assign({},order,{progress: 92}),Object.assign({},order,{progress: 22}),order,Object.assign({},order,{progress: 22})],
-      listPerson: [{personDay:{ name: "李康琦", email: "abuitgrp@byd.com", tel: "13925260062", phone: "" },
-        personNight:{ name: "熊川川", email: "abuitgrp@byd.com", tel: "15919912371", phone: "" }},
-        {personDay:{ name: "庄崇", email: "abuitgrp@byd.com", tel: "13925262175", phone: "" },
-        personNight:{ name: "张海群", email: "abuitgrp@byd.com", tel: "18680396526", phone: "" }}
-      ],
+      listPerson: [],
       listPersonIndex:0,
       pvList:[this.$root.deepClone(option),this.$root.deepClone(option)]
     }
   },
   methods:{
     refresh(){
-      this.orderData.reverse();
+      this.$refs.orderProgress.refresh()
     },
     toggle () {
       // this.fullscreen = !this.fullscreen;
@@ -254,6 +227,12 @@ export default {
         wrap: false,
         callback: (f)=>{this.fullscreen = f}
       })
+    },
+    refresh2(){
+      this.$refs.apiLog.refresh()
+    },
+    getApiData(){
+      console.log('getApiData')
     },
     goLevel1(){
       this.levelTop=true;
@@ -308,7 +287,7 @@ export default {
             this.listPerson.push({personDay:((i<=iPersonDay-1)?listDay[i]:null), personNight:((i<=iPersonNight-1)?listNight[i]:null)});
           }
         }
-        if(this.listPerson.length>3){ // 启动轮播定时器
+        if(this.listPerson.length>showRows){ // 启动轮播定时器
           if(playTimer)
           window.cancelInterval(playTimer);
           playTimer = setInterval(()=>{
@@ -340,10 +319,9 @@ export default {
 .box-card{width:100%;height:calc(50% - 10px);margin-bottom:10px;overflow-y:auto}
 .box-card .el-card__header{padding:11px 20px;font-size:16px;color:rgba(0,0,0,0.85)}
 .box-card .el-card__body{min-width:410px;min-height:228px}
-.box-card-person{width:100%;height:calc(50% - 10px);margin-bottom:10px;overflow-y:auto}
+.box-card-person{width:100%;margin-bottom:10px}
 .box-card-person .el-card__header{padding:11px 20px;font-size:16px;color:rgba(0,0,0,0.85)}
-.box-card-person .el-card__body{min-width:410px;height:242px;padding-top:5px}
-#orderBox .el-card__body{height: 346px}
+.box-card-person .el-card__body{min-width:410px;height:242px;padding-top:5px;}
 .notes{font-size:12px;color:rgba(0,0,0,0.45);line-height:22px;}
 .el-card__header i{margin-left:10px}
 /* .info{margin-bottom:24px} */

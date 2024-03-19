@@ -82,20 +82,32 @@ export default {
       this.goto(path);
     },
     goto(path){
-       if(path.startsWith('http')){
+        if(path.startsWith('http')){
           window.open(path,'_blank');
-        }else{
-          // 查找指定路径的router
-          let r = this.$router.matcher.match(path)
-          if(r&&r.meta&&r.meta.blank){
-            window.open(process.env.BASE_URL+path,'_blank');
+        }else if(path.startsWith('$')){ // $admin/abc -> /abc | $xyz/abc -> /xyz/abc
+          let prefix = path.match(/^\$((?!\/).)*/)[0]?.substring(1);
+          if(`/${prefix}/`==process.env.BASE_URL){
+            path = path.substring(prefix.length+2)
+            this.gotoRouter(path)
           }else{
-            this.$router.push({ path: `/${path}` });
+            path = '/'+path.substring(1)
+            window.location.href = path;
           }
+        }else{
+          this.gotoRouter(path)
         }
         if(this.$root.$children[0].hasTabs)
         this.$root.$children[0].addTab({name:`/${path}`,path:`/${path}`})
     },
+    gotoRouter(path){
+      // 查找指定路径的router
+      let r = this.$router.matcher.match(path)
+      if(r&&r.meta&&r.meta.blank){
+        window.open(process.env.BASE_URL+path,'_blank');
+      }else{
+        this.$router.push({ path: `/${path}` });
+      }
+    }
   }
 }
 </script>

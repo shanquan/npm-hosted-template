@@ -28,12 +28,23 @@
 </template>
 
 <script>
+const order={
+  name: "B18S01-DWB0035",
+  qty: 1,
+  progress: 76
+}
 export default {
   name: 'orderProgress',
   props: {
-    data: Array
+    data: {
+      type: Array,
+      default: () => [order,Object.assign({},order,{progress: 92}),Object.assign({},order,{progress: 22}),order,Object.assign({},order,{progress: 22})],
+    },
   },
   methods:{
+    refresh(){
+      this.data.reverse();
+    },
     getPcgClass(p){
       let c = "middle";
       if(p<=30){
