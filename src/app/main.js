@@ -26,6 +26,7 @@ Vue.use(filters);
 export default {
   routers: [].concat(sysRouter.router),
   langs:{...sysLang},
+  eventBus:new Vue({}),
   getBuffer(s) {
     let buf = new ArrayBuffer(s.length);
     let view = new Uint8Array(buf);
@@ -90,6 +91,7 @@ export default {
         url = url.endsWith('/')?url:url+'/';
         vm.$http.log_url = url
       }
+      vm.$app.eventBus.$emit('getLogUrl',vm.$http.log_url)
     })
     vm.$http.axios.post('exi/me/sys/version',null,{
       headers:{
