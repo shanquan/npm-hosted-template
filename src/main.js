@@ -131,7 +131,8 @@ new Vue({
         project: project, // 当前项目
         auth: [], // 用户所有权限菜单
         mobileList: [],
-        menuList: []
+        menuList: [],
+        pvList:[]
     },appConfigDefault,appConfig),
     methods: {
         deepClone(source, hash = new WeakMap()){

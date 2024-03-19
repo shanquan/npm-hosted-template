@@ -159,18 +159,33 @@ export default {
         //页面的breadcrumbs
         if(this.hasBreadcrumb)
         this.getBreadcrumbs(nVal);
+        let p,authItem;
+        try{
+          p = this.$root.getMatchedPath(nVal);
+          authItem = this.$root.findMenuItem(p,this.$root.auth);
+          // 记录页面访问
+          if(authItem&&!this.$root.pvList.find(el=>el==authItem.code)){
+            this.$root.pvList.push(authItem.code)
+            const formData={
+              functionCode: authItem.code,
+              functionName: authItem.menuName,
+              client: this.pageType == 0?'web':'mobile',
+              projectId: this.$http.project.id,
+              workNo: this.$store.state.user.workNo
+            }
+            this.$http.axios.post('user/api/MesPageFrequencyUser/save',formData,{
+              headers:{
+                showError: false
+              }
+            })
+          }
+        }catch(e){
+          console.error(e)
+        }
         if(this.pageType == 0){
           // 路由权限拦截
-          if(!nVal.meta.authPass)
-          try{
-            let p = this.$root.getMatchedPath(nVal);
-            let authItem = this.$root.findMenuItem(p,this.$root.auth);
-            if(!authItem&&this.$root.authCheck){
-              this.$router.push({path:'/403'})
-            }
-          }catch(e){
-            console.error(e)
-          }
+          if(this.$root.authCheck&&!nVal.meta.authPass&&!authItem)
+          this.$router.push({path:'/403'})
           if(!this.hasTabs){
             return;
           }
@@ -209,6 +224,7 @@ export default {
             this.editableTabsValue = nVal.path;
           }
         }
+        
       }
     },
   },

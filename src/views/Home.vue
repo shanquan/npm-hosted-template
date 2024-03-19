@@ -18,13 +18,13 @@
         </el-card>
         <!-- 网页内全屏，css实现 -->
         <!-- <el-card class="box-card" :class="fullscreen?'fullscreen':''"> -->
-        <el-card id="orderBox" class="box-card">
+        <el-card id="r2Box1" class="box-card">
           <div slot="header">
             <span>{{$t('L10220')}}</span>
             <span class="notes">（{{$t(`${$http.project.projectCode}.L10221`)==`${$http.project.projectCode}.L10221`?$t('L10221'):$t(`${$http.project.projectCode}.L10221`)}}）</span>
             <span class="float-right"><i class="el-icon-full-screen primary" @click="toggle"></i><i class="el-icon-refresh success" @click="refresh"></i></span>
           </div>
-          <orderProgress ref="orderProgress"></orderProgress>
+          <pageView ref="pageView"></pageView>
         </el-card>
       </el-col>
       <el-col :xs="24" :sm="12">
@@ -79,7 +79,7 @@ import fullscreen from 'vue-fullscreen';
 Vue.use(fullscreen);
 import shiftPerson from '../app/components/home/ShiftPerson.vue'
 import apiLog from '../app/components/home/ApiLog.vue'
-import orderProgress from '../app/components/home/OrderProgress.vue'
+import pageView from '../app/components/home/PageView.vue'
 import chartArea from '@/components/Chart.vue'
 let option = {
   title: {
@@ -161,7 +161,7 @@ export default {
     }
   },
   components: {
-    shiftPerson,apiLog,orderProgress,
+    shiftPerson,apiLog,pageView,
     chartArea
   },
   computed:{
@@ -192,13 +192,17 @@ export default {
   },
   methods:{
     refresh(){
-      this.$refs.orderProgress.refresh()
+      this.$refs.pageView.refresh()
     },
     toggle () {
       // this.fullscreen = !this.fullscreen;
-      this.$fullscreen.toggle(document.getElementById('orderBox'), {
+      this.$fullscreen.toggle(document.getElementById('r2Box1'), {
         wrap: false,
-        callback: (f)=>{this.fullscreen = f}
+        callback: (f)=>{
+          this.fullscreen = f;
+          if(!this.fullscreen)
+          this.$refs.pageView.resize()
+        }
       })
     },
     refresh2(){
