@@ -150,12 +150,14 @@ export default {
               smooth: true,
               label:{
                 show: true,
-                // position: 'top'
               },
               name: columns[i],
               data: this.chartData.map(
                 (el) => el[columns[i]]
               ),
+            }
+            if(type=='bar'){
+              sdata.label.position = 'top'
             }
             if(type=='area'){
               sdata.type = 'line'
