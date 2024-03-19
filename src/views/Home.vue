@@ -32,27 +32,7 @@
           <div slot="header">
             <span>{{$t('L10222')}}</span>
           </div>
-          <el-table stripe border :data="listPersonFilter" :header-cell-style="{'text-align':'center'}"
-          style="width:100%" class="info">
-            <el-table-column prop="personDay" :label="$t('dayShift')" :span="12">
-              <template v-if="scope.row.personDay!=null" slot-scope="scope">
-                <el-avatar size="small" src="img/user.png"></el-avatar>
-                <span>{{scope.row.personDay.name}}</span>
-                <p>{{$t('email')}}：<a :href="'mailto:'+scope.row.personDay.email">{{scope.row.personDay.email}}</a></p>
-                <p>{{$t('tel')}}：<label>{{scope.row.personDay.tel}}</label></p>
-                <!-- <label class="last">{{scope.row.personDay.phone}}</label> -->
-              </template>
-            </el-table-column>
-            <el-table-column prop="personNight" :label="$t('nightShift')" :span="12">
-              <template v-if="scope.row.personNight!=null" slot-scope="scope">
-                <el-avatar size="small" src="img/user.png"></el-avatar>
-                <span>{{scope.row.personNight.name}}</span>
-                <p>{{$t('email')}}：<a :href="'mailto:'+scope.row.personNight.email">{{scope.row.personNight.email}}</a></p>
-                <p>{{$t('tel')}}：<label>{{scope.row.personNight.tel}}</label></p>
-                <!-- <label class="last">{{scope.row.personNight.phone}}</label> -->
-              </template>
-            </el-table-column>
-          </el-table>
+          <shiftPerson></shiftPerson>
         </el-card>
         <el-card class="box-card">
           <div slot="header">
@@ -97,11 +77,10 @@
 import Vue from 'vue'
 import fullscreen from 'vue-fullscreen';
 Vue.use(fullscreen);
+import shiftPerson from '../app/components/home/ShiftPerson.vue'
 import apiLog from '../app/components/home/ApiLog.vue'
 import orderProgress from '../app/components/home/OrderProgress.vue'
 import chartArea from '@/components/Chart.vue'
-const listPersonCount=6000,scrollNum=1,showRows=3;
-let playTimer;
 let option = {
   title: {
 	text: '',
@@ -179,11 +158,10 @@ export default {
       this.$store.commit('setPageType',1)
     }else{
       this.getPV();
-      this.getPersons();
     }
   },
   components: {
-    apiLog,orderProgress,
+    shiftPerson,apiLog,orderProgress,
     chartArea
   },
   computed:{
@@ -201,9 +179,6 @@ export default {
       }
       return subList;
     },
-    listPersonFilter(){
-      return this.listPerson.slice(this.listPersonIndex*scrollNum,this.listPersonIndex*scrollNum+showRows);
-    }
   },
   data(){
     return{
@@ -212,8 +187,6 @@ export default {
       fullscreen: false,
       datetime: "2020-12-22 19:20:00",
       pvData:option,
-      listPerson: [],
-      listPersonIndex:0,
       pvList:[this.$root.deepClone(option),this.$root.deepClone(option)]
     }
   },
@@ -230,9 +203,6 @@ export default {
     },
     refresh2(){
       this.$refs.apiLog.refresh()
-    },
-    getApiData(){
-      console.log('getApiData')
     },
     goLevel1(){
       this.levelTop=true;
@@ -265,41 +235,6 @@ export default {
         this.datetime = res.DATA.time;
       })
     },
-    getPersons(){
-      var param = {};
-      // this.$http.getMockFile('mesSysMaintainSche_getList.json')
-      this.$http.axios.post(`${this.$http.mes_url}mesSysMaintainSche/getList`,param,{
-          headers: {
-            showError: false,
-            addLog: false
-          },
-        })
-        .then(res=>{
-        let listDay = res.DATA.filter(el=>el.workClass=="白班");
-        let listNight = res.DATA.filter(el=>el.workClass=="夜班");
-
-        let iPersonDay = listDay.length;
-        let iPersonNight = listNight.length;
-        if (iPersonDay>0 || iPersonNight>0) {
-          this.listPerson = [];
-          let iLength = (iPersonDay>=iPersonNight)?iPersonDay:iPersonNight;
-          for (let i=0; i<iLength; i++) {
-            this.listPerson.push({personDay:((i<=iPersonDay-1)?listDay[i]:null), personNight:((i<=iPersonNight-1)?listNight[i]:null)});
-          }
-        }
-        if(this.listPerson.length>showRows){ // 启动轮播定时器
-          if(playTimer)
-          window.cancelInterval(playTimer);
-          playTimer = setInterval(()=>{
-            if(this.listPersonIndex>=Math.floor(this.listPerson.length/scrollNum)-1){
-              this.listPersonIndex = 0
-            }else{
-              ++this.listPersonIndex
-            }
-          },listPersonCount)
-        }
-      });
-    }
   },
   beforeRouteLeave (to,from,next) {
     if(this.pageType!=0&&this.levelTop==false&&to.name!="login"){
@@ -324,29 +259,6 @@ export default {
 .box-card-person .el-card__body{min-width:410px;height:242px;padding-top:5px;}
 .notes{font-size:12px;color:rgba(0,0,0,0.45);line-height:22px;}
 .el-card__header i{margin-left:10px}
-/* .info{margin-bottom:24px} */
-.info i{
-  font-size: 24px;
-  border: 1px solid #ccc;
-  border-radius: 50%;
-  margin-right: 12px;
-  vertical-align: middle;
-}
-.info .el-avatar{width:24px;height:24px;margin-right:12px;vertical-align: middle;}
-.info span{
-  vertical-align: middle;
-  font-size:14px;
-}
-.info p{
-  padding-left: 36px;
-  font-size: 12px;
-  color:rgba(0,0,0,0.45);
-  /* margin-top: 8px; */
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-.info a{color:rgb(74,144,226)}
-.info label{font-size:12px;color:rgba(0,0,0,0.85);}
 label.last{margin-left:60px}
 .pv .el-card__body{height:calc(100% - 84px);}
 .mobile-menu .el-container{
