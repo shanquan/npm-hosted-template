@@ -218,6 +218,41 @@
               }
             ],
             "isMenu": true
+          },
+          {
+            "code": "base",
+            "index": "base",
+            "menuName": "信息配置",
+            "subs": [
+              {
+                "index": "/list/model",
+                "menuName": "模型列表",
+                "isMenu": true,
+                "subs": [
+                  {
+                    "index": "/item/model/add",
+                    "menuName": "模型-新增",
+                    "isMenu": false
+                  },{
+                    "index": "/item/model/edit",
+                    "menuName": "模型-修改",
+                    "isMenu": false
+                  },{
+                    "index": "/item/model/delete",
+                    "menuName": "模型-删除",
+                    "isMenu": false
+                  },{
+                    "index": "/item/model/detail",
+                    "menuName": "模型-详情",
+                    "isMenu": false
+                  },{
+                    "index": "/item/model/export",
+                    "menuName": "模型-导出",
+                    "isMenu": false
+                  }
+                ]
+              }
+            ]
           }]
     }],
     "USER": {

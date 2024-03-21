@@ -1,0 +1,70 @@
+{
+  "TOTAL": 4,
+  "DATA": [
+    {
+      "id": 30001,
+      "shard": null,
+      "sectionName": "MESA",
+      "name": "LOKI-MESA-0001",
+      "type": 0,
+      "version": "002_000",
+      "currentVersion": "N",
+      "description": "测试添加2",
+      "status": 1,
+      "usedFlag": "Y",
+      "createName": "wang.wenbin",
+      "createTime": "2020-12-21 13:18:12",
+      "updateName": "wang.wenbin",
+      "updateTime": "2020-12-21 13:44:10"
+    },
+    {
+      "id": 1,
+      "shard": 1,
+      "sectionName": "组装",
+      "name": "LOKI-AN00B_M_G_F1",
+      "type": 0,
+      "version": "001_000",
+      "currentVersion": "Y",
+      "description": "LOKI",
+      "status": 0,
+      "usedFlag": null,
+      "createName": "1775390",
+      "createTime": "2020-12-01 12:00:00",
+      "updateName": null,
+      "updateTime": null
+    },
+    {
+      "id": 2,
+      "shard": 1,
+      "sectionName": "MESA",
+      "name": "LOKI-MESA-0001",
+      "type": 2,
+      "version": "001_000",
+      "currentVersion": "Y",
+      "description": "LOKI",
+      "status": 0,
+      "usedFlag": "Y",
+      "createName": "wang.wenbin",
+      "createTime": "2020-12-21 13:44:10",
+      "updateName": "wang.wenbin",
+      "updateTime": "2020-12-20 22:19:24"
+    },
+    {
+      "id": 40006,
+      "shard": null,
+      "sectionName": "MESA",
+      "name": "LOKI-MESA-0001",
+      "type": 1,
+      "version": "002_001",
+      "currentVersion": "N",
+      "description": null,
+      "status": 0,
+      "usedFlag": "N",
+      "createName": "wang.wenbin",
+      "createTime": "2020-12-21 10:38:54",
+      "updateName": "wang.wenbin",
+      "updateTime": "2020-12-21 10:40:53"
+    }
+  ],
+  "RESULT": "PASS"
+}

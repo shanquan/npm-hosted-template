@@ -1,0 +1,19 @@
+{
+  "RESULT": "PASS",
+  "DATA":{
+    "id": 30001,
+    "shard": null,
+    "sectionName": "MESA",
+    "name": "LOKI-MESA-0001",
+    "type": 0,
+    "version": "002_000",
+    "currentVersion": "N",
+    "description": "测试添加2",
+    "status": 1,
+    "usedFlag": "Y",
+    "createName": "wang.wenbin",
+    "createTime": "2020-12-21 13:18:12",
+    "updateName": "wang.wenbin",
+    "updateTime": "2020-12-21 13:44:10"
+  }
+}

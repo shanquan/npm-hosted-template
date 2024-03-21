@@ -319,7 +319,7 @@ export default {
     logout(){
       this.closeTabs(true);
       this.$root.clearSession();
-      this.$router.push('login');
+      this.$router.push('/login');
     },
     chgPsw(){
       this.dialogVisible = true;

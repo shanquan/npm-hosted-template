@@ -59,7 +59,7 @@ export default {
     this.getProjectList();
     this.$root.$children[0].addBreadcrumb(this.$route)
     if(false&&!window.cordova){
-      this.$http.axios.get(`${this.$http.pre_url}mesResource/getMac`).then(response=>{
+      this.$http.axios.get(`${this.$http.app_url}mesResource/getMac`).then(response=>{
         if(!response.DATA){
           this.$message({
             message:"获取MAC地址失败",
@@ -120,7 +120,7 @@ export default {
     },
     remoteMethod(qs) {
       if (qs !== '') {
-        this.$http.getPage(`${this.$http.pre_url}mesShoporder`, {
+        this.$http.getPage(`${this.$http.app_url}mesShoporder`, {
           shoporder: qs
         },1,30).then(res=>{
           this.shoporderList = res.DATA.page;

@@ -1,0 +1,57 @@
+{
+  "total": 20620,
+  "BAR": [
+      {
+          "num": 763,
+          "functionCode": "/process",
+          "functionName": "工序维护"
+      },
+      {
+          "num": 712,
+          "functionCode": "/shoporders",
+          "functionName": "工单管理"
+      },
+      {
+          "num": 639,
+          "functionCode": "/mesSysMenus",
+          "functionName": "菜单管理"
+      },
+      {
+          "num": 554,
+          "functionCode": "/equipmentDistribution",
+          "functionName": "设备维护"
+      },
+      {
+          "num": 547,
+          "functionCode": "/mat",
+          "functionName": "定制料号管理"
+      },
+      {
+          "num": 506,
+          "functionCode": "/processRoutes",
+          "functionName": "工艺路线维护"
+      },
+      {
+          "num": 494,
+          "functionCode": "/mesSysConfig",
+          "functionName": "系统参数"
+      },
+      {
+          "num": 483,
+          "functionCode": "/mesSysRoles",
+          "functionName": "角色管理"
+      },
+      {
+          "num": 477,
+          "functionCode": "/mesSysUsers",
+          "functionName": "用户管理"
+      },
+      {
+          "num": 430,
+          "functionCode": "/mesSysProgram",
+          "functionName": "程序类型管理"
+      }
+  ],
+  "DATA": [],
+  "RESULT": "PASS"
+}

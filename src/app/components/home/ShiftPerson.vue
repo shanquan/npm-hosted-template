@@ -93,7 +93,7 @@ export default {
   margin-right: 12px;
   vertical-align: middle;
 }
-.info .el-avatar{width:24px;height:24px;margin-right:12px;vertical-align: middle;}
+.info .el-avatar{width:24px;height:24px;margin-right:12px;vertical-align: middle;margin-top:2px}
 .info span{
   vertical-align: middle;
   font-size:14px;

@@ -1,0 +1,55 @@
+{
+  "DATA": {
+    "common":[
+      {   
+        "value": "name",
+        "width": 150,
+        "required": true,
+        "queryable": true
+      }, {
+        "value": "version",
+        "required": true,
+        "queryable": true
+      }, {
+        "value": "description",
+        "type": "textarea"
+      }, {
+        "value": "status",
+        "required": true,
+        "queryable": true,
+        "type": "radio",
+        "source": "statusOptions"
+      }, {
+        "value": "currentVersion",
+        "required": true,
+        "type": "radio",
+        "options": [{"value":"Y"},{"value":"N"}]
+      }, {
+        "value": "type",
+        "label": "L10305",
+        "required": true,
+        "queryable": true,
+        "type": "select",
+        "options": "typeOptions"
+      }, {
+        "value": "sectionName",
+        "required": true,
+        "type": "select"
+      }],
+    "suffix":[
+      {
+      "value": "createName"
+      }, {
+        "width": 150,
+        "value": "createTime"
+      }, {
+        "value": "updateName"
+      }, {
+        "width": 150,
+        "value": "updateTime"
+      }],
+    "typeOptions":[{"label":"L10301","value":0},{"label":"L10302","value":1},{"label":"L10303","value":2}],
+    "zh-CN":{"name":"名称","version":"版本","description":"描述","status":"状态","currentVersion":"当前版本","L10305":"工艺路线类型","L10301":"生产工艺路线","L10302":"不合格工艺路线","L10303":"返工工艺路线","L10304":"特殊工艺路线","sectionName":"工序名称"}
+  },
+  "RESULT": "PASS"
+}

@@ -35,7 +35,7 @@ try {
     http.project = project;
 } catch (e) {console.log(e)}
 
-router.beforeEach(async(to, from, next) => {  
+router.beforeEach(async(to, from, next) => {
     if(app.isMobile()){
         http.promptError = false;
         if(to.name=="home"||to.name=="login"){
@@ -384,8 +384,12 @@ new Vue({
             }
             let p = route.path.substring(1).split("/");
             if (p.length >= 2) {
-                if (['add', 'edit', 'update', 'delete', 'scope', 'rule', 'copy'].includes(p[1]) || p[0] == "userDefined") {
-                    p = '/' + p[0] + '/' + p[1];
+                if (['add', 'edit', 'update', 'delete', 'scope', 'rule', 'copy'].includes(p[1]) || ["userDefined","list","item"].includes(p[0])) {
+                    if(p[0]=='item'){
+                        p = `/${p[0]}/${p[1]}/${p[2]}`;
+                    }else{
+                        p = '/' + p[0] + '/' + p[1];
+                    }
                 } else if (p[1].startsWith('%7B')) {
                     p = '/' + p[0] + '/' + 'edit';
                 } else if (p[1].startsWith('add')) {

@@ -7,6 +7,7 @@ import Vue from 'vue'
 import directives from './directives';
 import filters from './filters';
 import './assets/app.css';
+import commonRouter from '@/app/components/common/router'
 import sysRouter from 'user-sys/router.sys'
 import sysLang from 'user-sys/zh-CN.sys'
 
@@ -24,7 +25,7 @@ Vue.use(filters);
  * @example const globalSet = true;
  */
 export default {
-  routers: [].concat(sysRouter.router),
+  routers: [].concat(sysRouter.router,commonRouter.router),
   langs:{...sysLang},
   eventBus:new Vue({}),
   getBuffer(s) {
