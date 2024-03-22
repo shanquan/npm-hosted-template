@@ -4,16 +4,25 @@
 -->
 <template>
   <div class="commonList">
-    <el-form :inline="true" label-position="right" :model="form" class="form-bar">
+    <el-form :inline="true" label-position="right" :model="form" class="form-bar" :label-width="config.labelWidth">
       <el-form-item v-for="item in querys"
         :key="item.$index"
-        :label="item.label?$t(item.label):$t(item.value)">
+        :label="item.label?$t(`${config.model}.${item.label}`):$t(`${config.model}.${item.value}`)">
         <el-input v-if="!item.type||item.type=='number'||item.type=='textarea'" 
-          :type="item.type" 
+          :type="item.type"
+          :rows="1"
           v-model="form[item.value]" clearable></el-input>
-        <el-select v-if="item.type=='select'||item.type=='radio'" v-model="form[item.value]" clearable>
+        <el-select v-if="!item.queryUrl&&!item.remoteUrl&&item.options&&(item.type=='select'||item.type=='radio')" v-model="form[item.value]" clearable>
           <el-option
-            v-for="op in item.options||$root[item.source]"
+            v-for="op in item.options"
+            :key="op.$index"
+            :label="op.label?$t(`${config.model}.${op.label}`):$t(`${config.model}.${op.value}`)"
+            :value="op.value">
+          </el-option>
+        </el-select>
+        <el-select @focus="focusEl=item.value" v-if="(item.queryUrl||item.remoteUrl||item.source)&&(item.type=='select'||item.type=='radio')" v-model="form[item.value]" :multiple="item.multiple?true:false" :filterable="item.queryUrl||item.remoteUrl?true:false" :filter-method="item.queryUrl?filterMethod:null" :remote="item.remoteUrl?true:false" :remote-method="item.remoteUrl?remoteMethod:null" clearable>
+          <el-option
+            v-for="op in item.source?$root[item.source]:item.options"
             :key="op.$index"
             :label="op.label?$t(op.label):$t(op.value)"
             :value="op.value">
@@ -60,7 +69,7 @@
         :key="item.$index"
         :prop="item.value"
         :formatter="formatter"
-        :label="item.label?$t(item.label):$t(item.value)"
+        :label="item.label?$t(`${config.model}.${item.label}`):$t(`${config.model}.${item.value}`)"
         :show-overflow-tooltip="true"
         :class-name="item.width ? '' : 'nowrap'"
         :width="item.width ? item.width : ''"
@@ -98,35 +107,55 @@ export default {
     this.$http.getMockFile('model.json').then(res=>{
       MODELDATA = res.DATA;
       try{
-        if(MODELDATA['zh-CN'])
-        this.$i18n.mergeLocaleMessage('zh-CN', MODELDATA['zh-CN'])
-        // let langs={};
-        // if(MODELDATA['zh-CN']&&!this.$i18n.messages['zh-CN'][this.model]){
-        //   langs[this.model] = MODELDATA['zh-CN']
-        //   this.$i18n.mergeLocaleMessage('zh-CN', langs);
-        // }
-        // if(MODELDATA['en-US']&&!this.$i18n.messages['en-US'][this.model]){
-        //   langs[this.model] = MODELDATA['en-US']
-        //   this.$i18n.mergeLocaleMessage('en-US', langs);
-        // }
+        let langs={};
+        if(MODELDATA['zh-CN']&&!this.$i18n.messages['zh-CN'][this.config.model]){
+          langs[this.config.model] = MODELDATA['zh-CN']
+          this.$i18n.mergeLocaleMessage('zh-CN', langs);
+        }
+        if(MODELDATA['en-US']&&!this.$i18n.messages['en-US'][this.config.model]){
+          langs[this.config.model] = MODELDATA['en-US']
+          this.$i18n.mergeLocaleMessage('en-US', langs);
+        }
       }catch(e){
         console.log(e)
       }
-      // @todo
-      // this.uploadUrl = this.$http.baseUrl + this.$http.app_url + `${this.$route.params.model}/importExcel`;
+      if(MODELDATA.config){
+        Object.assign(this.config,MODELDATA.config)
+      }
+      if(MODELDATA.uploadUrl){
+        this.uploadUrl = this.$http.baseUrl + MODELDATA.uploadUrl
+      }
+      if(MODELDATA.downloadUrl){
+        this.downloadUrl = this.$http.baseUrl + MODELDATA.downloadUrl
+      }
       this.querys = MODELDATA.common.filter(el=>el.queryable==true);
       this.columnList = MODELDATA.common.concat(MODELDATA.suffix);
-      this.typeOptions = MODELDATA.typeOptions;
+      MODELDATA.common.filter(el=>el.queryUrl).forEach(el=>{
+        this.$http.axios.post(el.queryUrl).then(res=>{
+          this.options[el.value] = res.DATA.map(it=>{
+            return el.lv&&el.lv.length>1?{
+              label: it[el.lv[0]],
+              value: it[el.lv[1]]
+            }:it
+          })
+          el.options = this.options[el.value].slice(0,30)
+        })
+      })
       this.getPage();
+      this.$nextTick(()=>{this.$root.resizeTable();})
     })
     
   },
   components:{
     item
   },
+  watch:{
+    '$root.screenSize':function(){
+      this.$root.resizeTable();
+    }
+  },
   mounted(){
     this.$nextTick(()=>{
-      this.$root.resizeTable();
       if(this.dialogMode){
         document.querySelector('.tab-view .el-tabs__header').classList.add('hide')
       }
@@ -141,12 +170,17 @@ export default {
         status: "",
         type: ""
       },
-      model: this.$route.params.model,
-      modelUrl: this.$http.app_url + this.$route.params.model,
+      config:{
+        model: this.$route.params.model,
+        modelUrl: this.$http.app_url + this.$route.params.model,
+        labelWidth:"",
+      },
       uploadUrl: `${this.$http.baseUrl}${this.$http.app_url + this.$route.params.model}/importExcel`,
       downloadUrl: `${this.$http.baseUrl}${this.$http.app_url + this.$route.params.model}/exportExcel`,
       enabledUploadBtn: true,
       querys:[],
+      options:{},
+      focusEl:null,
       columnList:[],
       list: [],
       checkedIds:[],
@@ -189,7 +223,7 @@ export default {
       }
       this.list = [];
       this.$http
-        .getPage(this.modelUrl, formParams, this.currentPage, this.pageSize)
+        .getPage(this.config.modelUrl, formParams, this.currentPage, this.pageSize)
         .then((response) => {
           this.list = response.DATA;
           this.total = response.TOTAL;
@@ -205,28 +239,60 @@ export default {
           this.$refs.dlgCom.init()
         })
       }else{
-        let tab = this.$root.$children[0].editableTabs.find(el=>el.name==`/${this.model}/${type}`);
+        let tab = this.$root.$children[0].editableTabs.find(el=>el.name==`/${this.config.model}/${type}`);
         if(tab)
         this.$root.$children[0].removeCache(tab.path)
         if (row && row.id!=undefined) {
-          this.$router.push({ path: `/item/${this.model}/${type}/${row.id}` });
+          this.$router.push({ path: `/item/${this.config.model}/${type}/${row.id}` });
         } else {
-          this.$router.push({ path: `/item/${this.model}/${type}` });
+          this.$router.push({ path: `/item/${this.config.model}/${type}` });
         }
       }
     },
-    formatter(row,column,cellVal){ // @todo
-      if(column.property=='status'){
-        let sop = this.$root.statusOptions.find(it=>it.value==cellVal);
+    formatter(row,column,cellVal){
+      let sourceValues = MODELDATA.common.filter(el=>el.source).map(el=>el.value);
+      let optionsValues = MODELDATA.common.filter(el=>el.options).map(el=>el.value);
+      if(sourceValues.includes(column.property)){
+        let sourceItem = MODELDATA.common.find(el=>el.value==column.property).source
+        let sop = this.$root[sourceItem].find(it=>it.value==cellVal);
         if(sop)
-        return this.$t(sop.label);
+        return sop.label?this.$t(sop.label):this.$t(sop.value);
       }
-      if(column.property=='type'){
-        let top = this.typeOptions.find(it=>it.value==cellVal);
+      if(optionsValues.includes(column.property)){
+        let options = MODELDATA.common.find(el=>el.value==column.property).options
+        let top = options.find(it=>it.value==cellVal);
         if(top)
-        return this.$t(top.label);
+        return top.label?this.$t(`${this.config.model}.${top.label}`):this.$t(`${this.config.model}.${top.value}`);
       }
       return cellVal
+    },
+    filterMethod(qs){
+      let item = MODELDATA.common.find(el=>el.value==this.focusEl)
+      item.options = qs ? this.options[this.focusEl].filter(el=>{return el.label.indexOf(qs)>-1}).slice(0,30):this.options[this.focusEl].slice(0,30)
+      this.$forceUpdate();
+    },
+    remoteMethod(qs) {
+      let item = MODELDATA.common.find(el=>el.value==this.focusEl)
+      let param = {
+        "currentPageNo": 1,
+        "pageSize": 30
+      }
+      if(qs){
+        if(item.lv&&item.lv.length>1){
+          param[item.lv[0]] = qs
+        }else{
+          param.label = qs
+        }
+        this.$http.axios.post(item.remoteUrl,param).then(res=>{
+          item.options = res.DATA.map(it=>{
+            return item.lv&&item.lv.length>1?{
+              label: it[item.lv[0]],
+              value: it[item.lv[1]]
+            }:it
+          })
+          this.$forceUpdate()
+        })
+      }
     },
     handleSelectionChange(val) {
       this.checkedIds = val.map((el) => el.id);
@@ -236,7 +302,7 @@ export default {
         confirmButtonText: this.$t('L00004'),
         type: "warning",
       }).then(() => {
-        this.$http.removeById2(this.modelUrl, item.id).then(() => {
+        this.$http.removeById2(this.config.modelUrl, item.id).then(() => {
           this.currentPage = 1;
           this.getPage();
         });
@@ -249,7 +315,7 @@ export default {
           type: "warning",
         }).then(() => {
           this.$http
-            .removeListId(this.modelUrl, this.checkedIds.join(","))
+            .removeListId(this.config.modelUrl, this.checkedIds.join(","))
             .then(() => {
               this.currentPage = 1;
               this.getPage();

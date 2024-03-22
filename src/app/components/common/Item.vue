@@ -4,26 +4,37 @@
 -->
 <template>
   <div class="pda-box commonItem">
-    <el-form ref="form" :model="form" :rules="rules" :validate-on-rule-change="false" :class="type=='detail'?'detail':''" label-width="110px">
+    <el-form ref="form" :model="form" :rules="rules" :validate-on-rule-change="false" :class="type=='detail'?'detail':''" :label-width="config.labelWidth">
       <el-form-item 
         v-for="item in rowList" 
         :key="item.$index" 
-        :label="item.label?$t(item.label):$t(item.value)" 
+        :label="item.label?$t(`${config.model}.${item.label}`):$t(`${config.model}.${item.value}`)" 
         :prop="item.value">
         <el-input 
           v-if="!item.type||item.type=='number'||item.type=='textarea'" 
           :type="item.type" 
           v-model="form[item.value]" 
-          :class="form.usedFlag=='Y'&&(item.value=='name'||item.value=='version')?'readonly':''" 
-          :readonly="form.usedFlag=='Y'&&(item.value=='name'||item.value=='version')" 
+          :class="type=='edit'&&item.readonly?'readonly':false" 
+          :readonly="type=='edit'&&item.readonly?'readonly':false" 
           :disabled="type=='detail'">
         </el-input>
-        <el-radio-group v-if="item.type=='radio'" v-model="form[item.value]" :disabled="type=='detail'">
-          <el-radio v-for="op in item.options||$root[item.source]" :key="op.$index" :label="op.value">{{op.label?$t(op.label):$t(op.value.toString())}}</el-radio>
+        <el-radio-group v-if="item.type=='radio'&&item.source" v-model="form[item.value]" :disabled="type=='detail'">
+          <el-radio v-for="op in $root[item.source]" :key="op.$index" :label="op.value">{{op.label?$t(op.label):$t(op.value.toString())}}</el-radio>
         </el-radio-group>
-        <el-select v-if="item.type=='select'" :filterable="item.value=='sectionName'" v-model="form[item.value]" :disabled="type=='detail'">
+        <el-radio-group v-if="item.type=='radio'&&item.options" v-model="form[item.value]" :disabled="type=='detail'">
+          <el-radio v-for="op in item.options" :key="op.$index" :label="op.value">{{op.label?$t(`${config.model}.${op.label}`):$t(`${config.model}.${op.value}`)}}</el-radio>
+        </el-radio-group>
+        <el-select v-if="!item.queryUrl&&!item.remoteUrl&&item.options&&item.type=='select'" v-model="form[item.value]" clearable>
           <el-option
-            v-for="op in optionList(item)"
+            v-for="op in item.options"
+            :key="op.$index"
+            :label="op.label?$t(`${config.model}.${op.label}`):$t(`${config.model}.${op.value}`)"
+            :value="op.value">
+          </el-option>
+        </el-select>
+        <el-select @focus="focusEl=item.value" v-if="(item.queryUrl||item.remoteUrl||item.source)&&item.type=='select'" v-model="form[item.value]" :multiple="item.multiple?true:false" :filterable="item.queryUrl||item.remoteUrl?true:false" :filter-method="item.queryUrl?filterMethod:null" :remote="item.remoteUrl?true:false" :remote-method="item.remoteUrl?remoteMethod:null" clearable>
+          <el-option
+            v-for="op in item.source?$root[item.source]:item.options"
             :key="op.$index"
             :label="op.label?$t(op.label):$t(op.value)"
             :value="op.value">
@@ -77,21 +88,41 @@ export default {
         "sectionName": ""
       },
       rules:{},
-      model:this.$route.params.model,
-      modelUrl: this.$http.app_url + this.$route.params.model,
-      rowList:[],
-      sectionList:[]
+      config:{
+        labelWidth: "110px",
+        model:this.$route.params.model,
+        modelUrl: this.$http.app_url + this.$route.params.model,
+      },
+      options:{},
+      focusEl:null,
+      rowList:[]
     }
   },
   methods:{
     init(){
-      this.$http.getMockFile('model.json').then(res=>{
+      this.$http.getMockFile('model.json').then(async res=>{
         MODELDATA = res.DATA;
+        try{
+          let langs={};
+          if(MODELDATA['zh-CN']&&!this.$i18n.messages['zh-CN'][this.config.model]){
+            langs[this.config.model] = MODELDATA['zh-CN']
+            this.$i18n.mergeLocaleMessage('zh-CN', langs);
+          }
+          if(MODELDATA['en-US']&&!this.$i18n.messages['en-US'][this.config.model]){
+            langs[this.config.model] = MODELDATA['en-US']
+            this.$i18n.mergeLocaleMessage('en-US', langs);
+          }
+        }catch(e){
+          console.log(e)
+        }
+        if(MODELDATA.config){
+          Object.assign(this.config,MODELDATA.config)
+        }
         this.rowList = MODELDATA.common;
         switch(this.type){
           case 'add': this.getList();break;
           case 'edit':
-            this.getData();break;
+            await this.getData();break;
           case 'detail':
             this.rowList = MODELDATA.common.concat(MODELDATA.suffix);
             this.getData();break;
@@ -109,26 +140,53 @@ export default {
         this.rules = rules;
       })
     },
-    getData(){
-      this.$http.getById(this.modelUrl,this.id).then(response=>{
+    async getData(){
+      await this.getList();
+      this.$http.getById(this.config.modelUrl,this.id).then(async response=>{
         Object.assign(this.form,response.DATA);
-        this.getList();
       })
     },
-    getList(){
-      this.$http.getList('mes/api/mesSection').then(response=>{
-        // name 去重
-        this.sectionList = [...new Set(response.DATA.map(el=>el.name))].map(el=>{
-          return {value:el}
-        })
+    async getList(){
+      await MODELDATA.common.filter(el=>el.queryUrl).forEach(async el=>{
+        let res = await this.$http.axios.post(el.queryUrl)
+        if(res){
+          this.options[el.value] = res.DATA.map(it=>{
+            return el.lv&&el.lv.length>1?{
+              label: it[el.lv[0]],
+              value: it[el.lv[1]]
+            }:it
+          })
+          el.options = this.options[el.value].slice(0,30)
+        }
       })
     },
-    optionList(item){
-      let options = item.options||this.$root[item.source]||[];
-      if(item.value=='sectionName'){
-        options = this.sectionList;
+    filterMethod(qs){
+      let item = MODELDATA.common.find(el=>el.value==this.focusEl)
+      item.options = qs ? this.options[this.focusEl].filter(el=>{return el.label.indexOf(qs)>-1}).slice(0,30):this.options[this.focusEl].slice(0,30)
+      this.$forceUpdate();
+    },
+    remoteMethod(qs) {
+      let item = MODELDATA.common.find(el=>el.value==this.focusEl)
+      let param = {
+        "currentPageNo": 1,
+        "pageSize": 30
       }
-      return options;
+      if(qs){
+        if(item.lv&&item.lv.length>1){
+          param[item.lv[0]] = qs
+        }else{
+          param.label = qs
+        }
+        this.$http.axios.post(item.remoteUrl,param).then(res=>{
+          item.options = res.DATA.map(it=>{
+            return item.lv&&item.lv.length>1?{
+              label: it[item.lv[0]],
+              value: it[item.lv[1]]
+            }:it
+          })
+          this.$forceUpdate()
+        })
+      }
     },
     onSubmit(){
       // 字符串转数字,Id
@@ -138,7 +196,7 @@ export default {
       this.$refs.form.validate((valid) => {
         if (valid) {
           if(this.type=='add'){
-            this.$http.save(this.modelUrl,this.form).then(() => {
+            this.$http.save(this.config.modelUrl,this.form).then(() => {
               this.$message({
                 message: this.$t('L00045'),
                 type: 'success'
@@ -146,7 +204,7 @@ export default {
               this.onReset();
             })
           }else if(this.type=='edit'){
-            this.$http.updateById(this.modelUrl,this.form)
+            this.$http.updateById(this.config.modelUrl,this.form)
             .then(() => {
               this.$message({
                 message: this.$t('L00045'),
@@ -161,7 +219,6 @@ export default {
       });
     },
     onReset(){
-      this.form.usedFlag = undefined;
       this.$refs.form.resetFields();
     },
     onCancel(){
@@ -171,7 +228,7 @@ export default {
           this.$root.$children[0].removeTab(this.$route.path)
         }else{
           this.$root.$children[0].removeCache(this.$route.path);
-          this.$router.push(`/list/${this.model}`)
+          this.$router.push(`/list/${this.config.model}`)
         }
       }else{
         this.$emit('onCancel')

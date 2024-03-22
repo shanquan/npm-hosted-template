@@ -29,7 +29,7 @@ const MOCKMETHORDS = ['save', 'updateById', 'removeById', 'remoteListId', 'chang
     user_url = 'user/api/';
 var promptError = true, // 请求错误是否弹窗，false时使用消息提示框
 log_url = '',
-mock = true;
+mock = false;
 
 function getMethod(url) {
     let pathIdx = url.lastIndexOf("?");
