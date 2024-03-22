@@ -14,7 +14,10 @@ process.env.VUE_APP_BUILD = "Flames-M_builds_versionDate"
 
 process.env.VUE_APP_CUSTOMIZE = "CUSTOMIZED" // jenkins发布定制系统配置标识
 let config = {
-    title: "ADMIN"
+    title: "ADMIN",
+    Car_Trial: {
+        title: "管理系统"
+    }
 }
 if(config[process.env.VUE_APP_CUSTOMIZE]){
     Object.assign(config,config[process.env.VUE_APP_CUSTOMIZE])

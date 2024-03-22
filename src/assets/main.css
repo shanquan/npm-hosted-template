@@ -396,6 +396,9 @@ width: 100%;}
 .form-bar .el-form-item {
     margin-bottom: 12px;
 }
+.form-bar .el-input--small{
+    width: 205px;
+}
 .form-banner{line-height:30px;background-color:rgb(121, 187, 255);border-radius:5px;margin-bottom:10px;color:#606266;}
 tr.highlight,tr.highlight:hover,tr.highlight:hover>td{background-color:#67C23A!important;}
 tr.warningbg td,tr.warningbg:hover,tr.warningbg:hover>td{background-color:#e4d234!important;}
