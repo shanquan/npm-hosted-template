@@ -8,11 +8,11 @@
       <el-form-item v-for="item in querys"
         :key="item.$index"
         :label="item.label?$t(`${config.model}.${item.label}`):$t(`${config.model}.${item.value}`)">
-        <el-input v-if="!item.type||item.type=='number'||item.type=='textarea'" 
-          :type="item.type"
+        <el-input v-if="!item.type||['number','textarea','slide','color'].includes(item.type)" 
+          :type="['number','textarea'].includes(item.type)?item.type:'text'"
           :rows="1"
           v-model="form[item.value]" clearable></el-input>
-        <el-select v-if="!item.queryUrl&&!item.remoteUrl&&item.options&&(item.type=='select'||item.type=='radio')" v-model="form[item.value]" clearable>
+        <el-select v-if="!item.queryUrl&&!item.remoteUrl&&item.options&&['select','radio','check','switch'].includes(item.type)" v-model="form[item.value]" clearable>
           <el-option
             v-for="op in item.options"
             :key="op.$index"
@@ -20,7 +20,7 @@
             :value="op.value">
           </el-option>
         </el-select>
-        <el-select @focus="focusEl=item.value" v-if="(item.queryUrl||item.remoteUrl||item.source)&&(item.type=='select'||item.type=='radio')" v-model="form[item.value]" :multiple="item.multiple?true:false" :filterable="item.queryUrl||item.remoteUrl?true:false" :filter-method="item.queryUrl?filterMethod:null" :remote="item.remoteUrl?true:false" :remote-method="item.remoteUrl?remoteMethod:null" clearable>
+        <el-select @focus="focusEl=item.value" v-if="(item.queryUrl||item.remoteUrl||item.source)&&['select','radio','check','switch'].includes(item.type)" v-model="form[item.value]" :multiple="item.multiple?true:false" :filterable="item.queryUrl||item.remoteUrl?true:false" :filter-method="item.queryUrl?filterMethod:null" :remote="item.remoteUrl?true:false" :remote-method="item.remoteUrl?remoteMethod:null" clearable>
           <el-option
             v-for="op in item.source?$root[item.source]:item.options"
             :key="op.$index"
@@ -28,6 +28,10 @@
             :value="op.value">
           </el-option>
         </el-select>
+        <el-date-picker v-if="item.type=='datetimerange'"
+          v-model="form[item.type]"
+          type="datetimerange">
+        </el-date-picker>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="search()">{{$t('L00002')}}</el-button>
@@ -63,26 +67,29 @@
       @selection-change="handleSelectionChange"
       ref="table"
       style="width: 100%">
+      <el-table-column v-if="auth.delete" align="center" type="selection" fixed="left" width="40">
+      </el-table-column>
+      <el-table-column v-if="config.showIndex" align="center" type="index" :index="indexMethod"  fixed="left" :label="$t('id')" width="50">
+      </el-table-column>
+      <el-table-column v-if="auth.detail||auth.edit||auth.delete" align="center" fixed="left" :label="$t('L00019')" width="90">
+        <template slot-scope="scope">
+          <el-button v-if="auth.detail" @click="goto(scope.row,'detail')" plain type="text" icon="el-icon-setting" size="medium"></el-button>
+          <el-button v-if="auth.edit" @click="goto(scope.row,'edit')" type="text" icon="el-icon-edit" size="medium"></el-button>
+          <el-button v-if="auth.delete" @click="del(scope.row)" type="text" icon="el-icon-delete" size="medium"></el-button>
+        </template>
+      </el-table-column>
       <el-table-column
         v-for="item in columnList"
         :fixed="item.fixed"
         :key="item.$index"
         :prop="item.value"
+        :sortable="item.sortable"
         :formatter="formatter"
         :label="item.label?$t(`${config.model}.${item.label}`):$t(`${config.model}.${item.value}`)"
         :show-overflow-tooltip="true"
         :class-name="item.width ? '' : 'nowrap'"
         :width="item.width ? item.width : ''"
         align="center">
-      </el-table-column>
-      <el-table-column v-if="auth.delete" fixed="left" type="selection" width="40">
-      </el-table-column>
-      <el-table-column v-if="auth.detail||auth.edit||auth.delete" fixed="left" :label="$t('L00019')" width="90">
-        <template slot-scope="scope">
-          <el-button v-if="auth.detail" @click="goto(scope.row,'detail')" plain type="text" icon="el-icon-setting" size="medium"></el-button>
-          <el-button v-if="auth.edit" @click="goto(scope.row,'edit')" type="text" icon="el-icon-edit" size="medium"></el-button>
-          <el-button v-if="auth.delete" @click="del(scope.row)" type="text" icon="el-icon-delete" size="medium"></el-button>
-        </template>
       </el-table-column>
     </el-table>
     <el-pagination style="text-align: center;" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage"
@@ -106,6 +113,15 @@ export default {
     this.getAuth();
     this.$http.getMockFile('model.json').then(res=>{
       MODELDATA = res.DATA;
+      let querys = MODELDATA.common.filter(el=>el.queryable==true&&!['time','date','datetime'].includes(el.type));
+      if(MODELDATA.common.find(el=>el.queryable==true&&['time','date','datetime'].includes(el.type))){
+        querys.push({"value":"datetimerange","type":"datetimerange"});
+        if(MODELDATA['zh-CN']&&!this.$i18n.messages['zh-CN'][this.config.model])
+        MODELDATA['zh-CN'].datetimerange = "日期"
+        if(MODELDATA['en-US']&&!this.$i18n.messages['en-US'][this.config.model])
+        MODELDATA['en-US'].datetimerange = "DatetimeRange"
+      }
+      this.querys = querys
       try{
         let langs={};
         if(MODELDATA['zh-CN']&&!this.$i18n.messages['zh-CN'][this.config.model]){
@@ -128,7 +144,6 @@ export default {
       if(MODELDATA.downloadUrl){
         this.downloadUrl = this.$http.baseUrl + MODELDATA.downloadUrl
       }
-      this.querys = MODELDATA.common.filter(el=>el.queryable==true);
       this.columnList = MODELDATA.common.concat(MODELDATA.suffix);
       MODELDATA.common.filter(el=>el.queryUrl).forEach(el=>{
         this.$http.axios.post(el.queryUrl).then(res=>{
@@ -168,9 +183,11 @@ export default {
         name: "",
         version: "",
         status: "",
-        type: ""
+        type: "",
+        datetimerange: []
       },
       config:{
+        showIndex: true,
         model: this.$route.params.model,
         modelUrl: this.$http.app_url + this.$route.params.model,
         labelWidth:"",
@@ -217,8 +234,12 @@ export default {
     },
     getPage() {
       var formParams = {};
+      if(this.form.datetimerange&&this.form.datetimerange.length){
+        formParams.startDateTime=this.form.datetimerange[0];
+        formParams.endDateTime=this.form.datetimerange[1];
+      }
       for (let key in this.form) {
-        if(this.form[key]!=="")
+        if(this.form[key]!==""&&key!='datetimerange')
         formParams[key] = this.form[key]
       }
       this.list = [];
@@ -268,7 +289,7 @@ export default {
     },
     filterMethod(qs){
       let item = MODELDATA.common.find(el=>el.value==this.focusEl)
-      item.options = qs ? this.options[this.focusEl].filter(el=>{return el.label.indexOf(qs)>-1}).slice(0,30):this.options[this.focusEl].slice(0,30)
+      item.options = qs ? this.options[this.focusEl].filter(el=>{return el.label?el.label.indexOf(qs)>-1:el.value.indexOf(qs)>-1}).slice(0,30):this.options[this.focusEl].slice(0,30)
       this.$forceUpdate();
     },
     remoteMethod(qs) {
@@ -280,8 +301,10 @@ export default {
       if(qs){
         if(item.lv&&item.lv.length>1){
           param[item.lv[0]] = qs
-        }else{
+        }else if(item.label){
           param.label = qs
+        }else{
+          param.value = qs
         }
         this.$http.axios.post(item.remoteUrl,param).then(res=>{
           item.options = res.DATA.map(it=>{
@@ -293,6 +316,9 @@ export default {
           this.$forceUpdate()
         })
       }
+    },
+    indexMethod(index) {
+      return index + (this.currentPage - 1) * this.pageSize + 1;
     },
     handleSelectionChange(val) {
       this.checkedIds = val.map((el) => el.id);

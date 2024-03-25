@@ -16,6 +16,8 @@ export default {
   createTime: '创建时间',
   updateName: '修改人',
   updateTime: '修改时间',
+  uploadTip: '点击上传',
+  dragTip: '将文件拖到此处，或',
   L00001: '必填',
   L00002: '查询',
   L00003: '编辑',

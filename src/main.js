@@ -14,6 +14,7 @@ import i18n from './i18n'
 import './plugins/element.js'
 import './theme/index.css'; // 主题css，不动
 import './assets/main.css'; // 框架css, 不动
+import './app/assets/app.css'; // 应用css
 import app from './app/main'; // 应用定制js
 import {appConfig} from './app/config'
 

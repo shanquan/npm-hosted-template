@@ -6,12 +6,52 @@
         "width": 150,
         "readonly": "1",
         "required": true,
-        "queryable": true
+        "queryable": true,
+        "sortable": true
       }, {
         "value": "version",
-        "readonly": "",
+        "readonly": true,
         "required": true,
-        "queryable": true
+        "queryable": true,
+        "sortable": true
+      }, {
+        "value": "checklist",
+        "queryable": true,
+        "type": "check",
+        "options": [{"label":"L10301","value":0},{"label":"L10302","value":1,"disabled":true}]
+      }, {
+        "value": "switch",
+        "queryable": true,
+        "type": "switch",
+        "options":[{"value":"Y"},{"value":"N"}]
+      }, {
+        "value": "slider",
+        "queryable": true,
+        "type": "slider",
+        "marks": {
+          "0": "0°C",
+          "50": {
+            "style": {
+              "color": "#1989FA"
+            },
+            "label": "50°C"
+          }
+        }
+      }, {
+        "value": "color",
+        "queryable": true,
+        "type": "color"
+      }, {
+        "value": "rate",
+        "type": "rate"
+      }, {
+        "value": "date",
+        "queryable": true,
+        "type": "date"
+      }, {
+        "value": "upload",
+        "type": "upload",
+        "listType": "picture-card"
       }, {
         "value": "description",
         "type": "textarea"
@@ -19,6 +59,7 @@
         "value": "status",
         "required": true,
         "queryable": true,
+        "sortable": true,
         "type": "radio",
         "source": "statusOptions"
       }, {
@@ -54,8 +95,10 @@
         "width": 150,
         "value": "updateTime"
       }],
-    "config":{},
-    "zh-CN":{"name":"名称","version":"版本","description":"描述","status":"状态","currentVersion":"当前版本","L10305":"工艺路线类型","L10301":"生产工艺路线","L10302":"不合格工艺路线","L10303":"返工工艺路线","L10304":"特殊工艺路线","sectionName":"工站","Y":"Y","N":"N","createName": "创建人","createTime": "创建时间","updateName": "修改人","updateTime": "修改时间"}
+    "config":{
+      "showIndex": false
+    },
+    "zh-CN":{"name":"名称","version":"版本","description":"描述","status":"状态","currentVersion":"当前版本","L10305":"工艺路线类型","L10301":"生产工艺路线","L10302":"不合格工艺路线","L10303":"返工工艺路线","L10304":"特殊工艺路线","sectionName":"工站","Y":"Y","N":"N","createName": "创建人","createTime": "创建时间","updateName": "修改人","updateTime": "修改时间","checklist":"复选框","switch":"开关","slider":"滑块","color":"颜色选择器","rate":"评分","time":"时间选择","date":"日期选择","datetime":"日期时间选择","upload":"上传"}
   },
   "RESULT": "PASS"
 }

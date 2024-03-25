@@ -4,3 +4,4 @@
  * @description: 项目定制CSS
  */
 @import url(./split.css);
+.el-date-editor .el-range-input{width: 122px}

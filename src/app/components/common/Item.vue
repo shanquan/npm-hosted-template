@@ -11,7 +11,7 @@
         :label="item.label?$t(`${config.model}.${item.label}`):$t(`${config.model}.${item.value}`)" 
         :prop="item.value">
         <el-input 
-          v-if="!item.type||item.type=='number'||item.type=='textarea'" 
+          v-if="!item.type||item.type=='number'||item.type=='textarea'"
           :type="item.type" 
           v-model="form[item.value]" 
           :class="type=='edit'&&item.readonly?'readonly':false" 
@@ -24,7 +24,7 @@
         <el-radio-group v-if="item.type=='radio'&&item.options" v-model="form[item.value]" :disabled="type=='detail'">
           <el-radio v-for="op in item.options" :key="op.$index" :label="op.value">{{op.label?$t(`${config.model}.${op.label}`):$t(`${config.model}.${op.value}`)}}</el-radio>
         </el-radio-group>
-        <el-select v-if="!item.queryUrl&&!item.remoteUrl&&item.options&&item.type=='select'" v-model="form[item.value]" clearable>
+        <el-select v-if="!item.queryUrl&&!item.remoteUrl&&item.options&&item.type=='select'" v-model="form[item.value]" clearable :disabled="type=='detail'">
           <el-option
             v-for="op in item.options"
             :key="op.$index"
@@ -32,7 +32,7 @@
             :value="op.value">
           </el-option>
         </el-select>
-        <el-select @focus="focusEl=item.value" v-if="(item.queryUrl||item.remoteUrl||item.source)&&item.type=='select'" v-model="form[item.value]" :multiple="item.multiple?true:false" :filterable="item.queryUrl||item.remoteUrl?true:false" :filter-method="item.queryUrl?filterMethod:null" :remote="item.remoteUrl?true:false" :remote-method="item.remoteUrl?remoteMethod:null" clearable>
+        <el-select @focus="focusEl=item.value" v-if="(item.queryUrl||item.remoteUrl||item.source)&&item.type=='select'" v-model="form[item.value]" :multiple="item.multiple?true:false" :filterable="item.queryUrl||item.remoteUrl?true:false" :filter-method="item.queryUrl?filterMethod:null" :remote="item.remoteUrl?true:false" :remote-method="item.remoteUrl?remoteMethod:null" clearable :disabled="type=='detail'">
           <el-option
             v-for="op in item.source?$root[item.source]:item.options"
             :key="op.$index"
@@ -40,6 +40,31 @@
             :value="op.value">
           </el-option>
         </el-select>
+        <el-checkbox-group v-if="item.type=='check'&&item.options" v-model="form[item.value]" :disabled="type=='detail'">
+          <el-checkbox v-for="op in item.options" :key="op.$index" :label="op.value" :disabled="op.disabled">{{op.label?$t(`${config.model}.${op.label}`):$t(`${config.model}.${op.value}`)}}</el-checkbox>
+        </el-checkbox-group>
+        <el-switch v-if="item.type=='switch'" v-model="form[item.value]" :disabled="type=='detail'" :active-value="item.options&&item.options.length?item.options[0].value:true" :inactive-value="item.options&&item.options.length?item.options[1].value:false">
+        </el-switch>
+        <el-slider v-if="item.type=='slider'" v-model="form[item.value]" :show-tooltip="item.showTooltip" :step="item.step" :show-input="item.showInput" :range="item.range" :show-stops="item.showStops" :max="item.max" :vertical="item.vertical" :height="item.height" :marks="item.marks" :disabled="type=='detail'"></el-slider>
+        <el-color-picker v-if="item.type=='color'" v-model="form[item.value]" :disabled="type=='detail'" :size="item.size" :show-alpha="item.showAlpha" :color-format="item.colorFormat" :predefine="item.predefine"></el-color-picker>
+        <el-rate v-if="item.type=='rate'" v-model="form[item.value]" :disabled="type=='detail'" :colors="item.colors" :show-text="item.showText" :show-score="item.showScore" :text-color="item.textColor"></el-rate>
+        <el-time-picker v-if="item.type=='time'" v-model="form[item.value]" :disabled="type=='detail'" :picker-options="item.pickerOptions" :default-value="item.defaultValue" :value-format="item.valueFormat" :placeholder="item.placeholder" :arrow-control="item.arrowControl" :size="item.size" :align="item.align"></el-time-picker>
+        <el-date-picker v-if="['date','year','month','dates','months','years','week','datetime','datetimerange','daterange','monthrange'].includes(item.type)" :type="item.type" v-model="form[item.value]" :disabled="type=='detail'" :picker-options="item.pickerOptions" :default-value="item.defaultValue" :value-format="item.valueFormat" :placeholder="item.placeholder" :time-arrow-control="item.arrowControl" :size="item.size" :align="item.align"></el-date-picker>
+        <el-upload :class="item.class" v-if="item.type=='upload'" :disabled="type=='detail'" :action="item.action" :headers="item.headers" :data="item.data" :with-credentials="item.withCredentials" :name="item.name" :drag="item.drag" :accept="item.accept" :file-list="item.fileList" :show-file-list="item.showFileList" :list-type="item.listType" :multiple="item.multiple" :limit="item.limit" :auto-upload="item.autoUpload"
+          :on-preview="onPictureCardPreview"  
+          :on-success="onUploadSuccess"
+          :on-error="onUploadError"
+        >
+          <img v-if="item.class=='avatar-uploader'&&imageUrl" :src="imageUrl" class="avatar">
+          <i v-if="item.class=='avatar-uploader'&&!imageUrl||item.listType=='picture-card'" class="el-icon-plus"></i>
+          <i v-if="item.drag" class="el-icon-upload"></i>
+          <div v-if="item.drag" class="el-upload__text">{{$t('dragTip')}}<em>{{$t('uploadTip')}}</em></div>
+          <el-button v-if="item.class!='avatar-uploader'&&!item.drag&&item.listType!='picture-card'" size="small" type="primary">{{$t('uploadTip')}}</el-button>
+          <div v-if="item.tips" slot="tip" class="el-upload__tip">{{item.tips}}</div>
+        </el-upload>
+        <el-dialog v-if="item.listType=='picture-card'" :visible.sync="dialogVisible">
+          <img width="100%" :src="dialogImageUrl" alt="">
+        </el-dialog>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" v-if="type=='add'||type=='edit'" @click="onSubmit">{{$t('L00020')}}</el-button>
@@ -85,7 +110,8 @@ export default {
         "status": "",
         "currentVersion": "",
         "type": "",
-        "sectionName": ""
+        "sectionName": "",
+        "checklist":[]
       },
       rules:{},
       config:{
@@ -95,12 +121,14 @@ export default {
       },
       options:{},
       focusEl:null,
-      rowList:[]
+      rowList:[],
+      dialogImageUrl: '',
+      dialogVisible: false
     }
   },
   methods:{
     init(){
-      this.$http.getMockFile('model.json').then(async res=>{
+      this.$http.getMockFile('model.json').then(res=>{
         MODELDATA = res.DATA;
         try{
           let langs={};
@@ -121,8 +149,7 @@ export default {
         this.rowList = MODELDATA.common;
         switch(this.type){
           case 'add': this.getList();break;
-          case 'edit':
-            await this.getData();break;
+          case 'edit': this.getData();break;
           case 'detail':
             this.rowList = MODELDATA.common.concat(MODELDATA.suffix);
             this.getData();break;
@@ -140,14 +167,15 @@ export default {
         this.rules = rules;
       })
     },
-    async getData(){
-      await this.getList();
-      this.$http.getById(this.config.modelUrl,this.id).then(async response=>{
+    getData(){
+      this.getList();
+      this.$http.getById(this.config.modelUrl,this.id).then(response=>{
         Object.assign(this.form,response.DATA);
       })
     },
-    async getList(){
-      await MODELDATA.common.filter(el=>el.queryUrl).forEach(async el=>{
+    getList(cb){
+      let arr = MODELDATA.common.filter(el=>el.queryUrl)
+      arr.forEach(async (el,idx)=>{
         let res = await this.$http.axios.post(el.queryUrl)
         if(res){
           this.options[el.value] = res.DATA.map(it=>{
@@ -158,11 +186,14 @@ export default {
           })
           el.options = this.options[el.value].slice(0,30)
         }
+        if(idx==arr.length-1&&typeof cb=="function"){
+          cb()
+        }
       })
     },
     filterMethod(qs){
       let item = MODELDATA.common.find(el=>el.value==this.focusEl)
-      item.options = qs ? this.options[this.focusEl].filter(el=>{return el.label.indexOf(qs)>-1}).slice(0,30):this.options[this.focusEl].slice(0,30)
+      item.options = qs ? this.options[this.focusEl].filter(el=>{return el.label?el.label.indexOf(qs)>-1:el.value.indexOf(qs)>-1}).slice(0,30):this.options[this.focusEl].slice(0,30)
       this.$forceUpdate();
     },
     remoteMethod(qs) {
@@ -174,8 +205,10 @@ export default {
       if(qs){
         if(item.lv&&item.lv.length>1){
           param[item.lv[0]] = qs
-        }else{
+        }else if(item.label){
           param.label = qs
+        }else{
+          param.value = qs
         }
         this.$http.axios.post(item.remoteUrl,param).then(res=>{
           item.options = res.DATA.map(it=>{
@@ -189,10 +222,6 @@ export default {
       }
     },
     onSubmit(){
-      // 字符串转数字,Id
-      // this.rowList.filter(el=>{return el.type=='number'}).forEach(el=>{
-      //   this.form[el.value] = Number(this.form[el.value]);
-      // })
       this.$refs.form.validate((valid) => {
         if (valid) {
           if(this.type=='add'){
@@ -233,7 +262,50 @@ export default {
       }else{
         this.$emit('onCancel')
       }
+    },
+    onUploadSuccess(response, file, fileList) {
+      if (response.RESULT === "PASS") {
+        this.$message({
+          message: file.name.concat(this.$t('L00031'), response.MESSAGE, this.$t('L00032')),
+          type: "success"
+        });
+      }else{
+        this.$message.error(file.name.concat(`${this.$t('L00030')}，`, response.MESSAGE));
+      }
+      fileList.splice(0);
+    },
+    onUploadError(err, file){
+      this.$message.error(file.name.concat(`${this.$t('L00030')}，`, err));
+    },
+    onPictureCardPreview(file){
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
     }
   }
 }
 </script>
+<style>
+  .commonItem .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader i {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+  .avatar-uploader .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
+</style>

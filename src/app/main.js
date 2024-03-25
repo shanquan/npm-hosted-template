@@ -6,7 +6,6 @@
 import Vue from 'vue'
 import directives from './directives';
 import filters from './filters';
-import './assets/app.css';
 import commonRouter from '@/app/components/common/router'
 import sysRouter from 'user-sys/router.sys'
 import sysLang from 'user-sys/zh-CN.sys'

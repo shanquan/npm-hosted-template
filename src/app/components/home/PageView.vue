@@ -4,6 +4,9 @@
 -->
 <template>
   <div class="pageView">
+    <el-row>
+      <el-button @click="goto(item.functionCode)" v-for="item in pvData" class="mt10" :key="item.$index">{{ item.functionName }}</el-button>
+    </el-row>
     <chart-box ref="pvBar" :chart-data="pvDataFilter"></chart-box>
     <el-radio-group v-model="labelType" class="mt18">
       <el-radio-button label="0">显示功能名称</el-radio-button>
@@ -52,6 +55,9 @@ export default {
     },
     resize(){
       this.$refs.pvBar.resize()
+    },
+    goto(path){
+      this.$router.push({path:path});
     }
   }
 }
