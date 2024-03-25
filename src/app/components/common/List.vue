@@ -8,7 +8,7 @@
       <el-form-item v-for="item in querys"
         :key="item.$index"
         :label="item.label?$t(`${config.model}.${item.label}`):$t(`${config.model}.${item.value}`)">
-        <el-input v-if="!item.type||['number','textarea','slide','color'].includes(item.type)" 
+        <el-input v-if="!item.type||['number','textarea','slider','color'].includes(item.type)" 
           :type="['number','textarea'].includes(item.type)?item.type:'text'"
           :rows="1"
           v-model="form[item.value]" clearable></el-input>
