@@ -1,0 +1,2377 @@
+{
+  "DATA": [
+      {
+          "label": "深圳",
+          "area_code": "01",
+          "children": [
+              {
+                  "label": "宝龙工业园",
+                  "area_code": "0101",
+                  "children": [
+                      {
+                          "label": "B1厂房",
+                          "area_code": "010101",
+                          "children": []
+                      },
+                      {
+                          "label": "B2厂房",
+                          "area_code": "010102",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "01010201",
+                                  "children": []
+                              },
+                              {
+                                  "label": "2F",
+                                  "area_code": "01010202",
+                                  "children": []
+                              },
+                              {
+                                  "label": "3F",
+                                  "area_code": "01010203",
+                                  "children": []
+                              },
+                              {
+                                  "label": "T2",
+                                  "area_code": "01010205",
+                                  "children": []
+                              },
+                              {
+                                  "label": "T3",
+                                  "area_code": "01010206",
+                                  "children": []
+                              }
+                          ]
+                      },
+                      {
+                          "label": "B3厂房",
+                          "area_code": "010103",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "01010301",
+                                  "children": []
+                              },
+                              {
+                                  "label": "2F",
+                                  "area_code": "01010302",
+                                  "children": []
+                              },
+                              {
+                                  "label": "3F",
+                                  "area_code": "01010303",
+                                  "children": []
+                              }
+                          ]
+                      },
+                      {
+                          "label": "B5厂房",
+                          "area_code": "010105",
+                          "children": []
+                      },
+                      {
+                          "label": "B6厂房",
+                          "area_code": "010106",
+                          "children": []
+                      },
+                      {
+                          "label": "B7厂房",
+                          "area_code": "010107",
+                          "children": []
+                      },
+                      {
+                          "label": "B8厂房",
+                          "area_code": "010108",
+                          "children": []
+                      },
+                      {
+                          "label": "B9厂房",
+                          "area_code": "010109",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "01010901",
+                                  "children": []
+                              },
+                              {
+                                  "label": "2F",
+                                  "area_code": "01010902",
+                                  "children": []
+                              },
+                              {
+                                  "label": "3F",
+                                  "area_code": "01010903",
+                                  "children": []
+                              },
+                              {
+                                  "label": "4F",
+                                  "area_code": "01010904",
+                                  "children": []
+                              },
+                              {
+                                  "label": "5F",
+                                  "area_code": "01010905",
+                                  "children": [
+                                      {
+                                          "label": "Assay车间",
+                                          "area_code": "0101090501",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "Repair车间",
+                                          "area_code": "0101090502",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "Sub车间",
+                                          "area_code": "0101090503",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "Test车间",
+                                          "area_code": "0101090504",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "label": "B10厂房",
+                          "area_code": "010110",
+                          "children": []
+                      },
+                      {
+                          "label": "B11厂房",
+                          "area_code": "010111",
+                          "children": [
+                              {
+                                  "label": "二车间",
+                                  "area_code": "01011109",
+                                  "children": []
+                              },
+                              {
+                                  "label": "1F",
+                                  "area_code": "01011101",
+                                  "children": []
+                              },
+                              {
+                                  "label": "2F",
+                                  "area_code": "01011102",
+                                  "children": []
+                              },
+                              {
+                                  "label": "3F",
+                                  "area_code": "01011103",
+                                  "children": []
+                              },
+                              {
+                                  "label": "4F",
+                                  "area_code": "01011104",
+                                  "children": [
+                                      {
+                                          "label": "组装车间",
+                                          "area_code": "0101110401",
+                                          "children": [
+                                              {
+                                                  "label": "组装一线",
+                                                  "area_code": "010111040101",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "组装二线",
+                                                  "area_code": "010111040102",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "组装三线",
+                                                  "area_code": "010111040103",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "测试一线",
+                                                  "area_code": "010111040104",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "测试二线1",
+                                                  "area_code": "010111040105",
+                                                  "children": []
+                                              }
+                                          ]
+                                      }
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "label": "B13厂房",
+                          "area_code": "010113",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "01011301",
+                                  "children": []
+                              }
+                          ]
+                      },
+                      {
+                          "label": "B4厂房",
+                          "area_code": "010119",
+                          "children": []
+                      }
+                  ]
+              },
+              {
+                  "label": "葵涌工业园",
+                  "area_code": "0103",
+                  "children": [
+                      {
+                          "label": "A4厂房",
+                          "area_code": "010301",
+                          "children": [
+                              {
+                                  "label": "3F",
+                                  "area_code": "01030101",
+                                  "children": [
+                                      {
+                                          "label": "ICT产品部",
+                                          "area_code": "0103010101",
+                                          "children": []
+                                      }
+                                  ]
+                              },
+                              {
+                                  "label": "4F",
+                                  "area_code": "01030104",
+                                  "children": []
+                              }
+                          ]
+                      }
+                  ]
+              },
+              {
+                  "label": "深汕海丰工业园",
+                  "area_code": "0105",
+                  "children": [
+                      {
+                          "label": "15#厂房",
+                          "area_code": "010501",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "01050101",
+                                  "children": [
+                                      {
+                                          "label": "1车间",
+                                          "area_code": "0105010101",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "label": "14#厂房",
+                          "area_code": "010514",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "01051401",
+                                  "children": [
+                                      {
+                                          "label": "生产车间",
+                                          "area_code": "0105140101",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      }
+                  ]
+              }
+          ]
+      },
+      {
+          "label": "惠州",
+          "area_code": "02",
+          "children": [
+              {
+                  "label": "一期工业园",
+                  "area_code": "0201",
+                  "children": [
+                      {
+                          "label": "T11厂房",
+                          "area_code": "020113",
+                          "children": [
+                              {
+                                  "label": "T3",
+                                  "area_code": "02011303",
+                                  "children": []
+                              },
+                              {
+                                  "label": "1F",
+                                  "area_code": "02011305",
+                                  "children": [
+                                      {
+                                          "label": "TT02车间",
+                                          "area_code": "0201130502",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "TT03车间",
+                                          "area_code": "0201130503",
+                                          "children": []
+                                      }
+                                  ]
+                              },
+                              {
+                                  "label": "XXXX",
+                                  "area_code": "02011307",
+                                  "children": []
+                              }
+                          ]
+                      },
+                      {
+                          "label": "T2厂房",
+                          "area_code": "020114",
+                          "children": []
+                      },
+                      {
+                          "label": "C1",
+                          "area_code": "020101",
+                          "children": [
+                              {
+                                  "label": "5F",
+                                  "area_code": "02010101",
+                                  "children": [
+                                      {
+                                          "label": "CNC车间",
+                                          "area_code": "0201010101",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "label": "C2",
+                          "area_code": "020102",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "02010201",
+                                  "children": [
+                                      {
+                                          "label": "冲压",
+                                          "area_code": "0201020101",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "汽车部件",
+                                          "area_code": "0201020102",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "吸塑盘车间",
+                                          "area_code": "0201020103",
+                                          "children": []
+                                      }
+                                  ]
+                              },
+                              {
+                                  "label": "2F",
+                                  "area_code": "02010202",
+                                  "children": [
+                                      {
+                                          "label": "组装车间",
+                                          "area_code": "0201020201",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "载带车间",
+                                          "area_code": "0201020202",
+                                          "children": []
+                                      }
+                                  ]
+                              },
+                              {
+                                  "label": "3F",
+                                  "area_code": "02010203",
+                                  "children": [
+                                      {
+                                          "label": "组装车间",
+                                          "area_code": "0201020301",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "自动化",
+                                          "area_code": "0201020302",
+                                          "children": []
+                                      }
+                                  ]
+                              },
+                              {
+                                  "label": "4F",
+                                  "area_code": "02010204",
+                                  "children": [
+                                      {
+                                          "label": "镭雕",
+                                          "area_code": "0201020401",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "焊接",
+                                          "area_code": "0201020402",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "干冰",
+                                          "area_code": "0201020403",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "喷墨",
+                                          "area_code": "0201020404",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "点胶",
+                                          "area_code": "0201020405",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "清洗",
+                                          "area_code": "0201020406",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "喷砂去批锋",
+                                          "area_code": "0201020407",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "金属小件",
+                                          "area_code": "0201020408",
+                                          "children": []
+                                      }
+                                  ]
+                              },
+                              {
+                                  "label": "5F",
+                                  "area_code": "02010205",
+                                  "children": [
+                                      {
+                                          "label": "组装",
+                                          "area_code": "0201020501",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "检测室",
+                                          "area_code": "0201020502",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "label": "C3",
+                          "area_code": "020103",
+                          "children": [
+                              {
+                                  "label": "3F",
+                                  "area_code": "02010303",
+                                  "children": [
+                                      {
+                                          "label": "组装车间",
+                                          "area_code": "0201030301",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "label": "C4",
+                          "area_code": "020104",
+                          "children": [
+                              {
+                                  "label": "C4-2F",
+                                  "area_code": "02010401",
+                                  "children": [
+                                      {
+                                          "label": "十车间",
+                                          "area_code": "0201040101",
+                                          "children": [
+                                              {
+                                                  "label": "BATX2",
+                                                  "area_code": "020104010101",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "BATAIR",
+                                                  "area_code": "020104010102",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "X2-A1L",
+                                                  "area_code": "020104010103",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "X2-A2L",
+                                                  "area_code": "020104010104",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "AIR-A1L",
+                                                  "area_code": "020104010105",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "AIR-A2L",
+                                                  "area_code": "020104010106",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "AIR包装-A1L",
+                                                  "area_code": "020104010107",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "Air-MZ4L",
+                                                  "area_code": "020104010108",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "Air-MZ5L",
+                                                  "area_code": "020104010109",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "Air-MZ6L",
+                                                  "area_code": "020104010110",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "X3-A1L",
+                                                  "area_code": "020104010111",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "X3-A2L",
+                                                  "area_code": "020104010112",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "X3-S1L",
+                                                  "area_code": "020104010113",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "X3-S2L",
+                                                  "area_code": "020104010114",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "X3-S3L",
+                                                  "area_code": "020104010115",
+                                                  "children": []
+                                              }
+                                          ]
+                                      }
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "label": "C5",
+                          "area_code": "020105",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "02010501",
+                                  "children": [
+                                      {
+                                          "label": "注塑",
+                                          "area_code": "0201050104",
+                                          "children": []
+                                      }
+                                  ]
+                              },
+                              {
+                                  "label": "4F",
+                                  "area_code": "02010504",
+                                  "children": []
+                              },
+                              {
+                                  "label": "5F",
+                                  "area_code": "02010505",
+                                  "children": [
+                                      {
+                                          "label": "注塑",
+                                          "area_code": "0201050501",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "label": "C6厂房",
+                          "area_code": "020106",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "02010601",
+                                  "children": [
+                                      {
+                                          "label": "端子车间",
+                                          "area_code": "0201060101",
+                                          "children": []
+                                      }
+                                  ]
+                              },
+                              {
+                                  "label": "5F",
+                                  "area_code": "02010602",
+                                  "children": [
+                                      {
+                                          "label": "二车间1",
+                                          "area_code": "0201060202",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "sss车间",
+                                          "area_code": "0201060204",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "三车间1",
+                                          "area_code": "0201060205",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "一车间",
+                                          "area_code": "0201060201",
+                                          "children": []
+                                      }
+                                  ]
+                              },
+                              {
+                                  "label": "3F",
+                                  "area_code": "02010603",
+                                  "children": [
+                                      {
+                                          "label": "三车间",
+                                          "area_code": "0201060301",
+                                          "children": []
+                                      }
+                                  ]
+                              },
+                              {
+                                  "label": "4F",
+                                  "area_code": "02010605",
+                                  "children": []
+                              },
+                              {
+                                  "label": "2F",
+                                  "area_code": "02010607",
+                                  "children": [
+                                      {
+                                          "label": "二车间",
+                                          "area_code": "0201060701",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "CONTI车间",
+                                          "area_code": "0201060702",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "label": "C7",
+                          "area_code": "020107",
+                          "children": []
+                      },
+                      {
+                          "label": "C11",
+                          "area_code": "020111",
+                          "children": [
+                              {
+                                  "label": "治具加工",
+                                  "area_code": "02011101",
+                                  "children": []
+                              },
+                              {
+                                  "label": "打磨车间",
+                                  "area_code": "02011102",
+                                  "children": []
+                              }
+                          ]
+                      },
+                      {
+                          "label": "C12",
+                          "area_code": "020112",
+                          "children": [
+                              {
+                                  "label": "打磨车间",
+                                  "area_code": "02011201",
+                                  "children": []
+                              },
+                              {
+                                  "label": "阳极车间",
+                                  "area_code": "02011202",
+                                  "children": [
+                                      {
+                                          "label": "阳极全检房",
+                                          "area_code": "0201120201",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "阳极线",
+                                          "area_code": "0201120202",
+                                          "children": []
+                                      }
+                                  ]
+                              },
+                              {
+                                  "label": "T处理车间",
+                                  "area_code": "02011203",
+                                  "children": []
+                              }
+                          ]
+                      }
+                  ]
+              },
+              {
+                  "label": "二期工业园",
+                  "area_code": "0202",
+                  "children": [
+                      {
+                          "label": "E3厂房",
+                          "area_code": "020201",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "02020101",
+                                  "children": [
+                                      {
+                                          "label": "CNC车间",
+                                          "area_code": "0202010101",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "label": "E6厂房",
+                          "area_code": "020202",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "02020201",
+                                  "children": [
+                                      {
+                                          "label": "CNC车间",
+                                          "area_code": "0202020101",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "镀膜车间",
+                                          "area_code": "0202020102",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "label": "E8厂房",
+                          "area_code": "020203",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "02020301",
+                                  "children": [
+                                      {
+                                          "label": "镀膜车间",
+                                          "area_code": "0202030101",
+                                          "children": []
+                                      }
+                                  ]
+                              },
+                              {
+                                  "label": "2F",
+                                  "area_code": "02020302",
+                                  "children": [
+                                      {
+                                          "label": "CNC车间",
+                                          "area_code": "0202030201",
+                                          "children": [
+                                              {
+                                                  "label": "1线",
+                                                  "area_code": "020203020101",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "2线",
+                                                  "area_code": "020203020102",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "3线",
+                                                  "area_code": "020203020103",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "4线",
+                                                  "area_code": "020203020104",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "5线",
+                                                  "area_code": "020203020105",
+                                                  "children": []
+                                              }
+                                          ]
+                                      },
+                                      {
+                                          "label": "打样车间",
+                                          "area_code": "0202030202",
+                                          "children": []
+                                      }
+                                  ]
+                              },
+                              {
+                                  "label": "3F",
+                                  "area_code": "02020303",
+                                  "children": [
+                                      {
+                                          "label": "抛光车间",
+                                          "area_code": "0202030301",
+                                          "children": []
+                                      }
+                                  ]
+                              },
+                              {
+                                  "label": "4F",
+                                  "area_code": "02020304",
+                                  "children": [
+                                      {
+                                          "label": "5.5代组装车间",
+                                          "area_code": "0202030401",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "6代组装车间",
+                                          "area_code": "0202030402",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "移印车间",
+                                          "area_code": "0202030403",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "label": "E15厂房",
+                          "area_code": "020204",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "02020401",
+                                  "children": [
+                                      {
+                                          "label": "CNC车间",
+                                          "area_code": "0202040101",
+                                          "children": []
+                                      }
+                                  ]
+                              },
+                              {
+                                  "label": "1F",
+                                  "area_code": "02020402",
+                                  "children": []
+                              }
+                          ]
+                      },
+                      {
+                          "label": "E17厂房",
+                          "area_code": "020205",
+                          "children": []
+                      },
+                      {
+                          "label": "E18厂房",
+                          "area_code": "020206",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "02020601",
+                                  "children": [
+                                      {
+                                          "label": "CNC车间5.5代",
+                                          "area_code": "0202060101",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "CNC车间8代",
+                                          "area_code": "0202060102",
+                                          "children": [
+                                              {
+                                                  "label": "A13线",
+                                                  "area_code": "020206010201",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "A14线",
+                                                  "area_code": "020206010202",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "A15线",
+                                                  "area_code": "020206010203",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "A16线",
+                                                  "area_code": "020206010204",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "A17线",
+                                                  "area_code": "020206010205",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "B13线",
+                                                  "area_code": "020206010206",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "B14线",
+                                                  "area_code": "020206010207",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "B15线",
+                                                  "area_code": "020206010208",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "B16线",
+                                                  "area_code": "020206010209",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "B17线",
+                                                  "area_code": "020206010210",
+                                                  "children": []
+                                              }
+                                          ]
+                                      },
+                                      {
+                                          "label": "烧结车间",
+                                          "area_code": "0202060103",
+                                          "children": []
+                                      }
+                                  ]
+                              },
+                              {
+                                  "label": "2F",
+                                  "area_code": "02020602",
+                                  "children": []
+                              },
+                              {
+                                  "label": "3F",
+                                  "area_code": "02020603",
+                                  "children": []
+                              },
+                              {
+                                  "label": "4F",
+                                  "area_code": "02020604",
+                                  "children": []
+                              }
+                          ]
+                      },
+                      {
+                          "label": "E31厂房",
+                          "area_code": "020207",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "02020701",
+                                  "children": []
+                              },
+                              {
+                                  "label": "2F",
+                                  "area_code": "02020702",
+                                  "children": [
+                                      {
+                                          "label": "一车间",
+                                          "area_code": "0202070203",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "二车间",
+                                          "area_code": "0202070204",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "抛光车间",
+                                          "area_code": "0202070201",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "CNC车间",
+                                          "area_code": "0202070202",
+                                          "children": []
+                                      }
+                                  ]
+                              },
+                              {
+                                  "label": "3F",
+                                  "area_code": "02020703",
+                                  "children": [
+                                      {
+                                          "label": "组装车间",
+                                          "area_code": "0202070301",
+                                          "children": []
+                                      }
+                                  ]
+                              },
+                              {
+                                  "label": "4F",
+                                  "area_code": "02020704",
+                                  "children": []
+                              },
+                              {
+                                  "label": "5F",
+                                  "area_code": "02020705",
+                                  "children": [
+                                      {
+                                          "label": "8代组装车间",
+                                          "area_code": "0202070501",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "label": "E16厂房",
+                          "area_code": "020208",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "02020801",
+                                  "children": [
+                                      {
+                                          "label": "CNC车间",
+                                          "area_code": "0202080101",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "label": "E29厂房",
+                          "area_code": "020209",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "02020901",
+                                  "children": [
+                                      {
+                                          "label": "注塑车间",
+                                          "area_code": "0202090101",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "label": "E28",
+                          "area_code": "020228",
+                          "children": [
+                              {
+                                  "label": "结构车间",
+                                  "area_code": "02022801",
+                                  "children": []
+                              },
+                              {
+                                  "label": "高光车间",
+                                  "area_code": "02022802",
+                                  "children": []
+                              }
+                          ]
+                      },
+                      {
+                          "label": "E302",
+                          "area_code": "0202302",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "020230201",
+                                  "children": []
+                              }
+                          ]
+                      },
+                      {
+                          "label": "E32",
+                          "area_code": "020232",
+                          "children": []
+                      },
+                      {
+                          "label": "E35",
+                          "area_code": "020235",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "02023501",
+                                  "children": []
+                              }
+                          ]
+                      },
+                      {
+                          "label": "E4厂房",
+                          "area_code": "0202E4",
+                          "children": [
+                              {
+                                  "label": "2F",
+                                  "area_code": "0202E402",
+                                  "children": []
+                              },
+                              {
+                                  "label": "5F",
+                                  "area_code": "0202E405",
+                                  "children": []
+                              }
+                          ]
+                      }
+                  ]
+              },
+              {
+                  "label": "三期工业园",
+                  "area_code": "0203",
+                  "children": [
+                      {
+                          "label": "F1厂房",
+                          "area_code": "020301",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "02030101",
+                                  "children": [
+                                      {
+                                          "label": "打磨区",
+                                          "area_code": "0203010102",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "检测室",
+                                          "area_code": "0203010103",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "打样区",
+                                          "area_code": "0203010104",
+                                          "children": []
+                                      }
+                                  ]
+                              },
+                              {
+                                  "label": "2F",
+                                  "area_code": "02030102",
+                                  "children": [
+                                      {
+                                          "label": "公共办公区",
+                                          "area_code": "0203010201",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "label": "F2厂房",
+                          "area_code": "020302",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "02030201",
+                                  "children": [
+                                      {
+                                          "label": "打样区",
+                                          "area_code": "0203020101",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "打磨区",
+                                          "area_code": "0203020102",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "阳极区",
+                                          "area_code": "0203020103",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "注塑区",
+                                          "area_code": "0203020104",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "Yoshi项目CNC车间",
+                                          "area_code": "0203020105",
+                                          "children": [
+                                              {
+                                                  "label": "CNC5夹",
+                                                  "area_code": "020302010501",
+                                                  "children": []
+                                              }
+                                          ]
+                                      }
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "label": "F3厂房",
+                          "area_code": "020303",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "02030301",
+                                  "children": [
+                                      {
+                                          "label": "HY测试车间",
+                                          "area_code": "0203030101",
+                                          "children": []
+                                      }
+                                  ]
+                              },
+                              {
+                                  "label": "2F",
+                                  "area_code": "02030302",
+                                  "children": [
+                                      {
+                                          "label": "组装车间",
+                                          "area_code": "0203030201",
+                                          "children": [
+                                              {
+                                                  "label": "F3-2F-Assy-A",
+                                                  "area_code": "020303020101",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "F3-2F-Assy-B",
+                                                  "area_code": "020303020102",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "F3-2F-Assy-C",
+                                                  "area_code": "020303020103",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "F3-2F-Assy-D",
+                                                  "area_code": "020303020104",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "F3-2F-Assy-E",
+                                                  "area_code": "020303020105",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "F3-2F-Assy-F",
+                                                  "area_code": "020303020106",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "F3-2F-Assy-G",
+                                                  "area_code": "020303020107",
+                                                  "children": []
+                                              }
+                                          ]
+                                      }
+                                  ]
+                              },
+                              {
+                                  "label": "3F",
+                                  "area_code": "02030303",
+                                  "children": [
+                                      {
+                                          "label": "组装车间",
+                                          "area_code": "0203030301",
+                                          "children": [
+                                              {
+                                                  "label": "ZOD项目A拉",
+                                                  "area_code": "020303030101",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "ZOD项目B拉",
+                                                  "area_code": "020303030102",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "ZOD项目C拉",
+                                                  "area_code": "020303030103",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "ZOD项目D拉",
+                                                  "area_code": "020303030104",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "ZOD项目E拉",
+                                                  "area_code": "020303030105",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "ZOD项目F拉",
+                                                  "area_code": "020303030106",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "ZOD项目G拉",
+                                                  "area_code": "020303030107",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "ZOD项目H拉",
+                                                  "area_code": "020303030108",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "ZOD项目I拉",
+                                                  "area_code": "020303030109",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "Yoshi项目",
+                                                  "area_code": "020303030110",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "返工线",
+                                                  "area_code": "020303030111",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "ZOD项目AW拉",
+                                                  "area_code": "020303030112",
+                                                  "children": [
+                                                      {
+                                                          "label": "前端（测试1111111111111）",
+                                                          "area_code": "02030303011201",
+                                                          "children": []
+                                                      }
+                                                  ]
+                                              },
+                                              {
+                                                  "label": "ZOD项目J拉",
+                                                  "area_code": "020303030113",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "ZOD项目K拉",
+                                                  "area_code": "020303030114",
+                                                  "children": []
+                                              }
+                                          ]
+                                      },
+                                      {
+                                          "label": "检测室",
+                                          "area_code": "0203030302",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "打样区",
+                                          "area_code": "0203030303",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "公共办公区",
+                                          "area_code": "0203030304",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "label": "F4厂房",
+                          "area_code": "020304",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "02030401",
+                                  "children": [
+                                      {
+                                          "label": "CNC车间",
+                                          "area_code": "0203040101",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "镭雕区",
+                                          "area_code": "0203040102",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "打磨区",
+                                          "area_code": "0203040103",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "检测室",
+                                          "area_code": "0203040104",
+                                          "children": []
+                                      }
+                                  ]
+                              },
+                              {
+                                  "label": "2F",
+                                  "area_code": "02030402",
+                                  "children": [
+                                      {
+                                          "label": "公共办公区",
+                                          "area_code": "0203040201",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "label": "F5厂房",
+                          "area_code": "020305",
+                          "children": []
+                      },
+                      {
+                          "label": "F6厂房",
+                          "area_code": "020306",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "02030601",
+                                  "children": [
+                                      {
+                                          "label": "键盘CNC车间",
+                                          "area_code": "0203060101",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "键盘表面处理区",
+                                          "area_code": "0203060102",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "键盘组装区",
+                                          "area_code": "0203060103",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "检测室",
+                                          "area_code": "0203060104",
+                                          "children": []
+                                      }
+                                  ]
+                              },
+                              {
+                                  "label": "2F",
+                                  "area_code": "02030602",
+                                  "children": [
+                                      {
+                                          "label": "公共办公区",
+                                          "area_code": "0203060201",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "label": "F7厂房",
+                          "area_code": "020307",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "02030701",
+                                  "children": [
+                                      {
+                                          "label": "CNC区",
+                                          "area_code": "0203070101",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "label": "F8厂房",
+                          "area_code": "020308",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "02030801",
+                                  "children": [
+                                      {
+                                          "label": "冲压车间",
+                                          "area_code": "0203080101",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "8#CNC车间",
+                                          "area_code": "0203080102",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "label": "F9厂房",
+                          "area_code": "020309",
+                          "children": [
+                              {
+                                  "label": "IF",
+                                  "area_code": "02030901",
+                                  "children": [
+                                      {
+                                          "label": "F9CNC车间",
+                                          "area_code": "0203090101",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "label": "F10厂房",
+                          "area_code": "020310",
+                          "children": []
+                      },
+                      {
+                          "label": "F11厂房",
+                          "area_code": "020311",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "02031101",
+                                  "children": [
+                                      {
+                                          "label": "ZOD项目CNC车间",
+                                          "area_code": "0203110101",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "检测室",
+                                          "area_code": "0203110102",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "打磨区",
+                                          "area_code": "0203110103",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "打样区",
+                                          "area_code": "0203110104",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "Logo区",
+                                          "area_code": "0203110105",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "Yoshi项目CNC车间",
+                                          "area_code": "0203110106",
+                                          "children": []
+                                      }
+                                  ]
+                              },
+                              {
+                                  "label": "2F",
+                                  "area_code": "02031102",
+                                  "children": [
+                                      {
+                                          "label": "公共办公区",
+                                          "area_code": "0203110201",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      }
+                  ]
+              },
+              {
+                  "label": "爱邦工业园",
+                  "area_code": "0204",
+                  "children": [
+                      {
+                          "label": "爱邦厂房",
+                          "area_code": "020401",
+                          "children": [
+                              {
+                                  "label": "2F",
+                                  "area_code": "02040101",
+                                  "children": []
+                              },
+                              {
+                                  "label": "3F",
+                                  "area_code": "02040102",
+                                  "children": [
+                                      {
+                                          "label": "组包车间",
+                                          "area_code": "0204010201",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "label": "合创厂房",
+                          "area_code": "020402",
+                          "children": [
+                              {
+                                  "label": "3F",
+                                  "area_code": "02040201",
+                                  "children": [
+                                      {
+                                          "label": "组包车间",
+                                          "area_code": "0204020101",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      }
+                  ]
+              }
+          ]
+      },
+      {
+          "label": "中山",
+          "area_code": "03",
+          "children": [
+              {
+                  "label": "中山工业园",
+                  "area_code": "0301",
+                  "children": [
+                      {
+                          "label": "1#厂房",
+                          "area_code": "030101",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "03010101",
+                                  "children": [
+                                      {
+                                          "label": "CNC车间",
+                                          "area_code": "0301010101",
+                                          "children": [
+                                              {
+                                                  "label": "A线",
+                                                  "area_code": "030101010101",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "B线",
+                                                  "area_code": "030101010102",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "C线",
+                                                  "area_code": "030101010103",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "D线",
+                                                  "area_code": "030101010104",
+                                                  "children": []
+                                              }
+                                          ]
+                                      },
+                                      {
+                                          "label": "强化车间",
+                                          "area_code": "0301010102",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "丝印车间",
+                                          "area_code": "0301010103",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "label": "2#厂房",
+                          "area_code": "030102",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "03010201",
+                                  "children": [
+                                      {
+                                          "label": "A线",
+                                          "area_code": "0301020101",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "label": "3#厂房",
+                          "area_code": "030103",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "03010301",
+                                  "children": [
+                                      {
+                                          "label": "CNC车间",
+                                          "area_code": "0301030101",
+                                          "children": [
+                                              {
+                                                  "label": "C线",
+                                                  "area_code": "030103010103",
+                                                  "children": []
+                                              }
+                                          ]
+                                      },
+                                      {
+                                          "label": "镀膜车间",
+                                          "area_code": "0301030102",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      }
+                  ]
+              }
+          ]
+      },
+      {
+          "label": "安阳",
+          "area_code": "06",
+          "children": [
+              {
+                  "label": "一期工业园",
+                  "area_code": "0601",
+                  "children": [
+                      {
+                          "label": "2#厂房",
+                          "area_code": "060101",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "06010101",
+                                  "children": [
+                                      {
+                                          "label": "生产车间",
+                                          "area_code": "0601010101",
+                                          "children": [
+                                              {
+                                                  "label": "热前生产区",
+                                                  "area_code": "060101010101",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "热后生产区",
+                                                  "area_code": "060101010102",
+                                                  "children": []
+                                              }
+                                          ]
+                                      }
+                                  ]
+                              }
+                          ]
+                      }
+                  ]
+              },
+              {
+                  "label": "二期工业园",
+                  "area_code": "0602",
+                  "children": [
+                      {
+                          "label": "4#厂房",
+                          "area_code": "060201",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "06020101",
+                                  "children": [
+                                      {
+                                          "label": "制造一科",
+                                          "area_code": "0602010101",
+                                          "children": [
+                                              {
+                                                  "label": "端子区",
+                                                  "area_code": "060201010101",
+                                                  "children": []
+                                              },
+                                              {
+                                                  "label": "NTC区",
+                                                  "area_code": "060201010102",
+                                                  "children": []
+                                              }
+                                          ]
+                                      }
+                                  ]
+                              }
+                          ]
+                      }
+                  ]
+              },
+              {
+                  "label": "二期工业园",
+                  "area_code": "0606",
+                  "children": []
+              }
+          ]
+      },
+      {
+          "label": "长沙",
+          "area_code": "09",
+          "children": [
+              {
+                  "label": "长沙望城",
+                  "area_code": "09001",
+                  "children": [
+                      {
+                          "label": "101厂房",
+                          "area_code": "0900101",
+                          "children": []
+                      }
+                  ]
+              },
+              {
+                  "label": "一期工业园",
+                  "area_code": "0901",
+                  "children": [
+                      {
+                          "label": "1#",
+                          "area_code": "090101",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "09010101",
+                                  "children": [
+                                      {
+                                          "label": "生产车间",
+                                          "area_code": "0901010101",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "label": "2#",
+                          "area_code": "090102",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "09010201",
+                                  "children": [
+                                      {
+                                          "label": "二车间",
+                                          "area_code": "0901020102",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      }
+                  ]
+              }
+          ]
+      },
+      {
+          "label": "西安",
+          "area_code": "10",
+          "children": [
+              {
+                  "label": "高新工业园",
+                  "area_code": "1001",
+                  "children": [
+                      {
+                          "label": "3#厂房",
+                          "area_code": "100101",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "10010101",
+                                  "children": []
+                              }
+                          ]
+                      }
+                  ]
+              },
+              {
+                  "label": "集贤工业园",
+                  "area_code": "1002",
+                  "children": [
+                      {
+                          "label": "16#厂房",
+                          "area_code": "100201",
+                          "children": [
+                              {
+                                  "label": "生产车间",
+                                  "area_code": "10020101",
+                                  "children": [
+                                      {
+                                          "label": "热前区域",
+                                          "area_code": "1002010101",
+                                          "children": [
+                                              {
+                                                  "label": "TEST01",
+                                                  "area_code": "100201010101",
+                                                  "children": []
+                                              }
+                                          ]
+                                      }
+                                  ]
+                              }
+                          ]
+                      }
+                  ]
+              }
+          ]
+      },
+      {
+          "label": "汕尾",
+          "area_code": "11",
+          "children": [
+              {
+                  "label": "富寿工业园",
+                  "area_code": "1101",
+                  "children": [
+                      {
+                          "label": "B1厂房",
+                          "area_code": "110101",
+                          "children": [
+                              {
+                                  "label": "3F",
+                                  "area_code": "11010101",
+                                  "children": [
+                                      {
+                                          "label": "组装车间",
+                                          "area_code": "1101010101",
+                                          "children": [
+                                              {
+                                                  "label": "A拉",
+                                                  "area_code": "110101010101",
+                                                  "children": []
+                                              }
+                                          ]
+                                      }
+                                  ]
+                              }
+                          ]
+                      }
+                  ]
+              },
+              {
+                  "label": "红草工业园",
+                  "area_code": "1102",
+                  "children": [
+                      {
+                          "label": "13B厂房",
+                          "area_code": "11021B",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "11021B01",
+                                  "children": []
+                              }
+                          ]
+                      },
+                      {
+                          "label": "11#",
+                          "area_code": "110211",
+                          "children": []
+                      },
+                      {
+                          "label": "11#A喷涂",
+                          "area_code": "110211A",
+                          "children": [
+                              {
+                                  "label": "11#A喷涂",
+                                  "area_code": "3#线",
+                                  "children": []
+                              }
+                          ]
+                      },
+                      {
+                          "label": "13B",
+                          "area_code": "110213",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "11021301",
+                                  "children": []
+                              },
+                              {
+                                  "label": "3F",
+                                  "area_code": "11021303",
+                                  "children": []
+                              }
+                          ]
+                      },
+                      {
+                          "label": "14#",
+                          "area_code": "110214",
+                          "children": [
+                              {
+                                  "label": null,
+                                  "area_code": "11021401",
+                                  "children": []
+                              }
+                          ]
+                      },
+                      {
+                          "label": "15#",
+                          "area_code": "110215",
+                          "children": []
+                      }
+                  ]
+              },
+              {
+                  "label": "红草比亚迪",
+                  "area_code": "1103",
+                  "children": [
+                      {
+                          "label": "13B厂房",
+                          "area_code": "110301",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "11030101",
+                                  "children": [
+                                      {
+                                          "label": "注塑车间",
+                                          "area_code": "1103010101",
+                                          "children": []
+                                      }
+                                  ]
+                              },
+                              {
+                                  "label": "3F",
+                                  "area_code": "11030102",
+                                  "children": [
+                                      {
+                                          "label": "滑板车间",
+                                          "area_code": "1103010201",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "label": "11B厂房",
+                          "area_code": "110302",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "11030201",
+                                  "children": [
+                                      {
+                                          "label": "钣金车间",
+                                          "area_code": "1103020101",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      }
+                  ]
+              }
+          ]
+      },
+      {
+          "label": "越南",
+          "area_code": "12",
+          "children": [
+              {
+                  "label": "B2栋",
+                  "area_code": "1201",
+                  "children": []
+              },
+              {
+                  "label": "B1栋",
+                  "area_code": "1202",
+                  "children": []
+              }
+          ]
+      },
+      {
+          "label": "汕头",
+          "area_code": "13",
+          "children": [
+              {
+                  "label": "工业园",
+                  "area_code": "1301",
+                  "children": [
+                      {
+                          "label": "14#",
+                          "area_code": "130114",
+                          "children": [
+                              {
+                                  "label": "1F",
+                                  "area_code": "13011401",
+                                  "children": [
+                                      {
+                                          "label": "CNC车间1#",
+                                          "area_code": "1301140101",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "热弯车间",
+                                          "area_code": "1301140102",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "CNC车间2#",
+                                          "area_code": "1301140103",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "贴合车间",
+                                          "area_code": "1301140104",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "退镀房",
+                                          "area_code": "1301140105",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      }
+                  ]
+              }
+          ]
+      },
+      {
+          "label": "韶关",
+          "area_code": "14",
+          "children": [
+              {
+                  "label": "工业园",
+                  "area_code": "1401",
+                  "children": [
+                      {
+                          "label": "4#",
+                          "area_code": "140104",
+                          "children": []
+                      },
+                      {
+                          "label": "9#",
+                          "area_code": "140109",
+                          "children": []
+                      }
+                  ]
+              }
+          ]
+      },
+      {
+          "label": "无锡",
+          "area_code": "16",
+          "children": [
+              {
+                  "label": "金属厂",
+                  "area_code": "1601",
+                  "children": [
+                      {
+                          "label": "M-B1-1F",
+                          "area_code": "160101",
+                          "children": [
+                              {
+                                  "label": "金属厂M-B1-1F-1",
+                                  "area_code": "16010101",
+                                  "children": [
+                                      {
+                                          "label": "金属厂M-B1-1F-1-1",
+                                          "area_code": "1601010101",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "label": "M-B8-1F",
+                          "area_code": "160102",
+                          "children": [
+                              {
+                                  "label": "金属厂M-B8-1F-1",
+                                  "area_code": "16010201",
+                                  "children": [
+                                      {
+                                          "label": "金属厂M-B8-1F-1-1",
+                                          "area_code": "1601020101",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      }
+                  ]
+              },
+              {
+                  "label": "冲压厂",
+                  "area_code": "1602",
+                  "children": []
+              },
+              {
+                  "label": "EPZ厂",
+                  "area_code": "1603",
+                  "children": [
+                      {
+                          "label": "E-B1-1F",
+                          "area_code": "160301",
+                          "children": [
+                              {
+                                  "label": "E_B1-1F厂房_1",
+                                  "area_code": "16030101",
+                                  "children": [
+                                      {
+                                          "label": "E-B1-1F厂房_1_1",
+                                          "area_code": "1603010101",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "label": "E-B1-2F",
+                          "area_code": "160302",
+                          "children": [
+                              {
+                                  "label": "E-B1-2F_1",
+                                  "area_code": "16030201",
+                                  "children": [
+                                      {
+                                          "label": "E-B1-2F_1_1",
+                                          "area_code": "1603020101",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      }
+                  ]
+              }
+          ]
+      },
+      {
+          "label": "比亚迪电子",
+          "area_code": "17",
+          "children": [
+              {
+                  "label": "成都",
+                  "area_code": "1701",
+                  "children": [
+                      {
+                          "label": "Metal厂",
+                          "area_code": "170101",
+                          "children": [
+                              {
+                                  "label": "E6栋",
+                                  "area_code": "17010101",
+                                  "children": [
+                                      {
+                                          "label": "E6-1F",
+                                          "area_code": "1701010101",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "E6-2F",
+                                          "area_code": "1701010102",
+                                          "children": []
+                                      }
+                                  ]
+                              },
+                              {
+                                  "label": "D3栋",
+                                  "area_code": "17010102",
+                                  "children": [
+                                      {
+                                          "label": "D3-1F",
+                                          "area_code": "1701010201",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "D3-2F",
+                                          "area_code": "1701010202",
+                                          "children": []
+                                      }
+                                  ]
+                              },
+                              {
+                                  "label": "D6栋",
+                                  "area_code": "17010103",
+                                  "children": [
+                                      {
+                                          "label": "D6-1F",
+                                          "area_code": "1701010301",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "D6-2F",
+                                          "area_code": "1701010302",
+                                          "children": []
+                                      }
+                                  ]
+                              },
+                              {
+                                  "label": "E2栋",
+                                  "area_code": "17010104",
+                                  "children": [
+                                      {
+                                          "label": "E2-1F",
+                                          "area_code": "1701010401",
+                                          "children": []
+                                      },
+                                      {
+                                          "label": "E2-2F",
+                                          "area_code": "1701010402",
+                                          "children": []
+                                      }
+                                  ]
+                              }
+                          ]
+                      }
+                  ]
+              }
+          ]
+      }
+  ],
+  "RESULT": "PASS"
+}
