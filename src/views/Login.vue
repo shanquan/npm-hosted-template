@@ -306,11 +306,6 @@ export default {
         type : "blend"
     });
   },
-  computed: {
-    pageType() {
-      return this.$store.state.pageType;
-    },
-  },
   data() {
     return {
       prefix: localStorage.getItem("aHost")&&localStorage.getItem("aHost").startsWith('https://')?'https://':'http://',
@@ -438,7 +433,7 @@ export default {
       
     },
     getList() {
-      if (this.$store.state.pageType == 0) {
+      if (!this.$app.isMobile()) {
         this.$http.showError = false;
         this.$http.axios
           .post(

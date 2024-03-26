@@ -93,7 +93,7 @@
       </el-table-column>
     </el-table>
     <el-pagination style="text-align: center;" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage"
-    :page-sizes="[10, 20, 30, 40, 50]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper"
+    :page-sizes="$root.pageList" :page-size="pageSize" :layout="$app.isMobile()?'prev, pager, next':'total, sizes, prev, pager, next, jumper'"
     :total="total">
     </el-pagination>
     <el-dialog v-if="dialogMode"
