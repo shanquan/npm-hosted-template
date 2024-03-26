@@ -67,6 +67,11 @@ router.beforeEach(async(to, from, next) => {
         next('/404')
     }
 })
+
+router.onError((error) => {
+    console.error('router.onError',error)
+})
+
 const appConfigDefault = {
     authCheck: true, // 全局菜单权限开关
     pageList: [10, 20, 50, 100, 200, 500],
