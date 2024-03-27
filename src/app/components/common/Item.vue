@@ -32,7 +32,7 @@
             :value="op.value">
           </el-option>
         </el-select>
-        <el-select @focus="focusEl=item.value" v-if="(item.queryUrl||item.remoteUrl||item.source)&&item.type=='select'" v-model="form[item.value]" :multiple="item.multiple?true:false" :filterable="item.queryUrl||item.remoteUrl?true:false" :filter-method="item.queryUrl?filterMethod:null" :remote="item.remoteUrl?true:false" :remote-method="item.remoteUrl?remoteMethod:null" clearable :disabled="type=='detail'">
+        <el-select v-if="(item.queryUrl||item.remoteUrl||item.source)&&item.type=='select'" v-model="form[item.value]" :multiple="item.multiple?true:false" :filterable="item.queryUrl||item.remoteUrl?true:false" :filter-method="item.queryUrl?(qs)=>{filterMethod(qs,item.value)}:null" :remote="item.remoteUrl?true:false" :remote-method="item.remoteUrl?(qs)=>{remoteMethod(qs,item.value)}:null" clearable :disabled="type=='detail'">
           <el-option
             v-for="op in item.source?$root[item.source]:item.options"
             :key="op.$index"
@@ -50,16 +50,17 @@
         <el-rate v-if="item.type=='rate'" v-model="form[item.value]" :disabled="type=='detail'" :colors="item.colors" :show-text="item.showText" :show-score="item.showScore" :text-color="item.textColor"></el-rate>
         <el-time-picker v-if="item.type=='time'" v-model="form[item.value]" :disabled="type=='detail'" :picker-options="item.pickerOptions" :default-value="item.defaultValue" :value-format="item.valueFormat" :placeholder="item.placeholder" :arrow-control="item.arrowControl" :size="item.size" :align="item.align"></el-time-picker>
         <el-date-picker v-if="['date','year','month','dates','months','years','week','datetime','datetimerange','daterange','monthrange'].includes(item.type)" :type="item.type" v-model="form[item.value]" :disabled="type=='detail'" :picker-options="item.pickerOptions" :default-value="item.defaultValue" :value-format="item.valueFormat" :placeholder="item.placeholder" :time-arrow-control="item.arrowControl" :size="item.size" :align="item.align"></el-date-picker>
-        <el-upload :class="item.class" v-if="item.type=='upload'" :disabled="type=='detail'" :action="item.action" :headers="item.headers" :data="item.data" :with-credentials="item.withCredentials" :name="item.name" :drag="item.drag" :accept="item.accept" :file-list="item.fileList" :show-file-list="item.showFileList" :list-type="item.listType" :multiple="item.multiple" :limit="item.limit" :auto-upload="item.autoUpload"
-          :on-preview="onPictureCardPreview"  
-          :on-success="onUploadSuccess"
+        <el-upload v-if="item.type=='upload'" :class="item.value" :disabled="type=='detail'" :action="item.action" :headers="item.headers" :data="item.data" :with-credentials="item.withCredentials" :name="item.name" :drag="item.drag" :accept="item.accept" :file-list="form[item.value]?form[item.value]:[]" :show-file-list="item.showFileList" :list-type="item.listType" :multiple="item.multiple" :limit="item.limit" :auto-upload="item.autoUpload"
+          :on-preview="onPictureCardPreview"
+          :on-success="(response,file,fileList)=>{onUploadSuccess(response,file,fileList,item.value)}"
           :on-error="onUploadError"
+          :on-change="(file,fileList)=>{onUploadChange(file,fileList,item.value)}"
+          :on-remove="(file,fileList)=>{onUploadRemove(file,fileList,item.value)}"
         >
-          <img v-if="item.class=='avatar-uploader'&&imageUrl" :src="imageUrl" class="avatar">
-          <i v-if="item.class=='avatar-uploader'&&!imageUrl||item.listType=='picture-card'" class="el-icon-plus"></i>
+          <i v-if="item.listType=='picture-card'" class="el-icon-plus"></i>
           <i v-if="item.drag" class="el-icon-upload"></i>
           <div v-if="item.drag" class="el-upload__text">{{$t('dragTip')}}<em>{{$t('uploadTip')}}</em></div>
-          <el-button v-if="item.class!='avatar-uploader'&&!item.drag&&item.listType!='picture-card'" size="small" type="primary">{{$t('uploadTip')}}</el-button>
+          <el-button v-if="!item.drag&&item.listType!='picture-card'" size="small" type="primary">{{$t('uploadTip')}}</el-button>
           <div v-if="item.tips" slot="tip" class="el-upload__tip">{{item.tips}}</div>
         </el-upload>
         <el-dialog v-if="item.listType=='picture-card'" :visible.sync="dialogVisible">
@@ -120,7 +121,6 @@ export default {
         modelUrl: this.$http.app_url + this.$route.params.model,
       },
       options:{},
-      focusEl:null,
       rowList:[],
       dialogImageUrl: '',
       dialogVisible: false
@@ -171,6 +171,13 @@ export default {
       this.getList();
       this.$http.getById(this.config.modelUrl,this.id).then(response=>{
         Object.assign(this.form,response.DATA);
+        this.$nextTick(()=>{
+          MODELDATA.common.filter(el=>el.type=='upload'&&el.limit).forEach(el=>{
+            if(this.form[el.value]&&this.form[el.value].length>=el.limit){
+              document.querySelector(`.${el.value} .el-upload--picture-card`).classList.add('hide');
+            }
+          })
+        })
       })
     },
     getList(cb){
@@ -191,13 +198,13 @@ export default {
         }
       })
     },
-    filterMethod(qs){
-      let item = MODELDATA.common.find(el=>el.value==this.focusEl)
-      item.options = qs ? this.options[this.focusEl].filter(el=>{return el.label?el.label.indexOf(qs)>-1:el.value.indexOf(qs)>-1}).slice(0,30):this.options[this.focusEl].slice(0,30)
+    filterMethod(qs,value){
+      let item = MODELDATA.common.find(el=>el.value==value)
+      item.options = qs ? this.options[value].filter(el=>{return el.label?el.label.indexOf(qs)>-1:el.value.indexOf(qs)>-1}).slice(0,30):this.options[value].slice(0,30)
       this.$forceUpdate();
     },
-    remoteMethod(qs) {
-      let item = MODELDATA.common.find(el=>el.value==this.focusEl)
+    remoteMethod(qs,value) {
+      let item = MODELDATA.common.find(el=>el.value==value)
       let param = {
         "currentPageNo": 1,
         "pageSize": 30
@@ -263,16 +270,17 @@ export default {
         this.$emit('onCancel')
       }
     },
-    onUploadSuccess(response, file, fileList) {
+    onUploadSuccess(response, file, fileList,value) {
       if (response.RESULT === "PASS") {
         this.$message({
           message: file.name.concat(this.$t('L00031'), response.MESSAGE, this.$t('L00032')),
           type: "success"
         });
+        this.form[value] = fileList
       }else{
         this.$message.error(file.name.concat(`${this.$t('L00030')}，`, response.MESSAGE));
+        this.form[value] = fileList.slice(0,-1);
       }
-      fileList.splice(0);
     },
     onUploadError(err, file){
       this.$message.error(file.name.concat(`${this.$t('L00030')}，`, err));
@@ -280,32 +288,40 @@ export default {
     onPictureCardPreview(file){
       this.dialogImageUrl = file.url;
       this.dialogVisible = true;
-    }
+    },
+    onUploadChange(file,fileList,value) {
+      let item = MODELDATA.common.find(el=>el.value==value)
+      if(this.isFileValid(file,item)){
+        // this.$root.getImageBase64(file.raw).then(res=>{
+        //   file.url = res;
+        // })
+        this.form[value]=fileList;
+        if(fileList.length==item.limit)
+          document.querySelector(`.${value} .el-upload--picture-card`).classList.add('hide');
+      }else{
+        this.form[value] = fileList.slice(0,-1);
+        this.$forceUpdate();
+      }
+    },
+    onUploadRemove(file,fileList,value){
+      let item = MODELDATA.common.find(el=>el.value==value)
+      this.form[value] = fileList;
+      if(item.limit&&fileList.length<item.limit){
+        document.querySelector(`.${value} .el-upload--picture-card`).classList.remove('hide');
+      }
+    },
+    isFileValid(file,item) {
+      const fileExt = file.name.substring(file.name.lastIndexOf('.'));
+      const isAccept = item.accept?item.accept.split(',').includes(fileExt):true;
+      const isLt1M = item.limitSize?file.size / 1024 < item.limitSize:true;
+      if(!isAccept){
+        this.$message.error('上传的文件格式不正确:'+item.accept);
+      }
+      if (!isLt1M) {
+        this.$message.error(`上传菜单图片大小不能超过 ${item.limitSize}KB!`);
+      }
+      return isLt1M&&isAccept;
+    },
   }
 }
 </script>
-<style>
-  .commonItem .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-  .avatar-uploader i {
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-  }
-  .avatar-uploader .avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
-  }
-</style>

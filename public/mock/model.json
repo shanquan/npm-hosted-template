@@ -51,6 +51,11 @@
       }, {
         "value": "upload",
         "type": "upload",
+        "action": "#",
+        "limit": 1,
+        "limitSize": 10,
+        "accept":".jpg,.jpeg,.png,.gif,.svg,.ico",
+        "autoUpload": false,
         "listType": "picture-card"
       }, {
         "value": "description",

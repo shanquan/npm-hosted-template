@@ -11,6 +11,7 @@
     "description": "测试添加2",
     "status": 1,
     "usedFlag": "Y",
+    "upload":[{"name":"logo","url":"https://oa.byd.com/cloudstore/release/268b60e53f0049d08a752d268d499257/resources/mhlogo0509.png"}],
     "createName": "wang.wenbin",
     "createTime": "2020-12-21 13:18:12",
     "updateName": "wang.wenbin",
