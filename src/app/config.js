@@ -130,6 +130,16 @@ if(langs[process.env.VUE_APP_CUSTOMIZE]){
     delete langs[process.env.VUE_APP_CUSTOMIZE]
 }
 
+if(appApi[process.env.VUE_APP_CUSTOMIZE]){
+    Object.assign(appApi,appApi[process.env.VUE_APP_CUSTOMIZE])
+    delete appApi[process.env.VUE_APP_CUSTOMIZE]
+}
+
+if(appConfig[process.env.VUE_APP_CUSTOMIZE]){
+    Object.assign(appConfig,appConfig[process.env.VUE_APP_CUSTOMIZE])
+    delete appConfig[process.env.VUE_APP_CUSTOMIZE]
+}
+
 export var applang = langs[process.env.VUE_APP_CODE];
 export var appApi;
 export var appConfig;
