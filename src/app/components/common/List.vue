@@ -121,6 +121,15 @@ export default {
         if(MODELDATA['en-US']&&!this.$i18n.messages['en-US'][this.config.model])
         MODELDATA['en-US'].datetimerange = "DatetimeRange"
       }
+      let formObj = {}
+      querys.forEach(el=>{
+        if(['time','date','datetime'].includes(el.type)&&!this.form.datetimerange){
+          formObj.datetimerange = []
+        }else{
+          formObj[el.value] = ""
+        }
+      })
+      Object.assign(this.form,formObj)
       this.querys = querys
       try{
         let langs={};
@@ -352,6 +361,10 @@ export default {
       }
     },
     exportExcel() {
+      if(!this.$root.checkParams(this.form)){
+        this.$message.error(this.$t('L10057'));
+        return false;
+      }
       let formParams = "";
       let downloadUrl = "#";
       let $a = document.getElementById('aExport');
@@ -374,6 +387,10 @@ export default {
     },
     // post方法导出
     exportExcelWithPost(){
+      if(!this.$root.checkParams(this.form)){
+        this.$message.error(this.$t('L10057'));
+        return false;
+      }
       let formParams = "";
       for(let key in this.form){
         if(this.form[key])
