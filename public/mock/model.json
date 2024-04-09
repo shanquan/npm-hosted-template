@@ -47,6 +47,7 @@
       }, {
         "value": "date",
         "queryable": true,
+        "valueFormat":"yyyy-MM-dd",
         "type": "date"
       }, {
         "value": "upload",
@@ -101,7 +102,8 @@
         "value": "updateTime"
       }],
     "config":{
-      "showIndex": false
+      "showIndex": false,
+      "labelWidth": "110px"
     },
     "zh-CN":{"name":"名称","version":"版本","description":"描述","status":"状态","currentVersion":"当前版本","L10305":"工艺路线类型","L10301":"生产工艺路线","L10302":"不合格工艺路线","L10303":"返工工艺路线","L10304":"特殊工艺路线","sectionName":"工站","Y":"Y","N":"N","createName": "创建人","createTime": "创建时间","updateName": "修改人","updateTime": "修改时间","checklist":"复选框","switch":"开关","slider":"滑块","color":"颜色选择器","rate":"评分","time":"时间选择","date":"日期选择","datetime":"日期时间选择","upload":"上传"}
   },

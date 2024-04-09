@@ -4,8 +4,8 @@
  * @description: 项目定制CSS
  */
 @import url(./split.css);
-.el-date-editor .el-range-input{width: 122px}
-
+.form-bar .el-range-input{width: 66px}
+.form-bar .el-range-editor.el-input__inner{padding:3px 5px}
 /* el-input prefix */
 .el-input--prefix .el-input__inner,.el-textarea__inner{position:relative;z-index:1;background:transparent}
 .el-input--suffix .el-input__suffix{z-index:2}

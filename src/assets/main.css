@@ -252,7 +252,7 @@ width: 100%;}
 .pda-box .el-form-item--mini.el-form-item, .el-form-item--small.el-form-item{
     margin-bottom: 14px;
 }
-.pda-box .el-select{
+.pda-box .el-select,.pda-box .el-date-editor.el-input,.pda-box .el-date-editor.el-input__inner{
     width: 100%;
 }
 .pda-box .el-form-item {

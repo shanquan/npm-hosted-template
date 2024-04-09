@@ -130,6 +130,26 @@ export default {
     init(){
       this.$http.getMockFile('model.json').then(res=>{
         MODELDATA = res.DATA;
+        if(MODELDATA.config){
+          Object.assign(this.config,MODELDATA.config)
+        }
+        this.rowList = MODELDATA.common;
+        switch(this.type){
+          case 'add': this.getList();break;
+          case 'edit': this.getData();break;
+          case 'detail':
+            this.rowList = MODELDATA.common.concat(MODELDATA.suffix);
+            this.getData();break;
+        }
+        this.rowList.forEach(el=>{
+          if(el.type=='check'||el.type=='select'&&el.multiple){
+            const defaultValue = el.default?el.default:[]
+            this.$set(this.form,el.value,defaultValue)
+          }else{
+            const defaultValue = el.default?el.default:""
+            this.$set(this.form,el.value,defaultValue)
+          }
+        })
         try{
           let langs={};
           if(MODELDATA['zh-CN']&&!this.$i18n.messages['zh-CN'][this.config.model]){
@@ -142,17 +162,6 @@ export default {
           }
         }catch(e){
           console.log(e)
-        }
-        if(MODELDATA.config){
-          Object.assign(this.config,MODELDATA.config)
-        }
-        this.rowList = MODELDATA.common;
-        switch(this.type){
-          case 'add': this.getList();break;
-          case 'edit': this.getData();break;
-          case 'detail':
-            this.rowList = MODELDATA.common.concat(MODELDATA.suffix);
-            this.getData();break;
         }
         let rules = {};
         let requireRule = Object.assign({},this.$root.requireRule);
@@ -237,7 +246,7 @@ export default {
                 message: this.$t('L00045'),
                 type: 'success'
               });
-              this.onReset();
+              // this.onReset();
             })
           }else if(this.type=='edit'){
             this.$http.updateById(this.config.modelUrl,this.form)
@@ -246,7 +255,7 @@ export default {
                 message: this.$t('L00045'),
                 type: 'success'
               });
-              this.onCancel();
+              // this.onCancel();
             })
           }
         } else {

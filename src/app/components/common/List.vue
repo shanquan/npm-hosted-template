@@ -30,6 +30,7 @@
         </el-select>
         <el-date-picker v-if="item.type=='datetimerange'"
           v-model="form[item.type]"
+          value-format="yyyy-MM-dd"
           type="datetimerange">
         </el-date-picker>
       </el-form-item>
@@ -114,6 +115,14 @@ export default {
     this.$http.getMockFile('model.json').then(res=>{
       MODELDATA = res.DATA;
       let querys = MODELDATA.common.filter(el=>el.queryable==true&&!['time','date','datetime'].includes(el.type));
+      querys.forEach(el=>{
+        if(['time','date','datetime'].includes(el.type)&&!this.form.datetimerange){
+          this.$set(this.form,'datetimerange',[])
+        }else{
+          this.$set(this.form,el.value,"")
+        }
+      })
+      this.querys = querys
       if(MODELDATA.common.find(el=>el.queryable==true&&['time','date','datetime'].includes(el.type))){
         querys.push({"value":"datetimerange","type":"datetimerange"});
         if(MODELDATA['zh-CN']&&!this.$i18n.messages['zh-CN'][this.config.model])
@@ -121,16 +130,6 @@ export default {
         if(MODELDATA['en-US']&&!this.$i18n.messages['en-US'][this.config.model])
         MODELDATA['en-US'].datetimerange = "DatetimeRange"
       }
-      let formObj = {}
-      querys.forEach(el=>{
-        if(['time','date','datetime'].includes(el.type)&&!this.form.datetimerange){
-          formObj.datetimerange = []
-        }else{
-          formObj[el.value] = ""
-        }
-      })
-      Object.assign(this.form,formObj)
-      this.querys = querys
       try{
         let langs={};
         if(MODELDATA['zh-CN']&&!this.$i18n.messages['zh-CN'][this.config.model]){
@@ -188,13 +187,7 @@ export default {
   data(){
     return{
       dialogMode: this.$root.dialogMode,
-      form:{
-        name: "",
-        version: "",
-        status: "",
-        type: "",
-        datetimerange: []
-      },
+      form:{},
       config:{
         showIndex: true,
         model: this.$route.params.model,
