@@ -82,6 +82,7 @@ export default {
       this.goto(path);
     },
     goto(path){
+        const EXT_PRIFIX = 'ext'
         if(path.startsWith('http')){
           window.open(path,'_blank');
         }else if(path.startsWith('$')){ // $admin/abc -> /abc | $xyz/abc -> /xyz/abc
@@ -93,6 +94,8 @@ export default {
             path = '/'+path.substring(1)
             window.location.href = path;
           }
+        }else if(`/${EXT_PRIFIX}/`==process.env.BASE_URL){
+          window.location.href = path;
         }else{
           this.gotoRouter(path)
         }
