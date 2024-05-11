@@ -7,6 +7,6 @@
 .form-bar .el-range-input{width: 66px}
 .form-bar .el-range-editor.el-input__inner{padding:3px 5px}
 /* el-input prefix */
-.el-input--prefix .el-input__inner,.el-textarea__inner{position:relative;z-index:1;background:transparent}
-.el-input--suffix .el-input__suffix{z-index:2}
+.input-outline-x .el-input--prefix .el-input__inner,.input-outline-x .el-textarea__inner{position:relative;z-index:1;background:transparent}
+.input-outline-x .el-input--suffix .el-input__suffix{z-index:2}
 .input-outline-x input:not(:placeholder-shown) ~ .el-input__prefix, .input-outline-x input:focus ~ .el-input__prefix,.input-outline-x textarea:not(:placeholder-shown) ~ .el-textarea__label, .input-outline-x textarea:focus ~ .el-textarea__label{z-index:2}

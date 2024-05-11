@@ -94,11 +94,15 @@ var appConfig = {
     hasBreadcrumb: true,
     hasTabs: false,
     addNewTabMode: true,
+    localTheme: false, // 仅本地主题
     // patternRule: { pattern: /^[^`!#%&+=<>?:"{}|,.\/;'\\[\]·！#￥%……&（）——+={}|《》？：“”【】、；‘'，。、]+$/, message: 'L00033', trigger: 'blur' }, // 名称（含中文）/通用输入规则,黑名单,
     // patternEnRule: { pattern: /^[A-Za-z0-9\*\-_(\)\^@~\$]+$/, message: 'L00036', trigger: 'blur' }, // 英文数字/通用输入规则,白名单
     // patternDspRule: { pattern: /^[A-Za-z0-9\u4e00-\u9fa5\*\-\_\(\)\^@~\$ ,\.\?;:!，。；、？！\r\n]+$/, message: 'L00033', trigger: 'blur' }, // 描述输入规则，白名单
     // boolList: [{ value: true }, { value: false }],
     statusOptions: [{ label: 'enabled', value: 0 }, { label: 'disabled', value: 1 }],
+    Car_Trial:{
+        localTheme: true
+    }
 }
 /**
  * 自定义翻译字段，支持覆盖同名框架基础字段

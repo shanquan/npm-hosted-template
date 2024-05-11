@@ -124,7 +124,12 @@ export default {
   name: 'app',
   created(){
     document.addEventListener("deviceready", this.onDevReady, false);
-    this.$root.getTheme();
+    if(this.$root.localTheme){
+      this.$root.setDefaultTheme();
+    }else{
+      this.$root.getTheme();
+    }
+
     if(this.$http.token)
     try{
       let auth = JSON.parse(localStorage.getItem(`${process.env.VUE_APP_CODE}_Auth`))
