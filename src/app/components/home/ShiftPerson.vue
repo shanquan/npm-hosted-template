@@ -38,11 +38,12 @@ export default {
     return {
       listPerson: [],
       listPersonIndex:0,
+      autoScroll:false
     }
   },
   computed:{
     listPersonFilter(){
-      return this.listPerson.slice(this.listPersonIndex*scrollNum,this.listPersonIndex*scrollNum+showRows);
+      return this.autoScroll?this.listPerson.slice(this.listPersonIndex*scrollNum,this.listPersonIndex*scrollNum+showRows):this.listPerson;
     }
   },
   methods:{
@@ -68,7 +69,7 @@ export default {
             this.listPerson.push({personDay:((i<=iPersonDay-1)?listDay[i]:null), personNight:((i<=iPersonNight-1)?listNight[i]:null)});
           }
         }
-        if(this.listPerson.length>showRows){ // 启动轮播定时器
+        if(this.autoScroll&&this.listPerson.length>showRows){ // 启动轮播定时器
           if(playTimer)
           window.cancelInterval(playTimer);
           playTimer = setInterval(()=>{

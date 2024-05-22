@@ -22,7 +22,7 @@ module.exports = {
     devServer: {
         proxy: Object.assign({
             '/user/*': {
-                target: "process.env.VUE_APP_DEV",
+                target: process.env.VUE_APP_DEV,
                 ws: true,
                 changeOrigin: true,
                 // proxyTimeout: 60000,

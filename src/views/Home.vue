@@ -260,7 +260,7 @@ export default {
 .box-card .el-card__body{min-width:410px;min-height:228px}
 .box-card-person{width:100%;margin-bottom:10px}
 .box-card-person .el-card__header{padding:11px 20px;font-size:16px;color:rgba(0,0,0,0.85)}
-.box-card-person .el-card__body{min-width:410px;height:242px;padding-top:5px;}
+.box-card-person .el-card__body{min-width:410px;height:242px;padding-top:5px;overflow-y:auto}
 .notes{font-size:12px;color:rgba(0,0,0,0.45);line-height:22px;}
 .el-card__header i{margin-left:10px}
 label.last{margin-left:60px}
