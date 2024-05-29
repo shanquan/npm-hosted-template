@@ -5,7 +5,8 @@
     "scripts": {
         "serve": "vue-cli-service serve --mode",
         "build": "vue-cli-service build --mode",
-        "lint": "vue-cli-service lint"
+        "lint": "vue-cli-service lint",
+        "release": "commit-and-tag-version"
     },
     "dependencies": {
         "axios": "^0.21.1",
@@ -31,6 +32,7 @@
         "@vue/cli-plugin-eslint": "~4.5.18",
         "@vue/cli-service": "~4.5.18",
         "babel-eslint": "^10.1.0",
+        "commit-and-tag-version": "^12.4.1",
         "eslint": "^6.7.2",
         "eslint-plugin-vue": "^6.2.2"
     },

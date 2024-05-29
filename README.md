@@ -129,3 +129,42 @@ npm run serve
 ```
 npm run build
 ```
+
+## Changelog CLI Usage
+
+All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+
+```sh
+# First Release
+npm run release -- --first-release
+# Cutting Releases
+npm run release
+# Release as a Target Type Imperatively (npm version-like): 
+# use --release-as with the argument major, minor or patch
+npm run release -- --release-as minor
+# Or
+npm run release -- --release-as 1.1.0
+# push version tag
+git push --follow-tags origin template
+# search log
+git log HEAD --grep feat
+```
+
+### Commit规范
+* feat：提交新功能
+* fix：修复了bug
+* docs：只修改了文档
+* style：调整代码格式，未修改代码逻辑（比如修改空格、格式化、缺少分号等）
+* refactor：代码重构，既没修复bug也没有添加新功能
+* perf：性能优化，提高性能的代码更改
+* test：添加或修改代码测试
+* chore：对构建流程或辅助工具和依赖库（如文档生成等）的更改
+
+格式：
+```html
+<type>(<scope>): <subject>
+<BLANK LINE>
+<body>
+<BLANK LINE>
+<footer>
+```
