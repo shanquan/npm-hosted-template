@@ -646,8 +646,6 @@ export default {
       this.outerVisible = false;
       var formParam = {};
       formParam.workNo = this.workNo;
-      // formParam.email = this.email;
-      //@todo 后端去掉写死flames-web
       if (!this.isCordova) {
         formParam.baseUrl = `${window.location.origin}${
           process.env.BASE_URL ? process.env.BASE_URL : "/"
@@ -658,7 +656,11 @@ export default {
         }`;
       }
       this.$http.axios
-        .post(this.getConfigUrl("user/exi/resetPwd/sendResetMail"), formParam)
+        .post(this.getConfigUrl("user/exi/resetPwd/sendResetMail"), formParam,{
+          headers: {
+            sysCode: process.env.VUE_APP_CODE,
+          },
+        })
         .then(() => {
           this.$notify({
             title: `${this.$t("L45015")}`,
