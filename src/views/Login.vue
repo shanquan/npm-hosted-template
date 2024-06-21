@@ -280,6 +280,10 @@ export default {
     if (this.$route.query.isCordova!==undefined) {
       this.isCordova = true;
     }
+    if(!this.$root.langOptions.find(el=>el.value==this.lang)){
+      this.$i18n.locale = this.$root.langOptions[0].value
+      this.lang = this.$i18n.locale
+    }
     this.$root.clearSession();
     this.getProjectList();
     this.getList();
