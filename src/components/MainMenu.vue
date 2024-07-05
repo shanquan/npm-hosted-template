@@ -99,8 +99,6 @@ export default {
         }else{
           this.gotoRouter(path)
         }
-        if(this.$root.$children[0].hasTabs)
-        this.$root.$children[0].addTab({name:`/${path}`,path:`/${path}`})
     },
     gotoRouter(path){
       // 查找指定路径的router

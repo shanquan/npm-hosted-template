@@ -191,7 +191,7 @@ export default {
           // 路由权限拦截
           if(this.$root.authCheck&&!nVal.meta.authPass&&!authItem)
           this.$router.push({path:'/403'})
-          if(!this.hasTabs){
+          if(!this.hasTabs||this.$root.authCheck&&!nVal.meta.authPass&&!authItem){
             return;
           }
           // 初始tab显示
@@ -214,7 +214,7 @@ export default {
           let menuIdx = this.menuPages.findIndex(el=>el.index==nVal.path);
           if(tabIdx1>-1){
             if(this.$root.addNewTabMode){
-              if(tabIdx3==-1&&p){
+              if(tabIdx3==-1&&p&&p!=this.homePath){
                 this.addTab({name:p,path:nVal.path})
               }else if(tabIdx3>-1){
                 this.editableTabs[tabIdx3].path = nVal.path

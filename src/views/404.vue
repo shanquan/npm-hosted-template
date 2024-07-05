@@ -16,7 +16,7 @@
             <div class="bullshit-oops">{{$t('L10501')}}</div>
             <div class="bullshit-headline">{{$t('L10505')}}</div>
             <div class="bullshit-info">{{$t('L10506')}}</div>
-            <router-link class="bullshit-return-home" to="/">{{$t('L10504')}}</router-link>
+            <div class="bullshit-return-home router-link-active" @click="goHome">{{$t('L10504')}}</div>
           </div>
         </el-col>
       </el-row>
@@ -26,7 +26,16 @@
 
 <script>
 export default {
-  name: 'c404'
+  name: 'c404',
+  methods: {
+    goHome () {
+      this.$router.push({ path: this.$root.homePath });
+      if(this.$root.hasTabs){
+        this.$root.$children[0].editableTabsValue = this.$root.homePath;
+        this.$root.$children[0].editableTabs = this.$root.$children[0].editableTabs.filter((tab) => tab.path !== '/404');
+      }
+    }
+  }
 }
 </script>
 
