@@ -91,6 +91,7 @@ var appConfig = {
     menuRoot: 'web',
     menuMobile: 'pda',
     homePath: '/', // 登录后主页路径，默认: /, 客户端配置：/config
+    userMode: process.env.VUE_APP_USER, // 用户模块
     hasBreadcrumb: true,
     hasTabs: false,
     addNewTabMode: true,

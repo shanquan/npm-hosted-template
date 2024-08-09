@@ -3,16 +3,19 @@
  * @since : 2020/11/25
  * @doc.proxy: https://github.com/chimurai/http-proxy-middleware
  */
-
+let ts = String(new Date().getTime())
 module.exports = {
     publicPath: "/admin", // /android_asset/www
     //outputDir: "D://work/cordovaBuilder/www", // your cordova project directory
     productionSourceMap: false,
     transpileDependencies: ["crypto-js"], // fix android6 unexpected token =
-    // configureWebpack: config => {
-    //     // 关闭代码压缩
-    //     config.optimization.minimize = false;
-    // },
+    configureWebpack: config => {
+        // 关闭代码压缩
+        // config.optimization.minimize = false;
+        // 禁用缓存
+        config.output.filename = process.env.NODE_ENV === 'production'?`js/[name].[contenthash:8].js?t=${ts}`:`js/[name].[hash:8].js?t=${ts}`
+        config.output.chunkFilename = process.env.NODE_ENV === 'production'?`js/[name].[contenthash:8].js?t=${ts}`:`js/[name].[hash:8].js?t=${ts}`
+    },
     pages: {
         index: {
             title: process.env.TITLE, // title
@@ -22,7 +25,7 @@ module.exports = {
     devServer: {
         proxy: Object.assign({
             '/user/*': {
-                target: process.env.VUE_APP_DEV,
+                target: process.env.VUE_APP_USER=='mes'?'http://10.12.5.188:20003/':'http://10.12.7.111:6002/',
                 ws: true,
                 changeOrigin: true,
                 // proxyTimeout: 60000,

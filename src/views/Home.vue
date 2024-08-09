@@ -18,7 +18,7 @@
         </el-card>
         <!-- 网页内全屏，css实现 -->
         <!-- <el-card class="box-card" :class="fullscreen?'fullscreen':''"> -->
-        <el-card id="r2Box1" class="box-card">
+        <el-card v-if="$root.userMode=='mes'" id="r2Box1" class="box-card">
           <div slot="header">
             <span>{{$t('L10220')}}</span>
             <span class="notes">（{{$t(`${$http.project.projectCode}.L10221`)==`${$http.project.projectCode}.L10221`?$t('L10221'):$t(`${$http.project.projectCode}.L10221`)}}）</span>
@@ -34,7 +34,7 @@
           </div>
           <shiftPerson></shiftPerson>
         </el-card>
-        <el-card class="box-card">
+        <el-card v-if="$root.userMode=='mes'" class="box-card">
           <div slot="header">
             <span>{{$t('L10225')}}</span>
             <span class="float-right"><i class="el-icon-refresh success" @click="refresh2"></i></span>

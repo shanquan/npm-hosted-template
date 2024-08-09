@@ -62,6 +62,7 @@ const setForMock = function() {
 const setForServer = function() {
     axios.defaults.baseURL = baseUrl;
     axios.defaults.headers.post['Content-Type'] = 'application/json';
+    axios.defaults.headers.common['sysCode'] = process.env.VUE_APP_CODE;
     axios.defaults.timeout = 30 * 60 * 1000;
     setLangs(i18n.locale);
     axios.interceptors.request.use((config) => {

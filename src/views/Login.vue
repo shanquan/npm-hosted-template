@@ -170,6 +170,22 @@
                 <use xlink:href="#doublePsw"></use>
               </svg>
             </el-input>
+            <div v-if="captchaEnabled">
+               <el-input
+                        class="mt18"
+                        v-model="form.code"
+                        auto-complete="off" placeholder="请输入右图计算结果"
+                        style="width: 190px"
+                        size="medium"
+                >
+                <svg slot="prefix" class="icon-inner">
+                  <use xlink:href="#captcha"></use>
+                </svg>
+               </el-input>
+               <div class="login-code mt18" >
+                  <img :src="codeUrl" @click="getCode" class="login-code-img"/>
+                </div>
+           </div>
           </span>
           <span v-if="remPwd" @keyup.enter="submitForm">
             <el-input
@@ -214,8 +230,10 @@
         <p class="ms-hide" @click="getMsg(true)">{{ msg }}</p>
       </el-main>
     </el-container>
-    <el-footer>Copyright&copy; {{ $t("L00017") }}<br/>
-      {{ $root.getAppVersion() }}</el-footer>
+    <el-footer>Copyright&copy; {{ $t("L00017") }}
+      <!-- <br/>
+      {{ $root.getAppVersion() }} -->
+    </el-footer>
     <!-- 忘记密码dialog Auther：xu.weijie -->
     <el-dialog width="30%" :title="$t('L45008')" :visible.sync="outerVisible">
       <el-dialog
@@ -251,7 +269,6 @@
     </el-dialog>
   </div>
 </template>
-
 <script>
 import GVerify from "../plugins/gVerify.js";
 import { AES, MD5, enc } from "crypto-js";
@@ -309,6 +326,16 @@ export default {
         id : "picy",
         type : "blend"
     });
+    if(this.captchaEnabled){
+      this.getCode();
+      const timer = setInterval(() =>{
+          this.getCode();
+      }, 1*60*1000);
+      // 通过$once来监听定时器，在beforeDestroy钩子可以被清除。
+      this.$once('hook:beforeDestroy', () => {
+        clearInterval(timer);
+      })
+    }
   },
   data() {
     return {
@@ -321,6 +348,8 @@ export default {
         repeat: "",
         captcha: "",
         ip: "",
+        code:"",
+        uuid:""
       },
       rules: {
         repeat: [
@@ -340,7 +369,7 @@ export default {
       },
       pwdPolicy: this.$root.pwdPolicy,
       pwdType: true,
-      remPwd: this.$root.remPwd,
+      remPwd: this.$root.remPwd&&this.$root.userMode!='ops',
       remember: false,
       checked: false,
       errMsg: "",
@@ -355,7 +384,9 @@ export default {
       email: "",
       isChangePwd: false,
       loginDirectly: false,
-      publicKey: ""
+      publicKey: "",
+      captchaEnabled:this.$root.userMode=='ops',
+      codeUrl:""
     };
   },
   methods: {
@@ -509,6 +540,17 @@ export default {
       } else {
         this.login();
       }
+    },
+    getCode(){
+      if(this.captchaEnabled)
+      this.$http.axios.get(`user/exi/captcha/captchaImage`,{headers:{token:''}}).then(res=>{
+        var data=res.DATA
+        this.captchaEnabled = data.captchaEnabled === undefined ? true : data.captchaEnabled;
+        if (this.captchaEnabled) {
+          this.codeUrl = "data:image/gif;base64," + data.img;
+          this.form.uuid = data.uuid;
+        }
+      });
     },
     checkCode() {
       this.checked = verifyCode.validate(this.form.captcha);
@@ -770,6 +812,8 @@ export default {
         account: this.form.user,
         password: MD5(this.form.pwd + this.$root.salt).toString(),
         sysCode: process.env.VUE_APP_CODE,
+        code: this.form.code,
+        uuid: this.form.uuid,
       };
       if (this.$app.isMobile() || !this.pwdPolicy) {
         user.type = "Client";
@@ -811,6 +855,7 @@ export default {
         })
         .catch((err) => {
           this.errMsg = err.MESSAGE || err.toString();
+          this.getCode();
         });
     },
     prefixChange(){
@@ -971,6 +1016,7 @@ export default {
 #verifyCanvas {
   width: 102px;
   height: 37px;
+  border-radius:40px;
 }
 i.sficon {
   font-size: 15px;
@@ -981,7 +1027,18 @@ i.sficon {
   margin: 3px;
   float: right;
 }
-
+.login-code {
+    height: 36px;
+    float: right;
+}
+.login-code img {
+    cursor: pointer;
+    vertical-align: middle;
+}
+.login-code-img {
+    height: 36px;
+    border-radius: 40px;
+}
 @media screen and (max-width: 767px) {
   .login .el-main {
     background: var(--loginboxmobile) no-repeat;
