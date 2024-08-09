@@ -18,7 +18,7 @@ import Login from '@/views/Login.vue'
 import app from '../app/main'
 
 Vue.use(Router)
-let routers = [...app.routers];
+let routers = [];
 // 自动合并routers下所有router.xx.js（公共）和views下所有router.xx.js（页面）
 try{
     const files = require.context("./", false, /^\.\/router.*\.js$/);
@@ -73,5 +73,5 @@ export default new Router({
             component: () =>
                 import ('../views/resetPwd.vue')
         }
-    ].concat(routers)
+    ].concat(routers,app.routers)
 })

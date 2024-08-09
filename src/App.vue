@@ -169,7 +169,7 @@ export default {
           p = this.$root.getMatchedPath(nVal);
           authItem = this.$root.findMenuItem(p,this.$root.auth);
           // 记录页面访问
-          if(authItem&&!this.$root.pvList.find(el=>el==authItem.code)){
+          if(authItem&&this.$root.userMode=='mes'&&!this.$root.pvList.find(el=>el==authItem.code)){
             this.$root.pvList.push(authItem.code)
             const formData={
               functionCode: authItem.code,
