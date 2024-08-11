@@ -85,6 +85,7 @@ const appConfigDefault = {
     pwdPolicy: false, // 定期修改密码且浏览器不能记住密码（生产类系统，安全性要求较高），默认：false
     remPwd: false, // 前端人机校验，默认：false
     mbVersionPos: '', // 移动页面版本信息显示位置('',top,bottom)，默认top
+    showSysLink: false,
     theme: 'default', // 默认主题
     themeSets:{
         filtergray:{
@@ -160,7 +161,7 @@ new Vue({
         initAuth(auth) {
             // remove isMenu=false and add / for pages
             const getMenuItems = function(el) {
-                    if (el.subs && el.subs.length && el.subs[0].isMenu == false) {
+                    if (el.subs && el.subs.length && !el.subs.find(e => {return e.isMenu==true})) {
                         delete el.subs;
                         el.index = el.index.startsWith('/')||el.index.startsWith('http') ? el.index : '/' + el.index;
                         return el;
@@ -169,7 +170,9 @@ new Vue({
                         return el;
                     } else {
                         if (el.subs && el.subs.length) {
-                            el.subs = el.subs.map(e => {
+                            el.subs = el.subs.filter(e => {
+                                return e.isMenu == true
+                            }).map(e => {
                                 e = getMenuItems(e);
                                 return e;
                             })
