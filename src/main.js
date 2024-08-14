@@ -69,7 +69,15 @@ router.beforeEach(async(to, from, next) => {
 })
 
 router.onError((error) => {
-    console.error('router.onError',error)
+    const pattern = /Loading chunk (\d)+ failed/g;
+    const isChunkLoadFailed = error.message.match(pattern);
+    const targetPath = router.history.pending.fullPath;
+    console.error("targetPath--",targetPath);
+    if (isChunkLoadFailed) {
+      alert("isChunkLoadFailed--",error.message)
+      //router.replace(targetPath);
+      location.reload();
+    }
 })
 
 const appConfigDefault = {

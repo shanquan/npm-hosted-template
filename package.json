@@ -6,7 +6,9 @@
         "serve": "vue-cli-service serve",
         "build": "vue-cli-service build",
         "lint": "vue-cli-service lint",
-        "release": "commit-and-tag-version"
+        "release": "commit-and-tag-version",
+        "serve:v18": "set NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service serve",
+        "build:v18l": "export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build"
     },
     "dependencies": {
         "admin": "file:",
@@ -62,5 +64,8 @@
         "> 10%",
         "last 5 versions",
         "not dead"
-    ]
+    ],
+    "engines": {
+        "node": "<18"
+    }
 }
