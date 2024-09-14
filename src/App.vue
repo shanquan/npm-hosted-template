@@ -63,7 +63,7 @@
     <audio id="failAudio" src="./assets/audio/exclam.wav" hidden="true"></audio>
     <input id="copyIpt" type="text"/>
     <change-psw :dialogVisible="dialogVisible" @close="dialogVisible=false"></change-psw>
-    <el-container :class="{ topper: pageType==2, frame: showFrame }" :direction="pageType==0?'horizontal':'vertical'">
+    <el-container :class="{ topper: pageType==2, frame: showFrame, noframe: !showFrame }" :direction="pageType==0?'horizontal':'vertical'">
       <!-- web side-menu -->
       <el-aside class="asidebg" v-if="showFrame&&pageType==0&&menuMode=='vertical'" style="width:auto">
         <main-menu :menuMode="menuMode" :menuList="$root.menuList"></main-menu>
@@ -149,7 +149,9 @@ export default {
   watch:{
     $route: {
       async handler(nVal){
-        this.showFrame = this.$http.token&&this.$route.meta.loginPass!=true&&this.$route.meta.showFrame!=false&&this.$route.query.showFrame!='false';
+        if(this.$route.query.showFrame=='false'&&this.$route.query.keep=='true')
+        this.keepNoFrame = true
+        this.showFrame = !this.keepNoFrame&&this.$http.token&&this.$route.meta.loginPass!=true&&this.$route.meta.showFrame!=false&&this.$route.query.showFrame!='false';
         this.$root.clearMsgBox();
         if(this.$http.token && this.$root.getAuthed==undefined){
           this.$root.getAuthed = true;
@@ -264,6 +266,7 @@ export default {
       operationDialogVisible: false,
       html: "",
       showFrame: false,
+      keepNoFrame: false,
       systemCode:"",
       systemArr:[],
       hasBreadcrumb: this.$root.hasBreadcrumb,
