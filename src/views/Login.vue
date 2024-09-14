@@ -13,7 +13,7 @@
 | projectId | /login?token=xxx&&projectId=xxx | 自动登录某个项目 |
 -->
 <template>
-  <div class="login">
+  <div class="login" v-if="!loginDirectLoading">
     <el-container class="container">
       <el-main>
         <el-row class="headlayer">
@@ -273,6 +273,7 @@
 import GVerify from "../plugins/gVerify.js";
 import { AES, MD5, enc } from "crypto-js";
 import { JSEncrypt } from "jsencrypt";
+import {Loading} from 'element-ui'
 
 const nonce = "bn000f";
 let verifyCode,
@@ -280,6 +281,14 @@ let verifyCode,
 export default {
   name: "login",
   created() {
+    if (this.$route.query.token || this.$route.query.encrypted) {
+      this.loginDirectLoading = Loading.service({
+          lock: true,
+          text: 'Loading',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+      });
+    }
     if(localStorage.getItem("aHost")&&localStorage.getItem("aHost").startsWith('http')){
       this.form.ip = localStorage.getItem("aHost").substring(this.prefix.length)
     }else if(localStorage.getItem("aHost")){
@@ -341,6 +350,7 @@ export default {
     return {
       prefix: localStorage.getItem("aHost")&&localStorage.getItem("aHost").startsWith('https://')?'https://':'http://',
       isCordova: window.cordova,
+      loginDirectLoading: null,
       form: {
         user: "",
         pwd: "",
@@ -634,7 +644,10 @@ export default {
             return false;
           }
           this.loginPass(response);
-        });
+        }).catch(()=>{
+          if(this.loginDirectLoading)
+          this.loginDirectLoading.close()
+        });;
     },
     loginByCiphertext() {
       if (!this.projectId) {
@@ -663,6 +676,9 @@ export default {
             return false;
           }
           this.loginPass(response);
+        }).catch(()=>{
+          if(this.loginDirectLoading)
+          this.loginDirectLoading.close()
         });
     },
     resetPwd() {
@@ -774,6 +790,8 @@ export default {
       localStorage.setItem("aHost", this.prefix+this.form.ip);
       this.$store.commit('setUser', session.user);
       localStorage.setItem("aSession", JSON.stringify(session));
+      if(this.loginDirectLoading)
+      this.loginDirectLoading.close()
       this.$app
         .beforeHome(this)
         .then(() => {
