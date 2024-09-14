@@ -459,7 +459,6 @@ new Vue({
         },
         getTheme(){
             // 根据theme配置更新主题变量值
-            this.$http.showError = false;
             this.$http.axios.post('user/exi/loginSource/getLoginSource',null,{
                 headers: {
                     'showError': false,

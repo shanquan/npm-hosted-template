@@ -429,9 +429,13 @@ export default {
           } else {
             formParam.hostName = this.form.ip;
           }
-          this.$http.showError = false;
           this.$http
-            .getList(this.getConfigUrl("user/exi/mesSysProject"), formParam)
+            .getList(this.getConfigUrl("user/exi/mesSysProject"), formParam,{
+              headers: {
+                showError: false,
+                token: "",
+              },
+            })
             .then((res) => {
               this.errMsg = "";
               this.projects = res.DATA;
@@ -479,7 +483,6 @@ export default {
     },
     getList() {
       if (!this.$app.isMobile()) {
-        this.$http.showError = false;
         this.$http.axios
           .post(
             "user/exi/mesSysMsg/getList",
@@ -636,6 +639,7 @@ export default {
         .get(url, {
           headers: {
             projectId: this.projectId,
+            showError: false
           },
         })
         .then((response) => {
@@ -644,10 +648,13 @@ export default {
             return false;
           }
           this.loginPass(response);
-        }).catch(()=>{
-          if(this.loginDirectLoading)
-          this.loginDirectLoading.close()
-        });;
+        }).catch(err=>{
+          if(this.loginDirectLoading){
+            this.loginDirectLoading.close()
+            this.loginDirectLoading=null;
+          }
+          this.errMsg = err.MESSAGE || err.toString()
+        });
     },
     loginByCiphertext() {
       if (!this.projectId) {
@@ -668,6 +675,7 @@ export default {
         .post(url, {
           headers: {
             projectId: this.projectId,
+            showError: false
           },
         })
         .then((response) => {
@@ -676,9 +684,12 @@ export default {
             return false;
           }
           this.loginPass(response);
-        }).catch(()=>{
-          if(this.loginDirectLoading)
-          this.loginDirectLoading.close()
+        }).catch(err=>{
+          if(this.loginDirectLoading){
+            this.loginDirectLoading.close()
+            this.loginDirectLoading=null;
+          }
+          this.errMsg = err.MESSAGE || err.toString()
         });
     },
     resetPwd() {
@@ -810,7 +821,6 @@ export default {
         });
     },
     getPublicKey() {
-      this.$http.showError = false;
       this.$http.axios
         .post(`${this.$http.user_url}getPublicKey`, null, {
           headers: {
