@@ -401,7 +401,7 @@ new Vue({
             }
             let p = route.path.substring(1).split("/");
             if (p.length >= 2) {
-                if (['add', 'edit', 'update', 'delete', 'scope', 'rule', 'copy'].includes(p[1]) || ["userDefined","list","item"].includes(p[0])) {
+                if (['add', 'edit', 'update', 'delete', 'scope', 'rule', 'copy'].includes(p[1]) || ["userDefined","list","item","frame"].includes(p[0])) {
                     if(p[0]=='item'){
                         p = `/${p[0]}/${p[1]}/${p[2]}`;
                     }else{

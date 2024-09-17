@@ -251,6 +251,10 @@
                     "isMenu": false
                   }
                 ]
+              },{
+                "index": "/frame/%2Ffrd%2FmesSysUsers%3FshowFrame%3Dfalse%26keep%3Dtrue",
+                "menuName": "外部链接",
+                "isMenu": true
               }
             ]
           }]

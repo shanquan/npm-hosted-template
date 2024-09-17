@@ -72,6 +72,10 @@ export default new Router({
             meta: { loginPass: true, authPass: true},
             component: () =>
                 import ('../views/resetPwd.vue')
+        }, {
+            path: '/frame/:url',
+            name: 'frame',
+            component: () => import ( /* webpackChunkName: "" */ '../views/Frame.vue')
         }
     ].concat(routers,app.routers)
 })

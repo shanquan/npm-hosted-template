@@ -55,9 +55,6 @@ export default {
   beforeHome(vm){
     // console.log(vm.$store.state.user)
     return new Promise((resolve,reject)=>{
-      // 接口获取systemArr，作为框架公共数据，直接放入main.js的initSession函数中也可以，这里仅做示例如何添加应用定制获取数据示例代码
-      // const systemArr = [{"projectName":"Zatanna","projectCode":"zatanna","url":"http://10.12.5.188:20003","id":"3"},{"projectName":"运营平台","projectCode":"omp","url":"http://10.12.7.111:6002","id":"123"}];
-      // vm.$root.$children[0].systemArr = systemArr
       resolve();
       // 应用自定义登录成功后，校验用户信息增加条件判断是否跳转
       // http.showError=false;
@@ -73,11 +70,15 @@ export default {
    * @param {*} vm 
    */
   afterHome(vm){
-    vm.$children[0].systemArr = [vm.$http.project]
+    vm.$root.$children[0].systemArr = [vm.$http.project]
     vm.$children[0].systemCode = vm.$http.project.id;
-    // 接口获取systemArr
-    // vm.$children[0].systemArr = [{"projectName":"Zatanna","projectCode":"zatanna","url":"http://10.12.5.188:20003","id":3},{"projectName":"运营平台","projectCode":"omp","url":"http://10.12.7.111:6002","id":123}];
-    
+    // 接口获取systemArr，作为框架公共数据，直接放入main.js的initSession函数中也可以，这里仅做示例如何添加应用定制获取数据示例代码
+    if(process.env.VUE_APP_SYSTEMS){
+      try{
+        const systemArr = JSON.parse(process.env.VUE_APP_SYSTEMS)
+        vm.$root.$children[0].systemArr = vm.$root.$children[0].systemArr.concat(systemArr)
+      }catch (e) {console.error(e)}
+    }
     // if(applang[vm.$http.project.projectCode]&&applang[vm.$http.project.projectCode][vm.$i18n.locale]){
     //     vm.$i18n.mergeLocaleMessage(vm.$i18n.locale, applang[vm.$http.project.projectCode][vm.$i18n.locale]);
     // }
