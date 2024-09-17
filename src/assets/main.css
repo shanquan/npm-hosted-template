@@ -257,7 +257,7 @@ width: 100%;}
 }
 .el-table td{padding:0}
 .el-table__row{height:var(--rowHeight)}
-.el-table__body-wrapper{z-index:4}
+.el-table__body-wrapper{z-index:3}
 .pda-box .el-form-item--mini.el-form-item, .el-form-item--small.el-form-item{
     margin-bottom: 14px;
 }
