@@ -750,7 +750,9 @@ export default {
             this.errMsg = this.$t("L10204");
           } else if (!this.form.pwd) {
             this.errMsg = this.$t("L10205");
-          } else {
+          } else if(this.form.newPwd.indexOf(this.form.user)!=-1 || this.form.newPwd.toLowerCase().indexOf('byd')!=-1) {
+            this.errMsg = this.$t("L10235");
+          } else{
             this.$http.showError = false;
             this.$http.axios
               .post(`${this.$http.user_url}changePwd`, {

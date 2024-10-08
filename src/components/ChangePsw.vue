@@ -69,14 +69,18 @@ export default {
     chgPsw(){
       this.$refs.form.validate((valid) => {
         if(valid){
-          this.$http.changePwd({
-            oldPwd: MD5(this.form.oldPwd+this.$root.salt).toString(),
-            newPwd: MD5(this.form.newPwd+this.$root.salt).toString()
-          }).then((res)=>{
-            this.$message.success(res.TIPS||this.$t('L00044'));
-            this.handleClose();
-            this.$router.push('/login');
-          })
+          if(this.form.newPwd.indexOf(this.$store.state.user.workNo)!=-1 || this.form.newPwd.toLowerCase().indexOf('byd')!=-1) {
+            this.$message.warning(`${this.$t('L10235')}`);
+          }else{
+            this.$http.changePwd({
+              oldPwd: MD5(this.form.oldPwd+this.$root.salt).toString(),
+              newPwd: MD5(this.form.newPwd+this.$root.salt).toString()
+            }).then((res)=>{
+              this.$message.success(res.TIPS||this.$t('L00044'));
+              this.handleClose();
+              this.$router.push('/login');
+            })
+          }
         }
       })
     },
