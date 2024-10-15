@@ -187,7 +187,7 @@ const components = [
 ];
 
 const opts = {
-  size: 'small',
+  size: 'mini',
   i18n: (key, value) => i18n.t(key, value)
 }
 

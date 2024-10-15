@@ -298,7 +298,16 @@ export default {
     }
     let pwdRule = Object.assign({}, this.$root.pwdRule);
     pwdRule.message = this.$t(pwdRule.message);
-    this.rules.newPwd = [pwdRule];
+    this.rules.newPwd = [pwdRule,{
+      validator: (rule, value, callback) => {
+        if (value.indexOf(this.form.user)!=-1 || value.toLowerCase().indexOf('byd')!=-1) {
+          callback(new Error(this.$t("L10235")));
+        } else {
+          callback();
+        }
+      },
+      trigger: "blur",
+    }];
     if (this.$route.query.mock === "true") {
       this.$http.mock = true;
       this.$http.setForMock();
@@ -750,8 +759,6 @@ export default {
             this.errMsg = this.$t("L10204");
           } else if (!this.form.pwd) {
             this.errMsg = this.$t("L10205");
-          } else if(this.form.newPwd.indexOf(this.form.user)!=-1 || this.form.newPwd.toLowerCase().indexOf('byd')!=-1) {
-            this.errMsg = this.$t("L10235");
           } else{
             this.$http.showError = false;
             this.$http.axios

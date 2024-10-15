@@ -63,24 +63,29 @@ export default {
     let pwdRule = Object.assign({},this.$root.pwdRule);
     pwdRule.message = this.$t(pwdRule.message);
     this.rules.oldPwd = [requireRule];
-    this.rules.newPwd = [requireRule,pwdRule];
+    this.rules.newPwd = [requireRule,pwdRule,{
+      validator: (rule, value, callback) => {
+        if (value.indexOf(this.$store.state.user.workNo)!=-1 || value.toLowerCase().indexOf('byd')!=-1) {
+          callback(new Error(this.$t("L10235")));
+        } else {
+          callback();
+        }
+      },
+      trigger: "blur",
+    }];
   },
   methods:{
     chgPsw(){
       this.$refs.form.validate((valid) => {
         if(valid){
-          if(this.form.newPwd.indexOf(this.$store.state.user.workNo)!=-1 || this.form.newPwd.toLowerCase().indexOf('byd')!=-1) {
-            this.$message.warning(`${this.$t('L10235')}`);
-          }else{
-            this.$http.changePwd({
-              oldPwd: MD5(this.form.oldPwd+this.$root.salt).toString(),
-              newPwd: MD5(this.form.newPwd+this.$root.salt).toString()
-            }).then((res)=>{
-              this.$message.success(res.TIPS||this.$t('L00044'));
-              this.handleClose();
-              this.$router.push('/login');
-            })
-          }
+          this.$http.changePwd({
+            oldPwd: MD5(this.form.oldPwd+this.$root.salt).toString(),
+            newPwd: MD5(this.form.newPwd+this.$root.salt).toString()
+          }).then((res)=>{
+            this.$message.success(res.TIPS||this.$t('L00044'));
+            this.handleClose();
+            this.$router.push('/login');
+          })
         }
       })
     },

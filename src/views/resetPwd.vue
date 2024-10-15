@@ -71,7 +71,7 @@ export default {
     }
     let pwdRule = Object.assign({},this.$root.pwdRule);
     pwdRule.message = this.$t(pwdRule.message);
-    this.rules.newPwd.push(pwdRule)
+    this.rules.newPwd.push(pwdRule) // @todo 缺少工号信息暂无法添加密码加强判断
   },
   data() {
     return {
