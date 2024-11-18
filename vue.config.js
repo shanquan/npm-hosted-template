@@ -12,6 +12,16 @@ module.exports = {
     configureWebpack: config => {
         // 关闭代码压缩
         // config.optimization.minimize = false;
+        // 删除注释\console.log
+        if (process.env.NODE_ENV === "production") {
+            config.optimization.minimizer[0].options.terserOptions.compress.warnings = false;
+            config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true;
+            config.optimization.minimizer[0].options.terserOptions.compress.drop_debugger = true;
+            config.optimization.minimizer[0].options.terserOptions.compress.pure_funcs = ["console.log"];
+            config.optimization.minimizer[0].options.terserOptions.output = {
+                comments: false
+            }
+        }
         // 禁用缓存
         config.output.filename = process.env.NODE_ENV === 'production'?`js/[name].[contenthash:8].js?t=${ts}`:`js/[name].[hash:8].js?t=${ts}`
         config.output.chunkFilename = process.env.NODE_ENV === 'production'?`js/[name].[contenthash:8].js?t=${ts}`:`js/[name].[hash:8].js?t=${ts}`
