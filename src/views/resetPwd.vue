@@ -82,7 +82,16 @@ export default {
       randomKey: "",
       type: "",
       rules: {
-          newPwd:[{required: true, message: `${this.$t('L45003')}`, trigger: "blur"}],
+          newPwd:[{required: true, message: `${this.$t('L45003')}`, trigger: "blur"},{
+            validator: (rule, value, callback) => {
+              if (value.toLowerCase().indexOf('byd')!=-1) {
+                callback(new Error(this.$t("L10235")));
+              } else {
+                callback();
+              }
+            },
+            trigger: "blur",
+          }],
           confirm:[{required: true, validator: this.confirmValidate , trigger: "blur"}],
       },
       showMain: true,
