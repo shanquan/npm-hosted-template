@@ -20,5 +20,18 @@ export default {
           })
         }
       })
+      // 扫描输入，禁用键盘(指令实现)
+      // @usage: <el-input v-scan />
+      Vue.directive('scan', {
+        inserted (el) {
+          const ipt = el.querySelector('input')
+          ipt.addEventListener('focus', () => {
+              ipt.setAttribute('readonly','readonly')
+              setTimeout(() => {
+                ipt.removeAttribute('readonly')
+              },100)
+          })
+        }
+      })
     }
   }
