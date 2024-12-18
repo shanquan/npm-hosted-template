@@ -163,7 +163,7 @@ axios.interceptors.response.use(function(response) {
             // console.log(response.data)
         }
         if (appApi.checkResult(response)) {
-            return response.data;
+            return response;
         } else if (appApi.checkPass(response)) {
             if(!Api.promptError&&response.config.headers.playPassAudio==true)
             Api.playPassAudio();
