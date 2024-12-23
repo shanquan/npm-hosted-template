@@ -27,9 +27,15 @@ export default {
           const ipt = el.querySelector('input')
           ipt.addEventListener('focus', () => {
               ipt.setAttribute('readonly','readonly')
+              ipt.setAttribute('v-scan','')
               setTimeout(() => {
-                ipt.removeAttribute('readonly')
-              },100)
+                ipt.removeAttribute('readonly');
+                ipt.removeAttribute('v-scan')
+              },200)
+          })
+          ipt.addEventListener('click',()=>{
+            if(ipt.hasAttribute('v-scan')&&!el.classList.contains('el-select'))
+            ipt.removeAttribute('readonly')
           })
         }
       })
