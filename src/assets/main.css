@@ -258,6 +258,7 @@ width: 100%;}
 .el-table td{padding:0}
 .el-table__row{height:var(--rowHeight)}
 .el-table__body-wrapper{z-index:3}
+.el-tabs--card>.el-tabs__header .el-tabs__item .el-icon-close{position:absolute;top:6px;right:4px;}
 .pda-box .el-form-item--mini.el-form-item, .el-form-item--small.el-form-item{
     margin-bottom: 14px;
 }
@@ -479,7 +480,7 @@ td.dangerbg,th.dangerbg{background-color:#f33030!important;}
   display: none;
   }
   .tab-head{padding:0 40px 0 10px;margin-left:-1px;background-color:rgb(240,244,254);/**position: fixed;*/}
-  .tab-head .el-tabs__item{height:30px;line-height:30px;background-color:#fff;margin:8px 2px;color:rgba(0,0,0,0.65);}
+  .tab-head .el-tabs__item{height:30px;line-height:30px;background-color:#fff;margin:8px 2px;color:rgba(0,0,0,0.65);max-width: 160px;text-overflow: ellipsis;overflow: hidden;}
   .el-tabs__item.is-active{/*color:rgba(0,0,0,0.85);*/background-color:var(--primary);color:#fff!important;border-radius:2px}
   .tab-head .el-tabs--card>.el-tabs__header .el-tabs__nav{border:none}
   .tab-head .el-tabs--card>.el-tabs__header{border-bottom:none}
