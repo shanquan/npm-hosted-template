@@ -5,9 +5,6 @@
 <template>
   <div class="resetPwd">
     <el-container class="container">
-      <el-header>
-        <div class="bydlogo float-right"></div>
-      </el-header>
       <div v-if="showError">
         <h2>{{$t('L45007')}}</h2>
         <h3>{{$t('L45017')}}, <el-link style="font-size:18px" :href="loginUrl">{{$t('L45018')}}</el-link>{{$t('L45019')}}</h3>

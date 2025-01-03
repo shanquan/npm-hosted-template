@@ -914,7 +914,7 @@ export default {
   flex-direction: column;
   background-repeat: no-repeat;
   background-size: cover;
-  background-position-x: center;
+  background-position: center;
   color: var(--fontColorBox);
 }
 .login .el-container {
