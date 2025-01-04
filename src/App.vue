@@ -102,10 +102,9 @@
           </el-breadcrumb>
           <span class="icon primary" @click="showHelpFn" :title="$t('L50109')" v-if="showHelp"><i class="el-icon-question"></i></span>
         </el-header>
-          <keep-alive :max="5">
-            <router-view ref="rv" v-if="$route.meta.keepAlive" :class="viewClass"></router-view>
+          <keep-alive :max="10" :include="kpRoutes">
+            <router-view ref="rv" :class="viewClass" :key="$route.fullPath"></router-view>
           </keep-alive>
-          <router-view v-if="!$route.meta.keepAlive" :class="viewClass"></router-view>
           <el-dialog :visible.sync="operationDialogVisible" width="50%">
             <div v-html="html"></div>
           </el-dialog>
@@ -251,6 +250,26 @@ export default {
     },
     isHome(){
       return this.$route.path==this.homePath
+    },
+    kpRoutes(){
+      let kps = [];
+      this.editableTabs.forEach(el=>{
+        const vm = this.$router.getMatchedComponents(el.path);
+        const r = this.$router.matcher.match(el.path)
+        if(vm&&vm[0]&&vm[0].name&&(r?.meta==undefined||r?.meta?.keepAlive!==false)){
+          kps.push(vm[0].name)
+        }
+      })
+      try{
+          let cache = this.$refs.rv.$vnode.parent.componentInstance.cache;
+          Object.keys(cache).forEach(k=>{
+            if(cache[k]==null){
+              delete cache[k]
+            }
+          })
+          // console.log(kps,cache)
+      }catch(e){console.log(e)}
+      return kps
     }
   },
   data(){
@@ -372,7 +391,6 @@ export default {
      * @param {Object} targetName
      */
     removeTab(targetName) {
-      this.removeCache(targetName)
       let tabs = this.editableTabs;
       var nextTab = "";
       if (this.editableTabsValue === targetName) {
@@ -398,22 +416,13 @@ export default {
       //           ? this.$refs.rv.$vnode.componentOptions.Ctor.cid + (this.$refs.rv.$vnode.componentOptions.tag ? `::${this.$refs.rv.$vnode.componentOptions.tag}` : '')
       //           : this.$refs.rv.$vnode.key;
       try{
-        let vm = this.$router.getMatchedComponents(path);
-        if(vm&&vm[0]){
-          let key = vm[0]._Ctor[0].cid;
-          let cache = this.$refs.rv.$vnode.parent.componentInstance.cache;
-          let keys = this.$refs.rv.$vnode.parent.componentInstance.keys;
-          if (cache[key])
-          {
-              if (keys.length) {
-                  var index = keys.indexOf(key.toString());
-                  if (index > -1) {
-                      keys.splice(index, 1);
-                  }
-              }
-              cache[key].componentInstance.$destroy();
-              delete cache[key];
-          }
+        let cache = this.$refs.rv.$vnode.parent.componentInstance.cache;
+        let keys = this.$refs.rv.$vnode.parent.componentInstance.keys;
+        const pathIndex = keys.findIndex(el=>el==path);
+        if(pathIndex>-1&&cache[path]){
+          keys.splice(pathIndex, 1);
+          cache[path].componentInstance.$destroy();
+          delete cache[path];
         }
       }catch(e){console.log(e)}
     },
@@ -452,13 +461,6 @@ export default {
       this[command]();
     },
     closeTabs(pushnone){
-      try{
-        // 清除所有页面keepAlive缓存
-        this.$refs.rv.$vnode.parent.componentInstance.cache = {};
-        this.$refs.rv.$vnode.parent.componentInstance.keys = [];
-      }catch(e){
-        console.info(e)
-      }
       this.editableTabs = [];
       this.editableTabsValue = this.homePath;
       if(pushnone!==true)

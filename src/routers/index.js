@@ -9,7 +9,7 @@
  * | authPass | true |  免菜单权限 | /config |
  * | showFrame | false | 隐藏默认menu和header，全局支持URL传参配置?showFrame=false（链接跳转无法保持），如需保持URL传参同时传递keep参数：?showFrame=false&keep=true | /404 | 
  * | blank | true |  新窗口打开 | /mesSysProjects |
- * | keepAlive | false |  页面缓存 | /publicCombination |
+ * | keepAlive | 默认值this.$root.hasTabs  |  页面缓存 | 统一规范：“Tab多标签导航页面，在切换Tab页面时，表格列表页面需缓存查询条件，关闭Tab页面时需自动清缓存；hasBreadcrumb面包屑导航模式，所有页面不缓存”。hasTabs=false(hasBreadcrumb=true)时,keepAlive设置无效;当hasTabs=true时，默认值keepAlive=true，可设置keepAlive=false取消页面缓存 |
  */
 import Vue from 'vue'
 import Router from 'vue-router'

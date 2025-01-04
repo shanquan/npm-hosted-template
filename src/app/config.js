@@ -92,9 +92,9 @@ var appConfig = {
     menuMobile: 'pda',
     homePath: '/', // 登录后主页路径，默认: /, 客户端配置：/config
     userMode: process.env.VUE_APP_USER, // 用户模块
-    hasBreadcrumb: true,
-    hasTabs: false,
-    addNewTabMode: true,
+    hasBreadcrumb: false,
+    hasTabs: true,
+    addNewTabMode: false,
     showSysLink: true,
     localTheme: false, // 仅本地主题
     // patternRule: { pattern: /^[^`!#%&+=<>?:"{}|,.\/;'\\[\]·！#￥%……&（）——+={}|《》？：“”【】、；‘'，。、]+$/, message: 'L00033', trigger: 'blur' }, // 名称（含中文）/通用输入规则,黑名单,
