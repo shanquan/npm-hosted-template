@@ -419,11 +419,13 @@ export default {
         let cache = this.$refs.rv.$vnode.parent.componentInstance.cache;
         let keys = this.$refs.rv.$vnode.parent.componentInstance.keys;
         const pathIndex = keys.findIndex(el=>el==path);
-        if(pathIndex>-1&&cache[path]){
-          keys.splice(pathIndex, 1);
+        if(pathIndex>-1)
+        keys.splice(pathIndex, 1);
+        if(cache[path]){
           cache[path].componentInstance.$destroy();
           delete cache[path];
         }
+        // console.log(cache,keys)
       }catch(e){console.log(e)}
     },
     /**

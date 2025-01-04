@@ -262,7 +262,7 @@ export default {
           this.$refs.dlgCom.init()
         })
       }else{
-        let tab = this.$root.$children[0].editableTabs.find(el=>el.name==`/${this.config.model}/${type}`);
+        let tab = this.$root.$children[0].editableTabs.find(el=>el.name==`/item/${this.config.model}/${type}`);
         if(tab)
         this.$root.$children[0].removeCache(tab.path)
         if (row && row.id!=undefined) {
