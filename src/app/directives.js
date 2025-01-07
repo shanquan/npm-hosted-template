@@ -20,22 +20,21 @@ export default {
           })
         }
       })
-      // 扫描输入，禁用键盘(指令实现)
-      // @usage: <el-input v-scan />
+      /**
+       * 扫描输入，禁用键盘inputmode(指令实现)
+       * readonly属性也能实现，不过与el-select filter指令冲突无效
+       * @usage: <el-input v-scan />
+       */
       Vue.directive('scan', {
         inserted (el) {
           const ipt = el.querySelector('input')
+          ipt.setAttribute('v-scan','')
           ipt.addEventListener('focus', () => {
-              ipt.setAttribute('readonly','readonly')
-              ipt.setAttribute('v-scan','')
-              setTimeout(() => {
-                ipt.removeAttribute('readonly');
-                ipt.removeAttribute('v-scan')
-              },200)
+            ipt.setAttribute('inputmode','none')
           })
           ipt.addEventListener('click',()=>{
-            if(ipt.hasAttribute('v-scan')&&!el.classList.contains('el-select'))
-            ipt.removeAttribute('readonly')
+            if(ipt.hasAttribute('v-scan'))
+            ipt.removeAttribute('inputmode')
           })
         }
       })
