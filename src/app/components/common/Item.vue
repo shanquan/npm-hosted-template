@@ -70,7 +70,7 @@
       <el-form-item>
         <el-button type="primary" v-if="type=='add'||type=='edit'" @click="onSubmit">{{$t('L00020')}}</el-button>
         <el-button type="primary" v-if="type=='add'" @click="onReset">{{$t('L00013')}}</el-button>
-        <el-button @click="onCancel">{{$t('L00012')}}</el-button>
+        <el-button @click="onCancel">{{$root.addNewTabMode||$root.dialogMode?$t('close'):$t('L00012')}}</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -267,12 +267,11 @@ export default {
       this.$refs.form.resetFields();
     },
     onCancel(){
-      let arr = this.$route.path.split('/');
+      let arr = this.$route.path.substring(1).split('/');
       if(arr.length>2){
-        if(this.$root.hasTabs){
+        if(this.$root.hasTabs&&this.$root.addNewTabMode){
           this.$root.$children[0].removeTab(this.$route.path)
         }else{
-          this.$root.$children[0].removeCache(this.$route.path);
           this.$router.push(`/list/${this.config.model}`)
         }
       }else{

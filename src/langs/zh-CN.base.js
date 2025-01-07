@@ -75,6 +75,7 @@ export default {
   L10055: '显示控制台',
   L10056: '隐藏控制台',
   L10057: '请至少选择一个查询条件！',
+  close: '关闭',
   dayShift: '白班',
   nightShift: '晚班',
   processName: '工序',

@@ -209,7 +209,7 @@ export default {
           }
           // 更新tab.path
           let tabIdx1 = this.editableTabs.findIndex(el=>el.path==this.editableTabsValue);
-          let tabIdx2 = this.editableTabs.findIndex(el=>el.path==nVal.path);
+          let tabIdx2 = this.editableTabs.findIndex(el=>el.path==nVal.fullPath);
           let p = this.$root.getMatchedPath(nVal);
           let tabIdx3 = this.editableTabs.findIndex(el=>el.name==p);
           let menuIdx = this.menuPages.findIndex(el=>el.index==nVal.path);
@@ -218,16 +218,16 @@ export default {
               if(tabIdx3==-1&&p&&p!=this.homePath){
                 this.addTab({name:p,path:nVal.path})
               }else if(tabIdx3>-1){
-                this.editableTabs[tabIdx3].path = nVal.path
+                this.editableTabs[tabIdx3].path = nVal.fullPath
               }
             }else{
               if(tabIdx2==-1&&menuIdx==-1){
-                this.editableTabs[tabIdx1].path=nVal.path;
+                this.editableTabs[tabIdx1].path=nVal.fullPath;
               }else if(menuIdx>-1){
                 this.addTab({name:nVal.path,path:nVal.path})
               }
             }
-            this.editableTabsValue = nVal.path;
+            this.editableTabsValue = nVal.fullPath;
           }
         }
         
@@ -267,7 +267,7 @@ export default {
               delete cache[k]
             }
           })
-          // console.log(kps,cache)
+          console.log(kps,cache)
       }catch(e){console.log(e)}
       return kps
     }

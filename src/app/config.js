@@ -94,7 +94,8 @@ var appConfig = {
     userMode: process.env.VUE_APP_USER, // 用户模块
     hasBreadcrumb: false,
     hasTabs: true,
-    addNewTabMode: false,
+    addNewTabMode: false, // 编辑修改是否新开tab, 默认false
+    dialogMode: false, // 编辑修改是否对话框模式，默认false
     showSysLink: true,
     localTheme: false, // 仅本地主题
     // patternRule: { pattern: /^[^`!#%&+=<>?:"{}|,.\/;'\\[\]·！#￥%……&（）——+={}|《》？：“”【】、；‘'，。、]+$/, message: 'L00033', trigger: 'blur' }, // 名称（含中文）/通用输入规则,黑名单,
