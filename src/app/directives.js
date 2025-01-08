@@ -23,6 +23,8 @@ export default {
       /**
        * 扫描输入，禁用键盘inputmode(指令实现)
        * @usage: <el-input v-scan />
+       * 如果代码focus输入框，触发focus不会触发click，不弹出虚拟键盘
+       * 如果手动点击输入框，先触发focus再触发click，弹出虚拟键盘(前提)
        */
       Vue.directive('scan', {
         inserted (el) {
