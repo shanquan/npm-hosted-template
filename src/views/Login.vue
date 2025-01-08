@@ -111,7 +111,6 @@
               class="mt18"
               :placeholder="$t('L10201')"
               size="medium"
-              v-scan
             >
               <svg slot="prefix" class="icon-inner">
                 <use xlink:href="#user"></use>
