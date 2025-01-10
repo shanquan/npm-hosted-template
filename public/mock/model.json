@@ -10,6 +10,7 @@
         "sortable": true
       }, {
         "value": "version",
+        "type": "textarea",
         "readonly": true,
         "required": true,
         "queryable": true,

@@ -4,15 +4,23 @@
 -->
 <template>
   <div class="commonList">
-    <el-form :inline="true" label-position="right" :model="form" class="form-bar" :label-width="config.labelWidth">
-      <el-form-item v-for="item in querys"
-        :key="item.$index"
-        :label="item.label?$t(`${config.model}.${item.label}`):$t(`${config.model}.${item.value}`)">
+    <el-form ref="form" :inline="true" label-position="right" :model="form" class="form-bar" :label-width="config.labelWidth">
+      <el-form-item class="inline-form input-outline-x" v-for="item in querysFilter"
+        :key="item.$index">
         <el-input v-if="!item.type||['number','textarea','slider','color'].includes(item.type)" 
           :type="['number','textarea'].includes(item.type)?item.type:'text'"
+          :placeholder="item.label?$t(`${config.model}.${item.label}`):$t(`${config.model}.${item.value}`)"
           :rows="1"
-          v-model="form[item.value]" clearable></el-input>
-        <el-select v-if="!item.queryUrl&&!item.remoteUrl&&item.options&&['select','radio','check','switch'].includes(item.type)" v-model="form[item.value]" clearable>
+          resize="none"
+          v-model="form[item.value]" clearable>
+          <template :slot="item.type=='textarea'?'label':'prefix'">{{item.label?$t(`${config.model}.${item.label}`):$t(`${config.model}.${item.value}`)}}</template>
+        </el-input>
+        <el-select 
+          v-if="!item.queryUrl&&!item.remoteUrl&&item.options&&['select','radio','check','switch'].includes(item.type)" 
+          v-model="form[item.value]"
+          :placeholder="item.label?$t(`${config.model}.${item.label}`):$t(`${config.model}.${item.value}`)"
+          clearable>
+          <template slot="prefix">{{item.label?$t(`${config.model}.${item.label}`):$t(`${config.model}.${item.value}`)}}</template>
           <el-option
             v-for="op in item.options"
             :key="op.$index"
@@ -20,7 +28,15 @@
             :value="op.value">
           </el-option>
         </el-select>
-        <el-select @focus="focusEl=item.value" v-if="(item.queryUrl||item.remoteUrl||item.source)&&['select','radio','check','switch'].includes(item.type)" v-model="form[item.value]" :multiple="item.multiple?true:false" :filterable="item.queryUrl||item.remoteUrl?true:false" :filter-method="item.queryUrl?filterMethod:null" :remote="item.remoteUrl?true:false" :remote-method="item.remoteUrl?remoteMethod:null" clearable>
+        <!-- el-select filter 有小bug -->
+        <el-select @focus="focusEl=item.value" 
+          v-if="(item.queryUrl||item.remoteUrl||item.source)&&['select','radio','check','switch'].includes(item.type)" v-model="form[item.value]" 
+          :multiple="item.multiple?true:false" collapse-tags 
+          :filterable="item.queryUrl||item.remoteUrl?true:false" :filter-method="item.queryUrl?filterMethod:null" 
+          :remote="item.remoteUrl?true:false" :remote-method="item.remoteUrl?remoteMethod:null" 
+          :placeholder="item.label?$t(`${config.model}.${item.label}`):$t(`${config.model}.${item.value}`)"
+          clearable>
+          <template slot="prefix">{{item.label?$t(`${config.model}.${item.label}`):$t(`${config.model}.${item.value}`)}}</template>
           <el-option
             v-for="op in item.source?$root[item.source]:item.options"
             :key="op.$index"
@@ -30,12 +46,16 @@
         </el-select>
         <el-date-picker v-if="item.type=='datetimerange'"
           v-model="form[item.type]"
+          :start-placeholder="$t('createTime')"
           value-format="yyyy-MM-dd"
           type="datetimerange">
+          <template slot="prefix">{{$t('createTime')}}</template>
         </el-date-picker>
       </el-form-item>
       <el-form-item>
+        <el-button v-if="showQueryCollapse" class="colbtn" @click="queryCollapse=!queryCollapse">{{ queryCollapse?'展开':'收起'}}<i class="el-icon--right" :class="queryCollapse?'el-icon-arrow-down':'el-icon-arrow-up'"></i></el-button>
         <el-button type="primary" @click="search()">{{$t('L00002')}}</el-button>
+        <el-button type="primary" @click="reset()">{{$t('L00013')}}</el-button>
         <el-button v-if="auth.add" type="primary" @click="goto(null, 'add')"
           >{{$t('L00005')}}</el-button>
         <el-button v-if="auth.delete" type="primary" @click="dels()">{{$t('L00004')}}</el-button>
@@ -184,6 +204,14 @@ export default {
       }
     })
   },
+  computed:{
+    showQueryCollapse(){
+      return this.querys.length>=this.$root.minQueryNum
+    },
+    querysFilter(){
+      return this.queryCollapse?this.querys.slice(0,this.$root.minQueryNum):this.querys
+    }
+  },
   data(){
     return{
       dialogMode: this.$root.dialogMode,
@@ -198,6 +226,7 @@ export default {
       downloadUrl: `${this.$http.baseUrl}${this.$http.app_url + this.$route.params.model}/exportExcel`,
       enabledUploadBtn: true,
       querys:[],
+      queryCollapse:true,
       options:{},
       focusEl:null,
       columnList:[],
@@ -222,6 +251,11 @@ export default {
     search() {
       this.currentPage = 1;
       this.getPage();
+    },
+    reset(){
+      Object.keys(this.form).forEach(el=>{
+        this.form[el] = ""
+      })
     },
     getAuth(){
       let pageAuth = this.$root.findMenuItem(this.$route.path,this.$root.auth);
@@ -443,3 +477,6 @@ export default {
   }
 }
 </script>
+<style lang="css" scoped>
+.colbtn{padding:7px}
+</style>

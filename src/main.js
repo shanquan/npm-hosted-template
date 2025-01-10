@@ -84,6 +84,7 @@ const appConfigDefault = {
     authCheck: true, // 全局菜单权限开关
     pageList: [10, 20, 50, 100, 200, 500],
     pageSize: 10,
+    minQueryNum: 5,
     langOptions: [{label:"简体中文",value:"zh-CN"},{label:"English",value:"en-US"},{label:"Việt Nam",value:"vi-VN"}],
     requireRule: { required: true, message: 'L00001', trigger: 'blur' },
     pwdRule: {pattern:/^(?![A-Z0-9]+$)(?![a-zA-Z]+$)(?![a-z0-9]+$)(?![a-z&*%#@]+$)(?![A-Z&*%#@]+$)(?![0-9&*%#@]+$)[a-z0-9A-Z&*%#@]{8,}$/,message:'L00041',trigger:'blur'},// 所有特殊字符含中文：\W_
@@ -374,6 +375,9 @@ new Vue({
                 }
                 if(this.hasBreadcrumb){
                     offset += 38
+                }
+                if(this.$route.query.showFrame=='false'){
+                    offset -= 46
                 }
                 let $form = document.querySelector('.el-form');
                 if ($form && $form.offsetHeight) {

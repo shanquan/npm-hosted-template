@@ -6,6 +6,7 @@
 1. frame/http%3A%2F%2F10.12.4.119%3A8180%2Fwebroot%2Fdecision%2Flink%2FoWgO , http://10.12.4.119:8180/webroot/decision/link/oWgO
 2. frame/http%3A%2F%2F10.12.5.99%2Fflames-web%2FCQAProductionDashboardFrame%3FprojectCode%3Dkirbyops%26projectId%3D183, http://10.12.5.99/flames-web/CQAProductionDashboardFrame?projectCode=kirbyops&projectId=183
 3. frame/https%3A%2F%2Fereport.byd.com.cn%3A8181%2Fwebroot%2Fdecision%2Flink%2FsTAB, https://ereport.byd.com.cn:8181/webroot/decision/link/sTAB
+4. frame/%2Fadmin%2FmesSysUsers%3FshowFrame%3Dfalse%26keep%3Dtrue
 -->
 <template>
   <iframe :src="url" id="extFrame"

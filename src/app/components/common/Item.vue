@@ -270,7 +270,7 @@ export default {
       let arr = this.$route.path.substring(1).split('/');
       if(arr.length>2){
         if(this.$root.hasTabs&&this.$root.addNewTabMode){
-          this.$root.$children[0].removeTab(this.$route.path)
+          this.$root.$children[0].removeTab(this.$route.fullPath)
         }else{
           this.$router.push(`/list/${this.config.model}`)
         }
