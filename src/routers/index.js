@@ -19,6 +19,46 @@ import app from '../app/main'
 
 Vue.use(Router)
 let routers = [];
+// 编辑组件及路由
+let itemRoutes=[];
+// 自动导入Item.*.vue路由，改写组件name
+const importComs = function(obj,file){
+    const deepClone = function(source, hash = new WeakMap()){
+        if(typeof source != 'object'|| !source) return source;
+        if(hash.has(source)) return hash.get(source)
+        const target = Array.isArray(source) ? [] : {};
+        hash.set(source, target);
+        for( let key in source){
+          if(Object.prototype.hasOwnProperty.call(source, key)){
+          target[key] = deepClone(source[key], hash)
+        }
+      }
+      return target;
+    }
+    const arr = file.split('/')
+    let fn = arr[arr.length-2]
+    const fn1 = arr[arr.length-1].substring(5,arr[arr.length-1].length-4)
+    fn = fn1!='.'?fn1:fn
+    const itemAdd = obj
+    itemAdd.name = `${fn}Add`
+    const itemEdit = deepClone(obj)
+    itemEdit.name = `${fn}Edit`
+    const itemDetail = deepClone(obj)
+    itemDetail.name = `${fn}Detail`
+    itemRoutes.push({
+        path: `/${fn}/add`,
+        name: itemAdd.name,
+        component: itemAdd
+    },{
+        path: `/${fn}/edit/:id`,
+        name: itemEdit.name,
+        component: itemEdit
+    },{
+        path: `/${fn}/detail/:id`,
+        name: itemDetail.name,
+        component: itemDetail
+    })
+}
 // 自动合并routers下所有router.xx.js（公共）和views下所有router.xx.js（页面）
 try{
     const files = require.context("./", false, /^\.\/router.*\.js$/);
@@ -34,6 +74,13 @@ try{
         const obj = viewFiles(file).default;
         if (obj){
             routers.push(...obj.router);
+        }
+    });
+    const itemFiles = require.context("@/views/", true, /Item.*\.vue$/);
+    itemFiles.keys().forEach((file) => {
+        const obj = itemFiles(file).default;
+        if (obj){
+            importComs(obj,file)
         }
     });
 }catch(e){console.log(e)}
@@ -77,5 +124,5 @@ export default new Router({
             name: 'frame',
             component: () => import ( /* webpackChunkName: "" */ '../views/Frame.vue')
         }
-    ].concat(routers,app.routers)
+    ].concat(routers,itemRoutes,app.routers)
 })
