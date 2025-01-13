@@ -6,6 +6,7 @@
 import Vue from 'vue'
 import directives from './directives';
 import filters from './filters';
+import {getBuffer} from '@/plugins/utils'
 import commonRouter from '@/app/components/common/router'
 import sysRouter from 'user-sys/router.sys'
 import sysLang from 'user-sys/zh-CN.sys'
@@ -27,12 +28,7 @@ export default {
   routers: [].concat(sysRouter.router,commonRouter.router),
   langs:{...sysLang},
   eventBus:new Vue({}),
-  getBuffer(s) {
-    let buf = new ArrayBuffer(s.length);
-    let view = new Uint8Array(buf);
-    for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
-    return buf;
-  },
+  getBuffer,
   isMobile() {
       // for ipad: /macintosh|mac os x/i.test(navigator.userAgent)
       return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && window.screen.height > window.screen.width && window.screen.width < 768;

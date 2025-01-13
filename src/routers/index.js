@@ -15,26 +15,19 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/views/Home.vue'
 import Login from '@/views/Login.vue'
+import {deepClone} from '@/plugins/utils'
 import app from '../app/main'
 
 Vue.use(Router)
 let routers = [];
 // 编辑组件及路由
 let itemRoutes=[];
-// 自动导入Item.*.vue路由，改写组件name
+/**
+ * 自动导入Item.*.vue路由，改写组件name
+ * @param {*} file
+ * file相对当前路径，无法异步加载路由import(`${file}`)
+ */
 const importComs = function(obj,file){
-    const deepClone = function(source, hash = new WeakMap()){
-        if(typeof source != 'object'|| !source) return source;
-        if(hash.has(source)) return hash.get(source)
-        const target = Array.isArray(source) ? [] : {};
-        hash.set(source, target);
-        for( let key in source){
-          if(Object.prototype.hasOwnProperty.call(source, key)){
-          target[key] = deepClone(source[key], hash)
-        }
-      }
-      return target;
-    }
     const arr = file.split('/')
     let fn = arr[arr.length-2]
     const fn1 = arr[arr.length-1].substring(5,arr[arr.length-1].length-4)
