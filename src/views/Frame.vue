@@ -12,7 +12,7 @@
   <iframe :src="url" id="extFrame"
       width="100%"
       height="100%"
-      frameborder="0"></iframe>
+      frameborder="0" scrolling="no"></iframe>
 </template>
 
 <script>
@@ -25,7 +25,7 @@ export default {
   },
   beforeRouteUpdate(to, from, next){
     next();
-    this.setUrl();
+    this.setUrl()
   },
   mounted(){},
   data() {
@@ -37,6 +37,11 @@ export default {
     setUrl(){
       if(this.$route.params.url){
         this.url = decodeURIComponent(this.$route.params.url);
+        this.$nextTick(()=>{
+          if(document.getElementById('extFrame')&&this.url!=document.getElementById('extFrame').src){
+            document.getElementById('extFrame').src = this.url
+          }
+        })
       }
     }
   }

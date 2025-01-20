@@ -494,6 +494,9 @@ td.dangerbg,th.dangerbg{background-color:#f33030!important;}
   right: 20px;
   font-size:18px
   }
+  .extFrame{
+    height: calc(100% - 50px)
+  }
   /* .tab-view{padding-top:56px;} */
   .logo{width:200px;padding-left:20px;display:inline-block;}
   .logo svg{width:124px;height:28px}

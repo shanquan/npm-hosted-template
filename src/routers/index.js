@@ -115,7 +115,7 @@ export default new Router({
         }, {
             path: '/frame/:url',
             name: 'frame',
-            component: () => import ( /* webpackChunkName: "" */ '../views/Frame.vue')
+            component: null //() => import ( /* webpackChunkName: "" */ '../views/Frame.vue') 无法缓存iframe
         }
     ].concat(routers,itemRoutes,app.routers)
 })

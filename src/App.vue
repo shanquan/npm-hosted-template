@@ -105,6 +105,7 @@
           <keep-alive :max="10" :include="kpRoutes">
             <router-view ref="rv" :class="viewClass" :key="$route.fullPath"></router-view>
           </keep-alive>
+          <iframe v-for="(item,idx) in ifrList" v-show="$root.hasTabs&&item.path==editableTabsValue||!$root.hasTabs&&$route.path.startsWith('/frame')" :src="item.url" :key="idx" class="extFrame" width="100%" height="100%" frameborder="0" scrolling="no"></iframe>
           <el-dialog :visible.sync="operationDialogVisible" width="50%">
             <div v-html="html"></div>
           </el-dialog>
@@ -270,6 +271,23 @@ export default {
           // console.log(kps,cache)
       }catch(e){console.log(e)}
       return kps
+    },
+    ifrList(){
+      let res = []
+      if(this.$root.hasTabs){
+        res = this.editableTabs.filter(el=>{
+          return el.name.startsWith('/frame')
+        }).map(el=>{
+          el.url = decodeURIComponent(el.path.substring(7));
+          return el
+        })
+      }else if(this.$route.path.startsWith('/frame')){
+        res = [{
+          name: this.$route.path,
+          url: decodeURIComponent(this.$route.path.substring(7))
+        }]
+      }
+      return res
     }
   },
   data(){
