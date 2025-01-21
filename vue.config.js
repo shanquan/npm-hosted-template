@@ -3,9 +3,23 @@
  * @since : 2020/11/25
  * @doc.proxy: https://github.com/chimurai/http-proxy-middleware
  */
-let ts = String(new Date().getTime())
+let ts = String(new Date().getTime()),pathRewrite = {},envProxy={
+    '/user/*': {
+        target: process.env.VUE_APP_USER=='mes'?'http://10.12.5.188:20003/':'http://10.12.7.111:6002/',
+        changeOrigin: true
+        // proxyTimeout: 60000
+    }
+};
+const key = `^${process.env.BASE_URL}`,onProxyReq = (proxyReq)=>{console.log(proxyReq.getHeader('host')+proxyReq.path)};
+pathRewrite[key] = "/"
+envProxy = Object.assign(envProxy,JSON.parse(process.env.PROXY));
+Object.keys(envProxy).forEach(el=>{
+    if(el=='/user/*')
+    envProxy[el].pathRewrite = pathRewrite
+    envProxy[el].onProxyReq = onProxyReq
+})
 module.exports = {
-    publicPath: "/admin", // /android_asset/www
+    publicPath: process.env.BASE_URL, // /android_asset/www
     //outputDir: "D://work/cordovaBuilder/www", // your cordova project directory
     productionSourceMap: false,
     transpileDependencies: ["crypto-js"], // fix android6 unexpected token =
@@ -33,16 +47,6 @@ module.exports = {
         }
     },
     devServer: {
-        proxy: Object.assign({
-            '/user/*': {
-                target: process.env.VUE_APP_USER=='mes'?'http://10.12.5.188:20003/':'http://10.12.7.111:6002/',
-                ws: true,
-                changeOrigin: true,
-                // proxyTimeout: 60000,
-                // onProxyReq: (proxyReq)=>{
-                //     console.log(proxyReq.getHeader('host')+proxyReq.path)
-                // }
-            },
-        },JSON.parse(process.env.PROXY))
+        proxy: envProxy
     }
 }

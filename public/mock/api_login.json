@@ -253,7 +253,11 @@
                 ]
               },{
                 "index": "/frame/%2FmesSysUsers%3FshowFrame%3Dfalse%26keep%3Dtrue",
-                "menuName": "外部链接",
+                "menuName": "外部链接1",
+                "isMenu": true
+              },{
+                "index": "frame/https%3A%2F%2Fereport.byd.com.cn%3A8181%2Fwebroot%2Fdecision%2Flink%2FsTAB",
+                "menuName": "外部链接2",
                 "isMenu": true
               }
             ]

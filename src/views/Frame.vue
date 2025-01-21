@@ -1,6 +1,7 @@
 <!--
 @author: wang.weili
 @since : 2024/09/14
+@deprecated 页面iframe不支持缓存，已弃用
 @description: iframe集成Demo, BI报表 > 内部集成页面CQA
 @sample: 
 1. frame/http%3A%2F%2F10.12.4.119%3A8180%2Fwebroot%2Fdecision%2Flink%2FoWgO , http://10.12.4.119:8180/webroot/decision/link/oWgO
