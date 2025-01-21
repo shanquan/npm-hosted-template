@@ -213,6 +213,22 @@ axios.interceptors.response.use(function(response) {
             method = getMethod(error.config.url);
         if (error.response) {
             code = error.response.status;
+            if(error.response.request.responseType == 'blob'){
+                const reader = new FileReader();
+                reader.readAsText(error.response.data, 'utf-8');
+                reader.onload = function() {
+                    try {
+                        error.response.data = JSON.parse(reader.result);
+                    } catch (e) {
+                        error.response.data.CODE = -2;
+                        error.response.data.MESSAGE = "json解析错误：" + e.toString();
+                    }
+                    if (Api.showError&&error.config.headers.showError!==false)
+                        showErrMsg(`${method}:${code}`, code == 0 ? i18n.t('L00035') : error.response.data.message||error.message)
+                    Api.showError = true;
+                }
+                return Promise.reject(error.response.data);
+            }
         }
         if (Api.showError&&error.config.headers.showError!==false)
             showErrMsg(`${method}:${code}`, code == 0 ? i18n.t('L00035') : error.toString())
