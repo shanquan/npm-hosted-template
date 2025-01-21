@@ -11,7 +11,7 @@ import {
     Loading,MessageBox,Notification} from 'element-ui'
 import i18n from '@/i18n'
 import {appApi} from './app/config'
-var baseUrl = '/',
+var baseUrl = process.env.BASE_URL,
     token = '',
     cmLoading,
     showLoading = false, // 是否显示加载中
