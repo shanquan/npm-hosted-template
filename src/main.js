@@ -451,7 +451,8 @@ new Vue({
             this.$http.axios.post('user/exi/loginSource/getLoginSource',null,{
                 headers: {
                     'showError': false,
-                    'addLog': false
+                    'addLog': false,
+                    token:''
                 }
             }).then(res=>{
                 if(res.DATA.resource&&res.DATA.resource.length){

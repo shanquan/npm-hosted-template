@@ -498,6 +498,7 @@ export default {
             {
               type: 1,
               status: 1,
+              token:''
               // nouce: this.$root.generateRandom(false,4)
             },
             {
@@ -741,6 +742,7 @@ export default {
         .post(this.getConfigUrl("user/exi/resetPwd/sendResetMail"), formParam,{
           headers: {
             sysCode: process.env.VUE_APP_CODE,
+            token:''
           },
         })
         .then(() => {
