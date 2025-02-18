@@ -1,0 +1,13 @@
+{
+  "state": [
+    {
+      "dictLabel": "关闭",
+      "dictValue": 0
+    },
+    {
+      "dictLabel": "正常",
+      "dictValue": 1
+    }
+  ]
+}
+
